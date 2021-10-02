@@ -1,8 +1,9 @@
-#ifndef COMMON_H
-#define COMMON_H
+#pragma once
+
+#include <stdint.h>
 
 #define UNUSED(x) (void)(x)
 typedef unsigned long long size_t;
 #define terminalChar '$'
 
-#endif //COMMON_H
+int32_t isqrt(int32_t num);
