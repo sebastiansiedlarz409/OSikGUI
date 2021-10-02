@@ -326,7 +326,7 @@ PDE:
 ;times 506 dq 0
 %assign i 0
 %rep 512
-  dq 0x200000*i+0x83
+  dq 0x200000*i+0x83 ;2MB Pages
 %assign i i+1
 %endrep
 
