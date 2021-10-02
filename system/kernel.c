@@ -29,5 +29,9 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawCircle(80, 80, 12, LIGHTCYAN, ORANGE);
 
+    DrawChar(120, 120, 'A', 1, GREEN, BLACK);
+
+    DrawString(140, 30, "Co tam peczek!", 1, RED, BLACK);
+
     for(;;);
 }
