@@ -11,6 +11,11 @@ start:
     or al, 2
     out 0x92, al
 
+    ;set video mode before entering proteced mode
+    mov ah, 0
+    mov al, 0x13 ; 320x200 http://www.ctyme.com/intr/rb-0069.htm
+    int 10h
+
     cli
 
     mov ax, 0x1000
@@ -44,17 +49,6 @@ stage32:
     mov es, ax
     mov ss, ax
 
-    ;here we display sign, we will know that execution arrives here
-    lea eax, [0xb8000]                  ;lea toggele big/little endian, 0xb8000 is address in video ram
-    mov word [eax+160*18], 0x0133       ;byte for colors, byte for char
-    mov word [eax+160*18+2], 0x0132     ;https://pl.wikipedia.org/wiki/Color_Graphics_Adapter
-    mov word [eax+160*18+4], 0x0162     ;one line = 160 bytes
-    mov word [eax+160*18+6], 0x0169     ;we moved to line 18
-    mov word [eax+160*18+8], 0x0174
-    mov word [eax+160*18+10], 0x0120
-    mov word [eax+160*18+12], 0x016f
-    mov word [eax+160*18+14], 0x016b
-
     mov eax, (PML4 - $$) + 0x10000      ;move main paging table address to cr3
     mov cr3, eax                        ;Intel 3A -> page 75
 
@@ -86,17 +80,6 @@ stage64:
     mov ds, ax
     mov es, ax
     mov ss, ax
-    
-    ;here we display sign, we will know that execution arrives here
-    mov rax, 0xb8000
-    mov word [rax+160*19], 0x0E36
-    mov word [rax+160*19+2], 0x0E34
-    mov word [rax+160*19+4], 0x0E62
-    mov word [rax+160*19+6], 0x0E69
-    mov word [rax+160*19+8], 0x0E74
-    mov word [rax+160*19+10], 0x0E20
-    mov word [rax+160*19+12], 0x0E6f
-    mov word [rax+160*19+14], 0x0E6b
 
 loader:
     ;PE FILE STRUCTURE
