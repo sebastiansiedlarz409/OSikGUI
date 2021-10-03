@@ -37,3 +37,4 @@ void DrawString(int x, int y, char* str, uint8_t font_size, uint8_t color, uint8
 void ClearFullScreen(void);
 void ClearPartScreen(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey);
 void FillScreen(uint8_t color);
+void DrawProgressBar(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint8_t percent, uint8_t border_color, uint8_t fill_color);

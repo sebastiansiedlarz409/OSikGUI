@@ -67,6 +67,26 @@ void DrawCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t border_color, uint8_
     }
 }
 
+void DrawProgressBar(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint8_t percent, uint8_t border_color, uint8_t fill_color){
+    if(percent == 0){
+        DrawRectangle(sx, sy, ex, ey, border_color, BLACK);
+    }
+    else if(percent == 100){
+        DrawRectangle(sx, sy, ex, ey, border_color, fill_color);
+    }
+    else{
+        DrawRectangle(sx, sy, ex, ey, border_color, BLACK);
+        ex--;
+        sx++;
+        ey--;
+        sy++;
+        uint16_t temp = 100/percent;
+        uint16_t p = (ex-sx)/temp;
+
+        DrawRectangle(sx, sy, sx+p, ey, fill_color, fill_color);
+    }
+}
+
 void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, uint8_t color, uint8_t background){
 	if(chr > 0x7E) return; // chr > '~'
 
@@ -81,14 +101,14 @@ void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, uint8_t color
             	if(font_size == 1)
             		DrawPixel(x+i, y+j, color);
             	else
-            		DrawRectangle(x+i*font_size, y+j*font_size, font_size, font_size, color, color);
+            		DrawRectangle(x+i*font_size, y+j*font_size, x+i*font_size+font_size, y+j*font_size+font_size, color, color);
             }
             else if(background == 0)
             {
             	if(font_size == 1)
 					DrawPixel(x+i, y+j, background);
 				else
-					DrawRectangle(x+i*font_size, y+j*font_size, font_size, font_size, background, background);
+					DrawRectangle(x+i*font_size, y+j*font_size, x+i*font_size, y+j*font_size, background, background);
             }
         }
     }
