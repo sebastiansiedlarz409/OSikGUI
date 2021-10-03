@@ -1,5 +1,6 @@
 #include "common.h"
 #include "drawing.h"
+#include "windows.h"
 #include <stdint.h>
 
 void KERN_WaitSeconds(uint64_t seconds){
@@ -42,6 +43,8 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
 
 void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     KERN_Load(kernelEntryPointAddress, stackAddress);
+
+    DrawWindow(0, 0, 320, 200, "Okno glowne!", RED);
 
     /*DrawRectangle(10, 10, 40, 40, GREEN, GREY);
 
