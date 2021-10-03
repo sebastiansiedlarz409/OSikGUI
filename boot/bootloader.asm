@@ -40,9 +40,9 @@ start:
     ;intel 3A - page 95
     ;jmp actualy switch modes
     ;we moved to 32 bits addresses
-    jmp dword 0x8:(0x10000+stage32)
+    jmp dword 0x8:(0x10000+boot32)
 
-stage32:
+boot32:
     [bits 32]
     mov ax, 0x10                        ;0x10 is data segment id from GDT below
     mov ds, ax
@@ -72,9 +72,9 @@ stage32:
     ;intel 3A - page 95
     ;jmp actualy switch modes
     ;we moved to 32 bits addresses
-    jmp dword 0x8:(0x10000+stage64)
+    jmp dword 0x8:(0x10000+boot64)
 
-stage64:
+boot64:
     [bits 64]
     mov ax, 0x10                        ;0x10 is data segment id from GDT below
     mov ds, ax

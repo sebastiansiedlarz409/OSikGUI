@@ -50,8 +50,8 @@ for cmd in obj_cmds:
 
 #link everything
 cmds = [
-    ["nasm boot\stage1.asm", "boot\stage1"],
-    ["nasm boot\stage2.asm", "boot\stage2"],
+    ["nasm boot\\bootsector.asm", "boot\\bootsector"],
+    ["nasm boot\\bootloader.asm", "boot\\bootloader"],
     [f"gcc {(' '.join(obj_files))} {ld_flags} --entry=KERN_Start -o system\kernel", "system\kernel.exe"],
 ]
 

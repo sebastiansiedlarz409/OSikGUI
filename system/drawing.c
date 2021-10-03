@@ -6,7 +6,7 @@
 
 void DrawPixel(uint16_t x, uint16_t y, uint8_t color){
     uint8_t* frame = (uint8_t*)0xA0000;
-    y++;
+    //y++;
 
     frame[(y*WIDTH)+x] = color;
 }
@@ -45,7 +45,7 @@ void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, uint8_t bo
 
     //fill
     for(uint16_t i = sy+1; i<ey;i++){
-        DrawHorizontalLine(sx+1, i, ey-sx-1, fill_color);
+        DrawHorizontalLine(sx+1, i, ex-sx-1, fill_color);
     }
 }
 
@@ -109,4 +109,20 @@ void DrawString(int x, int y, char* str, uint8_t font_size, uint8_t color, uint8
 		}
 		znak = *str;
 	}
+}
+
+void FillScreen(uint8_t color){
+    for(uint16_t y = 0;y<HEIGHT;y++){
+        for(uint16_t x = 0;x<WIDTH;x++){
+            DrawPixel(x, y, color);
+        }
+    }
+}
+
+void ClearFullScreen(void){
+    FillScreen(BLACK);
+}
+
+void ClearPartScreen(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey){
+    DrawRectangle(sx, sy, ex, ey, BLACK, BLACK);
 }

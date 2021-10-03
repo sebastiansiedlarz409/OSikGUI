@@ -8,9 +8,9 @@
                                 ;so CS = 0x0000, IP == 0x7c00
                                 ;check "Memory Addressing" -> https://wiki.osdev.org/Real_Mode
 
-jmp word 0x0000:stage1          ;just jump to stage1 label
+jmp word 0x0000:bootsector          ;just jump to bootsector label
 
-stage1:
+bootsector:
     mov ax, 0x1000              ;we can not mov const to segment register directly
     mov es, ax                  ;so we mov register to segment register
     mov bx, 0                   ;bx is offset in address
@@ -34,9 +34,9 @@ stage1:
 
 ending:
 %if ($ - $$) > 510
-  %fatal "STAGE1 code cant exceed 512 bytes!!!"
+  %fatal "bootsector code cant exceed 512 bytes!!!"
 %endif
 
-times 510 - ($ - $$) db 0       ;if stage1 size is less than 510 add some trash
+times 510 - ($ - $$) db 0       ;if bootsector size is less than 510 add some trash
 db 0x55                         ;last to bytes
 db 0xAA                         ;check "MBR Format" -> https://wiki.osdev.org/MBR_(x86)

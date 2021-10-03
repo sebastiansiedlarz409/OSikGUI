@@ -33,5 +33,17 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawString(140, 30, "Co tam peczek!", 1, RED, BLACK);
 
+    KERN_WaitSeconds(2);
+
+    FillScreen(GREEN);
+
+    KERN_WaitSeconds(2);
+
+    ClearPartScreen(0, 0, 320, 100);
+
+    //KERN_WaitSeconds(2);
+
+    //ClearFullScreen();
+
     for(;;);
 }
