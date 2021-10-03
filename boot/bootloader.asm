@@ -11,6 +11,17 @@ start:
     or al, 2
     out 0x92, al
 
+    ;sleep about 3seconds
+    mov dx, 30000
+    outloop:
+        mov cx, 40000
+        inloop:
+            nop
+            dec cx
+            jnz inloop
+        dec dx
+        jnz outloop
+
     ;set video mode before entering proteced mode
     mov ah, 0
     mov al, 0x13 ; 320x200 http://www.ctyme.com/intr/rb-0069.htm
