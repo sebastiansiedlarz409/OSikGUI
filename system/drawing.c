@@ -80,6 +80,11 @@ void DrawProgressBar(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint8_t
         sx++;
         ey--;
         sy++;
+        /*
+        float pr = percent;
+        float temp = pr/100;
+        uint16_t p = (ex-sx)*temp;
+        */
         uint16_t temp = 100/percent;
         uint16_t p = (ex-sx)/temp;
 

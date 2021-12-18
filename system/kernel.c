@@ -1,6 +1,7 @@
 #include "common.h"
 #include "drawing.h"
 #include "windows.h"
+#include "menu.h"
 #include <stdint.h>
 
 void KERN_WaitSeconds(uint64_t seconds){
@@ -18,23 +19,23 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     UNUSED(kernelEntryPointAddress);
     UNUSED(stackAddress);
 
-    DrawString(110, 30, "OSik", 5, RED, BLACK);
-    DrawProgressBar(130, 120, 190, 130, 0, GREEN, GREY);
+    DrawString(70, 30, "OSik", 10, RED, BLACK);
+    DrawProgressBar(130, 140, 190, 150, 0, GREEN, GREY);
 
     KERN_WaitSeconds(1);
 
-    DrawString(110, 100, "Setup Interrupts!", 1, BLUE, BLACK);
-    DrawProgressBar(130, 120, 190, 130, 20, GREEN, GREY);
-    KERN_WaitSeconds(1);
-    ClearPartScreen(0, 100, 320, 200);
-
-    DrawString(120, 100, "Start Timers!", 1, BLUE, BLACK);
-    DrawProgressBar(130, 120, 190, 130, 50, GREEN, GREY);
+    DrawString(110, 120, "Setup Interrupts!", 1, BLUE, BLACK);
+    DrawProgressBar(130, 140, 190, 150, 20, GREEN, GREY);
     KERN_WaitSeconds(1);
     ClearPartScreen(0, 100, 320, 200);
 
-    DrawString(115, 100, "Start Usermode!", 1, BLUE, BLACK);
-    DrawProgressBar(130, 120, 190, 130, 100, GREEN, GREY);
+    DrawString(120, 120, "Start Timers!", 1, BLUE, BLACK);
+    DrawProgressBar(130, 140, 190, 150, 50, GREEN, GREY);
+    KERN_WaitSeconds(1);
+    ClearPartScreen(0, 100, 320, 200);
+
+    DrawString(115, 120, "Start Usermode!", 1, BLUE, BLACK);
+    DrawProgressBar(130, 140, 190, 150, 100, GREEN, GREY);
     KERN_WaitSeconds(1);
     //ClearPartScreen(0, 100, 320, 200);
 
@@ -44,7 +45,7 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
 void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     KERN_Load(kernelEntryPointAddress, stackAddress);
 
-    DrawWindow(0, 0, 320, 200, "Okno glowne!", RED);
+    DrawUI();
 
     /*DrawRectangle(10, 10, 40, 40, GREEN, GREY);
 
