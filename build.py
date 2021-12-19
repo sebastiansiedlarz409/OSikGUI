@@ -9,8 +9,8 @@ obj_cmds = []
 
 obj_files = []
 
-gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb"
-ld_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -s -ggdb"
+gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"
+ld_flags = "--image-base 0x400000 -entry=KERN_Start -s"
 asm_flags = "-masm=intel -c"
 
 dirs = [d for d in os.listdir("system") if os.path.isdir(os.path.join("system", d))]
@@ -52,7 +52,7 @@ for cmd in obj_cmds:
 cmds = [
     ["nasm boot\\bootsector.asm", "boot\\bootsector"],
     ["nasm boot\\bootloader.asm", "boot\\bootloader"],
-    [f"gcc {(' '.join(obj_files))} {ld_flags} --entry=KERN_Start -o system\kernel", "system\kernel.exe"],
+    [f"ld {(' '.join(obj_files))} {ld_flags} -o system\kernel.exe", "system\kernel.exe"],
 ]
 
 for cmd in cmds:
