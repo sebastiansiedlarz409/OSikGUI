@@ -13,38 +13,37 @@ void KERN_WaitSeconds(uint64_t seconds){
 }
 
 void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
-    //uint64_t KEPAddr = (uint64_t)kernelEntryPointAddress;
-    //uint64_t SAddr = (uint64_t)stackAddress;
-
     UNUSED(kernelEntryPointAddress);
     UNUSED(stackAddress);
 
-    DrawString(730, 30, "OSik", 10, RED, BLACK);
-    DrawProgressBar(130, 140, 190, 150, 0, GREEN, GREY);
-
+    DrawString(520, 145, "OSik", 30, RED, BLACK);
+    DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
+    DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREY);
     KERN_WaitSeconds(1);
+    ClearPartScreen(0, 520, 1600, 1200);
 
-    DrawString(110, 120, "Setup Interrupts!", 1, BLUE, BLACK);
-    DrawProgressBar(130, 140, 190, 150, 20, GREEN, GREY);
+    DrawString(610, 520, "Setup Interrupts!", 5, BLUE, BLACK);
+    DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREY);
     KERN_WaitSeconds(1);
-    ClearPartScreen(0, 100, 320, 200);
+    ClearPartScreen(0, 520, 1600, 1200);
 
-    DrawString(120, 120, "Start Timers!", 1, BLUE, BLACK);
-    DrawProgressBar(130, 140, 190, 150, 50, GREEN, GREY);
+    DrawString(635, 520, "Start Timers!", 5, BLUE, BLACK);
+    DrawProgressBar(610, 620, 1020, 670, 50, GREEN, GREY);
     KERN_WaitSeconds(1);
-    ClearPartScreen(0, 100, 320, 200);
+    ClearPartScreen(0, 520, 1600, 1200);
 
-    DrawString(115, 120, "Start Usermode!", 1, BLUE, BLACK);
-    DrawProgressBar(130, 140, 190, 150, 100, GREEN, GREY);
+    DrawString(620, 520, "Start Usermode!", 5, BLUE, BLACK);
+    DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREY);
     KERN_WaitSeconds(1);
-    //ClearPartScreen(0, 100, 320, 200);
+    //ClearPartScreen(0, 520, 1600, 1200);
 
-    ClearFullScreen();
+    for(;;);
+
+    //ClearFullScreen();
 }
 
 void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
-    //framebuffer = framebufferAddress;
-    //KERN_Load(kernelEntryPointAddress, stackAddress);
+    KERN_Load(kernelEntryPointAddress, stackAddress);
 
     //DrawUI();
 
