@@ -2,8 +2,11 @@
 
 #include <stdint.h>
 
+#include "windows.h"
+
 typedef struct _SystemContext{
     uint8_t window;
+    WindowContext mainWindow;
 } SystemContext;
 
 #define UNUSED(x) (void)(x)

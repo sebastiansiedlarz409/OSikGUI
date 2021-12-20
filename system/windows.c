@@ -12,8 +12,8 @@ void DrawText(WindowContext* context, uint16_t x, uint16_t y, const char* str, u
         return;
     }
 
-    DrawString(x+context->x, y+context->y+TITLE_BAR_WIDTH, str, font_size, color==context->font_color ? BLACK : color,
-                background!=context->background?context->background:background);
+    DrawString(x+context->x, y+context->y+TITLE_BAR_WIDTH, str, font_size, color,
+                background);
 }
 
 void DrawButtonWithDesc(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const char* title, const char* desc, uint8_t border_color, uint8_t fill_color){

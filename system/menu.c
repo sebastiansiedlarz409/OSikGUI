@@ -7,15 +7,23 @@ void DrawInfoWindow(WindowContext* parent){
     WindowContext context = DrawWindow(parent, 600, 40, 960, 1140, "Information", BLUE, LIGHTGREY, BLACK);
     DrawText(&context, 30, 30, "OSikGUI", 10, BRONZE, LIGHTGREY);
 
-    WaitSeconds(1);
+    //WaitSeconds(1);
 
-    CloseWindow(&context);
+    //CloseWindow(&context);
 }
 
 void DrawUI(void){
-    WindowContext context = DrawWindow(NULL, 0, 0, 1600, 1200, "Desktop", RED, GREY, WHITE);
+    WindowContext context;
+    if(GetSystemContext()->window!=0){
+        context = DrawWindow(NULL, 0, 0, 1600, 1200, "Desktop", RED, GREY, WHITE);
+        GetSystemContext()->mainWindow = context;
+    }
+    else{
+        context = DrawWindow(NULL, 0, 0, 1600, 1200, "", BLACK, BLACK, WHITE); //BSOD
+        GetSystemContext()->mainWindow = context;
+    }
 
-    if(GetSystemContext()->window == 0){
+    if(GetSystemContext()->window == 1){
         DrawInfoWindow(&context);
     }
 

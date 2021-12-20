@@ -2,6 +2,7 @@
 #include "drawing.h"
 #include "windows.h"
 #include "menu.h"
+#include "interrupt.h"
 #include <stdint.h>
 
 void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
@@ -16,6 +17,7 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawString(610, 520, "Setup Interrupts!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREY);
+    InitInterrupt();
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
@@ -68,6 +70,13 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     //KERN_WaitSeconds(2);
 
     //ClearFullScreen();
+
+    //test int 0
+    WaitSeconds(6);
+    int a = 0, b = 0;
+    __asm__ volatile("div %2\n"
+       : "=d" (a), "=a" (b)
+       : "r" (a), "d" (a), "a" (a));
 
     for(;;);
 }
