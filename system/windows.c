@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define TITLE_BAR_WIDTH 12
+#define TITLE_BAR_WIDTH 20
 #define MIN_WIDTH 80
 #define MIN_HEIGHT (TITLE_BAR_WIDTH+20)
 
@@ -21,12 +21,12 @@ void DrawTitleBar(uint16_t sx, uint16_t sy, uint16_t width, const char* title, u
     DrawRectangle(sx, sy, sx+width, sy+TITLE_BAR_WIDTH, theme, theme);
     
     //title
-    DrawString(sx+5, sy+2, title, 1, BLACK, theme);
+    DrawString(sx+5, sy+2, title, 2, BLACK, theme);
 
     //icons
-    //DrawCircle(sx+width-5, sy+5, 3, BLUE, BLUE);
-    //DrawCircle(sx+width-15, sy+5, 3, GREEN, GREEN);
-    //DrawCircle(sx+width-25, sy+5, 3, BRONZE, BRONZE);
+    DrawCircle(sx+width-10, sy+10, 6, BLUE, BLUE);
+    DrawCircle(sx+width-25, sy+10, 6, GREEN, GREEN);
+    DrawCircle(sx+width-40, sy+10, 6, BRONZE, BRONZE);
 }
 
 void DrawWindow(uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, uint8_t theme, uint8_t font_color){

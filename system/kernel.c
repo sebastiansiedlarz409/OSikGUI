@@ -37,20 +37,18 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     KERN_WaitSeconds(1);
     //ClearPartScreen(0, 520, 1600, 1200);
 
-    for(;;);
-
-    //ClearFullScreen();
+    ClearFullScreen();
 }
 
 void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     KERN_Load(kernelEntryPointAddress, stackAddress);
 
-    //DrawUI();
+    DrawUI();
 
     //DrawPixel(0,0,RED);
     //DrawPixel(1,0,BLUE);
 
-    DrawRectangle(10, 10, 300, 600, GREEN, GREY);
+    //DrawRectangle(10, 10, 300, 600, GREEN, GREY);
 
     /*DrawHorizontalLine(5, 5, 310, DARKRED);
     DrawVerticalLine(5, 5, 190, GREEN);
