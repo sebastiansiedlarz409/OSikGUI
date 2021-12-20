@@ -27,3 +27,11 @@ int32_t isqrt(int32_t num) {
     }
     return res;
 }
+
+void WaitSeconds(uint64_t seconds){
+    uint64_t clock_speed = 400000000;
+    seconds*=clock_speed;
+    while(seconds--){
+        __asm("nop");
+    }
+}

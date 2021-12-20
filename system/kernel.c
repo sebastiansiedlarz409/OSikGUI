@@ -4,14 +4,6 @@
 #include "menu.h"
 #include <stdint.h>
 
-void KERN_WaitSeconds(uint64_t seconds){
-    uint64_t clock_speed = 400000000;
-    seconds*=clock_speed;
-    while(seconds--){
-        __asm("nop");
-    }
-}
-
 void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     UNUSED(kernelEntryPointAddress);
     UNUSED(stackAddress);
@@ -19,22 +11,22 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     DrawString(520, 145, "OSik", 30, RED, BLACK);
     DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREY);
-    KERN_WaitSeconds(1);
+    WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(610, 520, "Setup Interrupts!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREY);
-    KERN_WaitSeconds(1);
+    WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(635, 520, "Start Timers!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 50, GREEN, GREY);
-    KERN_WaitSeconds(1);
+    WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(620, 520, "Start Usermode!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREY);
-    KERN_WaitSeconds(1);
+    WaitSeconds(1);
     //ClearPartScreen(0, 520, 1600, 1200);
 
     ClearFullScreen();
