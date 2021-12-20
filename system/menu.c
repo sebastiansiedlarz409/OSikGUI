@@ -4,7 +4,7 @@
 #include "windows.h"
 
 void DrawMainWindow(){
-    DrawWindow(0, 0, 1600, 1200, "Desktop", RED, WHITE);
+    DrawWindow(0, 0, 1600, 1200, "Desktop", RED, GREY, WHITE);
 }
 
 void DrawUI(void){

@@ -5,8 +5,6 @@
 #include <stdint.h>
 
 void DrawPixel(uint16_t x, uint16_t y, uint8_t color){
-    VESA_MODEINFO* vmi = (VESA_MODEINFO*)0x80000;
-
     //paging map 0xC000000 to 0xFD000000 where frame buffer is
     uint8_t* frame = (uint8_t*)0xC00000;
     //y++;
