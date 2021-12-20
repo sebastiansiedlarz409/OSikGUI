@@ -23,8 +23,25 @@ start:
         jnz outloop
 
     ;set video mode before entering proteced mode
-    mov ah, 0
-    mov al, 0x13 ; 320x200 http://www.ctyme.com/intr/rb-0069.htm
+    ;mov ah, 0
+    ;mov al, 0x12 ; 640x480
+    ;mov al, 0x13 ; 320x200 http://www.ctyme.com/intr/rb-0069.htm
+    ;int 10h
+
+    ;try vesa
+    ;https://en.m.wikipedia.org/wiki/VESA_BIOS_Extensions
+    ;https://wiki.osdev.org/VESA_Video_Modes
+    mov ax, 0x4f02
+    ;mov bx, 0x0107
+    mov bx, 0x411C ;1600x1200 256colors framebuffer
+    int 10h
+
+    ;get framebuffer
+    mov ax, 0x4f01
+    mov cx, 0x411C
+    mov di, 0x8000
+    mov es, di
+    mov di, 0x0
     int 10h
 
     cli
@@ -110,8 +127,8 @@ loader:
     mov ebx, [esi + 0x28]
 
     ;ImageBase
-    ;mov r11, [esi + 0x30]
-    mov r11, 0x400000
+    mov r11, [esi + 0x30]
+    ;mov r11, 0x400000
 
     ;offset of first section in table
     add esi, 0x108
@@ -311,18 +328,21 @@ PDE:
 ;bits[59:62] - access level, set 0 for ring 0
 ;bits[63] - 1 block code execution from this page, 0 allowes execution
 ;intel 3A - page 130, table 4.18
-;dq 1 | (1 << 1) | (1 << 7)
-;dq 1 | (1 << 1) | (1 << 7) | (0x00200000)
-;dq 1 | (1 << 1) | (1 << 7) | (0x00400000)
-;dq 1 | (1 << 1) | (1 << 7) | (0x00600000)
-;dq 1 | (1 << 1) | (1 << 7) | (0x00800000)
-;dq 1 | (1 << 1) | (1 << 7) | (0x00A00000)
+dq 1 | (1 << 1) | (1 << 7)
+dq 1 | (1 << 1) | (1 << 7) | (0x00200000)
+dq 1 | (1 << 1) | (1 << 7) | (0x00400000)
+dq 1 | (1 << 1) | (1 << 7) | (0x00600000)
+dq 1 | (1 << 1) | (1 << 7) | (0x00800000)
+dq 1 | (1 << 1) | (1 << 7) | (0x00A00000)
+dq 1 | (1 << 1) | (1 << 7) | (0xFD000000)
+dq 1 | (1 << 1) | (1 << 7) | (0xFD200000)
 ;times 506 dq 0
-%assign i 0
-%rep 512
-  dq 0x200000*i+0x83 ;2MB Pages
-%assign i i+1
-%endrep
+;%assign i 0
+;%rep 512
+;  dq 0x200000*i+0x83 ;2MB Pages
+;%assign i i+1
+;%endrep
+;dq 1 | (1 << 1) | (1 << 7) | (0xFD000000<<21)
 
 times (512 - ($ - $$) % 512) db 0
 kernel64:

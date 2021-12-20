@@ -24,9 +24,9 @@ void DrawTitleBar(uint16_t sx, uint16_t sy, uint16_t width, const char* title, u
     DrawString(sx+5, sy+2, title, 1, BLACK, theme);
 
     //icons
-    DrawCircle(sx+width-5, sy+5, 3, BLUE, BLUE);
-    DrawCircle(sx+width-15, sy+5, 3, GREEN, GREEN);
-    DrawCircle(sx+width-25, sy+5, 3, BRONZE, BRONZE);
+    //DrawCircle(sx+width-5, sy+5, 3, BLUE, BLUE);
+    //DrawCircle(sx+width-15, sy+5, 3, GREEN, GREEN);
+    //DrawCircle(sx+width-25, sy+5, 3, BRONZE, BRONZE);
 }
 
 void DrawWindow(uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, uint8_t theme, uint8_t font_color){

@@ -19,7 +19,7 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     UNUSED(kernelEntryPointAddress);
     UNUSED(stackAddress);
 
-    DrawString(70, 30, "OSik", 10, RED, BLACK);
+    DrawString(730, 30, "OSik", 10, RED, BLACK);
     DrawProgressBar(130, 140, 190, 150, 0, GREEN, GREY);
 
     KERN_WaitSeconds(1);
@@ -43,13 +43,17 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
 }
 
 void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
-    KERN_Load(kernelEntryPointAddress, stackAddress);
+    //framebuffer = framebufferAddress;
+    //KERN_Load(kernelEntryPointAddress, stackAddress);
 
-    DrawUI();
+    //DrawUI();
 
-    /*DrawRectangle(10, 10, 40, 40, GREEN, GREY);
+    //DrawPixel(0,0,RED);
+    //DrawPixel(1,0,BLUE);
 
-    DrawHorizontalLine(5, 5, 310, DARKRED);
+    DrawRectangle(10, 10, 300, 600, GREEN, GREY);
+
+    /*DrawHorizontalLine(5, 5, 310, DARKRED);
     DrawVerticalLine(5, 5, 190, GREEN);
     DrawVerticalLine(315, 5, 190, GREEN);
     DrawHorizontalLine(5,195, 311, DARKRED);
