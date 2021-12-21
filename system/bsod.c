@@ -2,6 +2,7 @@
 #include "drawing.h"
 #include "windows.h"
 #include "common.h"
+#include "string.h"
 
 void BSOD(const char* str, void* trapFrame){
     GetSystemContext()->window = 0; //set to BSOD
@@ -31,26 +32,80 @@ void BSOD(const char* str, void* trapFrame){
     uint64_t eflags = *(frameBuffer+16);
     uint64_t rip = *(frameBuffer+17);
 
-    DrawText(&(GetSystemContext()->mainWindow), 30, 400, "R15:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 424, "R14:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 448, "R13:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 472, "R12:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 498, "R11:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 522, "R10:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 546, "R9:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 570, "R8:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 30, 596, "RIP:", 2, WHITE, WHITE);
-
+    char buffer[100];
+    MemsetBuffer(buffer, 0, 100);
     
-    DrawText(&(GetSystemContext()->mainWindow), 440, 400, "RBP:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 424, "RDI:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 448, "RSI:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 472, "RDX:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 498, "RCX:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 522, "RBX:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 546, "RAX:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 570, "RSP:", 2, WHITE, WHITE);
-    DrawText(&(GetSystemContext()->mainWindow), 440, 596, "EFLAGS:", 2, WHITE, WHITE);
+    FormatString(buffer, "R15: 0x%x", r15);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 400, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "R14: 0x%x", r14);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 424, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "R13: 0x%x", r13);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 448, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "R12: 0x%x", r12);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 472, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "R11: 0x%x", r11);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 498, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "R10: 0x%x", r10);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 522, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "R9: 0x%x", r9);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 546, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "R8: 0x%x", r8);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 570, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RIP: 0x%x", rip);
+    DrawText(&(GetSystemContext()->mainWindow), 30, 596, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RBP: 0x%x", rbp);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 400, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RDI: 0x%x", rdi);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 424, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RSI: 0x%x", rsi);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 448, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RDX: 0x%x", rdx);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 472, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RCX: 0x%x", rcx);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 498, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RBX: 0x%x", rbx);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 522, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RAX: 0x%x", rax);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 546, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "RSP: 0x%x", rsp);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 570, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
+
+    FormatString(buffer, "EFLAGS: 0x%x", eflags);
+    DrawText(&(GetSystemContext()->mainWindow), 440, 596, buffer, 2, WHITE, WHITE);
+    MemsetBuffer(buffer, 0, 100);
 
     DrawText(&(GetSystemContext()->mainWindow), 1500, 880, "SS", 2, WHITE, WHITE);
 
