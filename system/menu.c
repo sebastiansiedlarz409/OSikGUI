@@ -6,7 +6,6 @@
 void DrawInfoWindow(WindowContext* parent){
     WindowContext context = DrawWindow(parent, 600, 40, 960, 1140, "Information", BLUE, LIGHTGREY, BLACK);
     DrawText(&context, 30, 30, "OSikGUI", 10, BRONZE, LIGHTGREY);
-
     //WaitSeconds(1);
 
     //CloseWindow(&context);

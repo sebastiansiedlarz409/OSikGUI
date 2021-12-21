@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 
-void MemsetBuffer(uint8_t* buffer, uint8_t value, uint64_t size){
+void MemsetBuffer(char* buffer, uint8_t value, uint64_t size){
     for(uint64_t i =0;i<size;i++){
         buffer[i] = value;
     }

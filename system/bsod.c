@@ -2,6 +2,7 @@
 #include "drawing.h"
 #include "windows.h"
 #include "common.h"
+#include "menu.h"
 #include "string.h"
 
 void BSOD(const char* str, void* trapFrame){
