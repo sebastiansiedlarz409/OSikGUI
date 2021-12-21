@@ -2,6 +2,7 @@
 #include "drawing.h"
 #include "windows.h"
 #include "menu.h"
+#include "string.h"
 #include "interrupt.h"
 #include <stdint.h>
 
@@ -29,7 +30,6 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     DrawString(620, 520, 5, BLUE, BLACK, "Start Usermode!");
     DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREY);
     WaitSeconds(1);
-    //ClearPartScreen(0, 520, 1600, 1200);
 
     ClearFullScreen();
 }
