@@ -19,7 +19,7 @@ void DrawUI(void){
         GetSystemContext()->mainWindow = context;
     }
     else{
-        context = DrawWindow(NULL, 0, 0, 1600, 1200, "", BLACK, BLACK, WHITE); //BSOD
+        context = DrawWindow(NULL, 0, 0, 1600, 1200, "BSOD", DARKBLUE, BLACK, WHITE); //BSOD
         GetSystemContext()->mainWindow = context;
     }
 

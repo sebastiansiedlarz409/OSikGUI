@@ -120,8 +120,11 @@ void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, uint8_t color
     }
 }
 
-void DrawString(int x, int y, const char* str, uint8_t font_size, uint8_t color, uint8_t background)
+void DrawString(int x, int y, uint8_t font_size, uint8_t color, uint8_t background, const char* str, ...)
 {
+    //va_list args;
+    //va_start(args, str);
+
 	int x_tmp = x;
 	char znak;
 	znak = *str;
@@ -138,6 +141,8 @@ void DrawString(int x, int y, const char* str, uint8_t font_size, uint8_t color,
 		}
 		znak = *str;
 	}
+
+    //va_end(args);
 }
 
 void FillScreen(uint8_t color){

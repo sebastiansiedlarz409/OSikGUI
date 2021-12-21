@@ -12,35 +12,31 @@ void DrawText(WindowContext* context, uint16_t x, uint16_t y, const char* str, u
         return;
     }
 
-    DrawString(x+context->x, y+context->y+TITLE_BAR_WIDTH, str, font_size, color,
-                background);
+    DrawString(x+context->x, y+context->y+TITLE_BAR_WIDTH, font_size, color,
+                background, str);
 }
 
 void DrawButtonWithDesc(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const char* title, const char* desc, uint8_t border_color, uint8_t fill_color){
     DrawRectangle(sx, sy, ex, ey, border_color, fill_color);
 
     //title
-    DrawString(sx+10, sy+10, title, 4, RED, BLACK);
+    DrawString(sx+10, sy+10, 4, RED, BLACK, title);
 
     //desc
-    DrawString(sx+10, sy+30, desc, 1, RED, BLACK);
+    DrawString(sx+10, sy+30, 1, RED, BLACK, desc);
 }
 
 void DrawTitleBar(uint16_t sx, uint16_t sy, uint16_t width, const char* title, uint8_t theme, uint8_t font_color){
     DrawRectangle(sx, sy, sx+width, sy+TITLE_BAR_WIDTH, theme, theme);
     
     //title
-    DrawString(sx+5, sy+2, title, 2, font_color, theme);
+    DrawString(sx+5, sy+2, 2, font_color, theme, title);
 
     //icons
     DrawCircle(sx+width-10, sy+10, 6, theme == RED ? BRONZE : RED, theme == RED ? BRONZE : RED);
 }
 
 WindowContext DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, uint8_t theme, uint8_t backgroud, uint8_t font_color){
-    if(height <= MIN_HEIGHT || width < MIN_WIDTH){
-        return;
-    }
-
     WindowContext context;
     context.x = sx;
     context.y = sy;
