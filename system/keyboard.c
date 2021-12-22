@@ -68,7 +68,7 @@ char GetChar(uint8_t scanCode)
 void KeyboardHandler(void){
     uint8_t scanCode;
     PortInByte(0x60, &scanCode);
-    DrawString(100, 100, 4, RED, GREY, "ASDASD");
+    DrawString(100, 100, "ASDASD", 4, RED, GREY);
     /*if(scanCode == 0x01 || scanCode == 0x81){ //esc
         //close actually open window
         CloseWindow(&(GetSystemContext()->mainWindow));

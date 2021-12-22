@@ -11,24 +11,24 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     UNUSED(kernelEntryPointAddress);
     UNUSED(stackAddress);
 
-    DrawString(520, 145, 30, RED, BLACK, "OSik");
-    DrawString(700, 520, 5, BLUE, BLACK, "Booting!");
+    DrawString(520, 145, "OSik", 30, RED, BLACK);
+    DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREY);
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
-    DrawString(610, 520, 5, BLUE, BLACK, "Setup Interrupts!");
+    DrawString(610, 520, "Setup Interrupts!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREY);
     InitInterrupt();
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
-    DrawString(635, 520, 5, BLUE, BLACK, "Start Timers!");
+    DrawString(635, 520, "Start Timers!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 50, GREEN, GREY);
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
-    DrawString(620, 520, 5, BLUE, BLACK, "Start Usermode!");
+    DrawString(620, 520, "Start Usermode!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREY);
     WaitSeconds(1);
 

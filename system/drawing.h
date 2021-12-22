@@ -49,7 +49,7 @@ void DrawLine(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, uint8_t color);
 void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, uint8_t border_color, uint8_t fill_color);
 void DrawCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t border_color, uint8_t fill_color);
 void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, uint8_t color, uint8_t background);
-void DrawString(int x, int y, uint8_t font_size, uint8_t color, uint8_t background, const char* str);
+void DrawString(int x, int y, const char* str, uint8_t font_size, uint8_t color, uint8_t background);
 void ClearFullScreen(void);
 void ClearPartScreen(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey);
 void FillScreen(uint8_t color);
