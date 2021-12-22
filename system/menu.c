@@ -4,20 +4,20 @@
 #include "windows.h"
 
 void DrawInfoWindow(WindowContext* parent){
-    WindowContext context = DrawWindow(parent, 600, 40, 960, 1140, "Information", BLUE, LIGHTGREY, BLACK);
-    DrawText(&context, 30, 30, "OSikGUI", 10, BRONZE, LIGHTGREY);
+    WindowContext* context = DrawWindow(parent, 600, 40, 960, 1140, "Information", BLUE, LIGHTGREY, BLACK);
+    DrawText(context, 30, 30, "OSikGUI", 10, BRONZE, LIGHTGREY);
 
-    WindowContext contextC = DrawWindow(&context, 620, 260, 200, 600, "Subwindow", GREEN, GREY, BLACK);
+    DrawWindow(context, 620, 260, 200, 600, "Subwindow", GREEN, GREY, BLACK);
 
     WaitSeconds(1);
 
-    CloseWindow(&context);
+    CloseWindow(context);
 }
 
 void DrawUI(void){
     ClearFullScreen();
 
-    WindowContext context;
+    WindowContext* context;
     if(GetSystemContext()->window!=0){
         context = DrawWindow(NULL, 0, 0, 1600, 1200, "Desktop", RED, GREY, WHITE);
         GetSystemContext()->mainWindow = context;
@@ -28,7 +28,7 @@ void DrawUI(void){
     }
 
     if(GetSystemContext()->window == 1){
-        DrawInfoWindow(&context);
+        DrawInfoWindow(context);
     }
 
 }

@@ -1,6 +1,7 @@
 #include "windows.h"
 #include "drawing.h"
 #include "string.h"
+#include "heap.h"
 
 #include <stdint.h>
 
@@ -37,20 +38,20 @@ void DrawTitleBar(uint16_t sx, uint16_t sy, uint16_t width, const char* title, u
     DrawCircle(sx+width-10, sy+10, 6, theme == RED ? BRONZE : RED, theme == RED ? BRONZE : RED);
 }
 
-WindowContext DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, uint8_t theme, uint8_t backgroud, uint8_t font_color){
-    WindowContext context;
-    context.x = sx;
-    context.y = sy;
-    context.w = width;
-    context.h = height-260;
-    context.theme = theme;
-    context.background = backgroud;
-    context.font_color = font_color;
-    context.parent = parent;
-    context.childrenCount = 0;
+WindowContext* DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, uint8_t theme, uint8_t backgroud, uint8_t font_color){
+    WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
+    context->x = sx;
+    context->y = sy;
+    context->w = width;
+    context->h = height-260;
+    context->theme = theme;
+    context->background = backgroud;
+    context->font_color = font_color;
+    context->parent = parent;
+    context->childrenCount = 0;
 
     if(parent != NULL){
-        parent->children[parent->childrenCount] = &context;
+        parent->children[parent->childrenCount] = context;
         parent->childrenCount++;
     }
 

@@ -3,9 +3,10 @@
 #include <stdint.h>
 
 static SystemContext context = {
-    0,
-    0,
+    0, //heap start address
+    0, //heap size
     1, //window, 0 is BSOD
+    0  //pointer to main window
 };
 
 SystemContext* GetSystemContext(void){

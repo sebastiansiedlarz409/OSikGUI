@@ -33,7 +33,7 @@ void* MallocHeap(uint64_t size){
         //check if we have enough space for next segment
         if(size+sizeof(HeapSegment) <= HeapSegmentCurrent->size){
             //move segment pointer
-            HeapSegment* HeapSegmentNew = (uint8_t*)HeapSegmentCurrent+sizeof(HeapSegment)+size;
+            HeapSegment* HeapSegmentNew = (HeapSegment*)((uint8_t*)HeapSegmentCurrent+sizeof(HeapSegment)+size);
 
             //decrease size
             HeapSegmentNew->size = HeapSegmentCurrent->size-sizeof(HeapSegment)+size;
@@ -59,6 +59,28 @@ void* MallocHeap(uint64_t size){
         return 0;
     }
 
+}
+
+void ConcatSegments(HeapSegment* a, HeapSegment* b){
+    if (a == 0 || b == 0)
+        return;
+
+    if(a < b){
+        a->size += b->size + sizeof(HeapSegment);
+        a->next = b->next;
+        a->nextFree = b->nextFree;
+        b->next->prev = a;
+        b->next->prevFree = a;
+        b->nextFree->prevFree = a;
+    }
+    else{
+        b->size += a->size + sizeof(HeapSegment);
+        b->next = a->next;
+        b->nextFree = a->nextFree;
+        a->next->prev = b;
+        a->next->prevFree = b;
+        a->nextFree->prevFree = b;
+    }
 }
 
 void FreeHeap(void* ptr){
@@ -92,30 +114,5 @@ void FreeHeap(void* ptr){
         HeapSegmentCurrent->prev->next = HeapSegmentCurrent;
         if(HeapSegmentCurrent->prev->free)
             ConcatSegments(HeapSegmentCurrent, HeapSegmentCurrent->prev);
-    }
-}
-
-void ConcatSegments(void* p, void* n){
-    if (p == 0 || n == 0)
-        return;
-
-    HeapSegment* a = ((HeapSegment*)p);
-    HeapSegment* b = ((HeapSegment*)n);
-
-    if(a < b){
-        a->size += b->size + sizeof(HeapSegment);
-        a->next = b->next;
-        a->nextFree = b->nextFree;
-        b->next->prev = a;
-        b->next->prevFree = a;
-        b->nextFree->prevFree = a;
-    }
-    else{
-        b->size += a->size + sizeof(HeapSegment);
-        b->next = a->next;
-        b->nextFree = a->nextFree;
-        a->next->prev = b;
-        a->next->prevFree = b;
-        a->nextFree->prevFree = b;
     }
 }
