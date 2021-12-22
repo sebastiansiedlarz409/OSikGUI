@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "common.h"
 #include "drawing.h"
+#include "string.h"
 #include "windows.h"
 
 void DrawInfoWindow(WindowContext* parent){
@@ -14,9 +15,39 @@ void DrawInfoWindow(WindowContext* parent){
 
     CloseWindow(context);*/
 
-    WaitSeconds(1);
+    /*WaitSeconds(1);
 
-    CloseWindowX(context);
+    CloseWindowX(context);*/
+}
+
+void DrawStateWindow(WindowContext* parent){
+    WindowContext* context = DrawWindow(parent, 30, 600, 560, 580, "Stats", GREEN, LIGHTGREY, BLACK);
+
+    char buffer[100];
+
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "Kernel Entry: 0x%x", GetSystemContext()->kernelAddress);
+    DrawText(context, 30, 30, buffer, 2, BLACK, LIGHTGREY);
+
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "Stack Address: 0x%x", GetSystemContext()->stackAddress);
+    DrawText(context, 30, 50, buffer, 2, BLACK, LIGHTGREY);
+
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "Heap Address: 0x%x", GetSystemContext()->heapAddress);
+    DrawText(context, 30, 70, buffer, 2, BLACK, LIGHTGREY);
+
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "Heap Size: 0x%x", GetSystemContext()->heapSize);
+    DrawText(context, 30, 90, buffer, 2, BLACK, LIGHTGREY);
+
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "Heap Next Free: 0x%x", GetSystemContext()->heapNextFree);
+    DrawText(context, 30, 110, buffer, 2, BLACK, LIGHTGREY);
+
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "Current Menu Position: %u", GetSystemContext()->window);
+    DrawText(context, 30, 130, buffer, 2, BLACK, LIGHTGREY);
 }
 
 void DrawUI(void){
@@ -26,6 +57,8 @@ void DrawUI(void){
     if(GetSystemContext()->window!=0){
         context = DrawWindow(NULL, 0, 0, 1600, 1200, "Desktop", RED, GREY, WHITE);
         GetSystemContext()->mainWindow = context;
+
+        DrawStateWindow(context);
     }
     else{
         context = DrawWindow(NULL, 0, 0, 1600, 1200, "BSOD", DARKBLUE, BLACK, WHITE); //BSOD

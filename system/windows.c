@@ -10,9 +10,9 @@
 #define MIN_HEIGHT (TITLE_BAR_WIDTH+20)
 
 void DrawText(WindowContext* context, uint16_t x, uint16_t y, const char* str, uint8_t font_size, uint8_t color, uint8_t background){
-    if(x+context->x > context->x+context->w || y+context->y+TITLE_BAR_WIDTH>context->y+context->h){
+    /*if(x+context->x > context->x+context->w || y+context->y+TITLE_BAR_WIDTH>context->y+context->h){
         return;
-    }
+    }*/
 
     DrawString(x+context->x, y+context->y+TITLE_BAR_WIDTH, str, font_size, color,
                 background);

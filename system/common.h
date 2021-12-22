@@ -5,8 +5,11 @@
 #include "windows.h"
 
 typedef struct _SystemContext{
+    uint64_t kernelAddress;
+    uint64_t stackAddress;
     uint64_t heapSize;
     uint64_t heapAddress;
+    uint64_t heapNextFree;
     uint8_t window;
     WindowContext* mainWindow;
 } SystemContext;

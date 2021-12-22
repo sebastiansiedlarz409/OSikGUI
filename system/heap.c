@@ -53,6 +53,8 @@ void* MallocHeap(uint64_t size){
         HeapSegmentCurrent = HeapSegmentCurrent->nextFree;
         HeapSegmentFree = HeapSegmentCurrent;
 
+        GetSystemContext()->heapNextFree = (uint64_t)HeapSegmentFree;
+
         return (void*)HeapSegmentCurrent->prev;
     }
     else{

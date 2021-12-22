@@ -3,8 +3,11 @@
 #include <stdint.h>
 
 static SystemContext context = {
+    0, //kernel address
+    0, //stack address
     0, //heap start address
     0, //heap size
+    0, //heap next free address
     1, //window, 0 is BSOD
     0  //pointer to main window
 };

@@ -9,8 +9,8 @@
 #include <stdint.h>
 
 void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
-    UNUSED(kernelEntryPointAddress);
-    UNUSED(stackAddress);
+    GetSystemContext()->kernelAddress=(uint64_t)kernelEntryPointAddress;
+    GetSystemContext()->stackAddress=(uint64_t)stackAddress;
 
     DrawString(520, 145, "OSik", 30, RED, BLACK);
     DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
