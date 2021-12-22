@@ -1,5 +1,6 @@
 #include "windows.h"
 #include "drawing.h"
+#include "string.h"
 
 #include <stdint.h>
 
@@ -46,6 +47,12 @@ WindowContext DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16
     context.background = backgroud;
     context.font_color = font_color;
     context.parent = parent;
+    context.childrenCount = 0;
+
+    if(parent != NULL){
+        parent->children[parent->childrenCount] = &context;
+        parent->childrenCount++;
+    }
 
     //whole window border
     DrawRectangle(sx+1, sy+1, sx+width-1, sy+height-260, theme, backgroud);
@@ -56,6 +63,24 @@ WindowContext DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16
 }
 
 void CloseWindow(WindowContext* w){
-    if(w->parent != NULL)
+    if(w->childrenCount > 0){
+        //WindowContext* lastChild = w->children[w->childrenCount-1];
+
+        /*DrawRectangle(200, 200, 100, 100, 
+            RED, RED);*/
+        
+        /*w->childrenCount--;
+        char buffer[100];
+        MemsetBuffer(buffer, 0, 100);
+        FormatString(buffer, "ASD %u %u %u %u %u", lastChild->x, lastChild->y, lastChild->w, lastChild->h, w->childrenCount);
+
+        DrawString(300, 300, buffer, 4, RED, GREY);*/
+
+        return;
+    }
+
+    if(w->parent != NULL){
         DrawRectangle(w->x, w->y, w->x+w->w, w->y+w->h, w->parent->background, w->parent->background);
+        return;
+    }
 }

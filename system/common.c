@@ -3,6 +3,8 @@
 #include <stdint.h>
 
 static SystemContext context = {
+    0,
+    0,
     1, //window, 0 is BSOD
 };
 

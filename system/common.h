@@ -5,6 +5,8 @@
 #include "windows.h"
 
 typedef struct _SystemContext{
+    uint64_t heapSize;
+    uint64_t heapAddress;
     uint8_t window;
     WindowContext mainWindow;
 } SystemContext;

@@ -12,6 +12,8 @@ typedef struct _WindowContext{
     uint8_t font_color;
     char title[100];
     struct _WindowContext* parent;
+    struct _WindowContext* children[5];
+    uint8_t childrenCount;
 } WindowContext;
 
 void CloseWindow(WindowContext* w);
