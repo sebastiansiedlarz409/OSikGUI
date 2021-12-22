@@ -12,11 +12,11 @@ void DrawInfoWindow(WindowContext* parent){
 
     WaitSeconds(1);
 
-    CloseWindow(context);
+    CloseWindow(context);*/
 
     WaitSeconds(1);
 
-    CloseWindow(context);*/
+    CloseWindowX(context);
 }
 
 void DrawUI(void){

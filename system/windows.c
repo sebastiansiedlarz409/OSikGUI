@@ -79,3 +79,10 @@ void CloseWindow(WindowContext* w){
         return;
     }
 }
+
+void CloseWindowX(WindowContext* w){
+    if(w->parent != NULL){
+        DrawRectangle(w->x, w->y, w->x+w->w, w->y+w->h, w->parent->background, w->parent->background);
+        return;
+    }
+}
