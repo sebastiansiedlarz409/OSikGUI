@@ -3,6 +3,7 @@
 #include "common.h"
 #include "string.h"
 #include "heap.h"
+#include "menu.h"
 
 #include <stdint.h>
 
@@ -71,19 +72,28 @@ void CloseWindow(WindowContext* w){
         DrawRectangle(lastChild->x, lastChild->y, lastChild->x+lastChild->w, lastChild->y+lastChild->h, 
             lastChild->parent->background, lastChild->parent->background);
         
+        FreeHeap(lastChild);
+
         w->childrenCount--;
-        return;
     }
 
     if(w->parent != NULL){
         DrawRectangle(w->x, w->y, w->x+w->w, w->y+w->h, w->parent->background, w->parent->background);
-        return;
+
+        FreeHeap(w);
     }
+    DrawStateWindow(GetSystemContext()->mainWindow);
 }
 
 void CloseWindowX(WindowContext* w){
     if(w->parent != NULL){
         DrawRectangle(w->x, w->y, w->x+w->w, w->y+w->h, w->parent->background, w->parent->background);
+
+        for(uint32_t i = 0;i<w->childrenCount;i++){
+            FreeHeap(w->children[i]);
+        }
+        FreeHeap(w);
+
         return;
     }
 }

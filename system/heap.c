@@ -117,4 +117,6 @@ void FreeHeap(void* ptr){
         if(HeapSegmentCurrent->prev->free)
             ConcatSegments(HeapSegmentCurrent, HeapSegmentCurrent->prev);
     }
+
+    GetSystemContext()->heapNextFree = (uint64_t)HeapSegmentFree;
 }
