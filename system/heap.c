@@ -10,7 +10,7 @@ void InitHeap(uint64_t offset, uint64_t size){
     GetSystemContext()->heapSize=size;
 
     HeapSegmentFree = (HeapSegment*)offset;
-    HeapSegmentFree->free = 0;
+    HeapSegmentFree->free = 1;
     HeapSegmentFree->next = 0;
     HeapSegmentFree->prev = 0;
     HeapSegmentFree->nextFree = 0;
@@ -41,13 +41,13 @@ void* MallocHeap(uint64_t size){
             HeapSegmentCurrent->next = HeapSegmentNew;
             HeapSegmentCurrent->nextFree = HeapSegmentNew;
             HeapSegmentCurrent->size = size; //this segment is returned so
-            HeapSegmentCurrent->free = 1; //mark as taken
+            HeapSegmentCurrent->free = 0; //mark as taken
 
             HeapSegmentNew->prev = HeapSegmentCurrent;
             HeapSegmentNew->prevFree = HeapSegmentCurrent->prevFree;
             HeapSegmentNew->next = HeapSegmentCurrent->next;
             HeapSegmentNew->nextFree = HeapSegmentCurrent->nextFree;
-            HeapSegmentNew->free = 0;
+            HeapSegmentNew->free = 1;
         }
 
         HeapSegmentCurrent = HeapSegmentCurrent->nextFree;
@@ -59,4 +59,63 @@ void* MallocHeap(uint64_t size){
         return 0;
     }
 
+}
+
+void FreeHeap(void* ptr){
+    HeapSegment* HeapSegmentCurrent = ((HeapSegment*)ptr);
+
+    HeapSegmentCurrent->free = 1;
+
+    if(HeapSegmentCurrent < HeapSegmentFree){
+        HeapSegmentFree = HeapSegmentCurrent;
+    }
+
+    if(HeapSegmentCurrent->nextFree != 0){
+        if(HeapSegmentCurrent->nextFree->prevFree < HeapSegmentCurrent){
+            HeapSegmentCurrent->nextFree->prevFree = HeapSegmentCurrent;
+        }
+    }
+
+    if(HeapSegmentCurrent->prevFree != 0){
+        if(HeapSegmentCurrent->prevFree->nextFree > HeapSegmentCurrent){
+            HeapSegmentCurrent->prevFree->nextFree = HeapSegmentCurrent;
+        }
+    }
+
+    if(HeapSegmentCurrent->next != 0){
+        HeapSegmentCurrent->next->prev = HeapSegmentCurrent;
+        if(HeapSegmentCurrent->next->free)
+            ConcatSegments(HeapSegmentCurrent, HeapSegmentCurrent->next);
+    }
+
+    if(HeapSegmentCurrent->prev != 0){
+        HeapSegmentCurrent->prev->next = HeapSegmentCurrent;
+        if(HeapSegmentCurrent->prev->free)
+            ConcatSegments(HeapSegmentCurrent, HeapSegmentCurrent->prev);
+    }
+}
+
+void ConcatSegments(void* p, void* n){
+    if (p == 0 || n == 0)
+        return;
+
+    HeapSegment* a = ((HeapSegment*)p);
+    HeapSegment* b = ((HeapSegment*)n);
+
+    if(a < b){
+        a->size += b->size + sizeof(HeapSegment);
+        a->next = b->next;
+        a->nextFree = b->nextFree;
+        b->next->prev = a;
+        b->next->prevFree = a;
+        b->nextFree->prevFree = a;
+    }
+    else{
+        b->size += a->size + sizeof(HeapSegment);
+        b->next = a->next;
+        b->nextFree = a->nextFree;
+        a->next->prev = b;
+        a->next->prevFree = b;
+        a->nextFree->prevFree = b;
+    }
 }

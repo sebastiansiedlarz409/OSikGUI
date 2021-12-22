@@ -15,3 +15,4 @@ typedef struct _HeapSegment HeapSegment;
 
 void InitHeap(uint64_t offset, uint64_t size);
 void* MallocHeap(uint64_t size);
+void FreeHeap(void* ptr);

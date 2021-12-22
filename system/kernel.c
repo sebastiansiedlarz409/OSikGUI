@@ -41,7 +41,7 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawUI();
 
     //heap tests
-    char buffer[100];
+    /*char buffer[100];
     MemsetBuffer(buffer, 0, 100);
     void* p1 = MallocHeap(20);
     FormatString(buffer, "P1: 0x%x", (uint64_t)p1);
@@ -50,7 +50,18 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     MemsetBuffer(buffer, 0, 100);
     void* p2 = MallocHeap(20);
     FormatString(buffer, "P2: 0x%x", (uint64_t)p2);
-    DrawString(320, 580, buffer, 2, BLUE, LIGHTGREY);
+    DrawString(320, 540, buffer, 2, BLUE, LIGHTGREY);
+
+    MemsetBuffer(buffer, 0, 100);
+    FreeHeap(p2);
+    void* p3 = MallocHeap(10);
+    FormatString(buffer, "P3: 0x%x", (uint64_t)p3);
+    DrawString(320, 560, buffer, 2, BLUE, LIGHTGREY);
+
+    MemsetBuffer(buffer, 0, 100);
+    void* p4 = MallocHeap(20);
+    FormatString(buffer, "P4: 0x%x", (uint64_t)p4);
+    DrawString(320, 580, buffer, 2, BLUE, LIGHTGREY);*/
 
     //test int 0
     /*WaitSeconds(5);
