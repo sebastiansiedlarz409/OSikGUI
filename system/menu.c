@@ -20,6 +20,11 @@ void DrawInfoWindow(WindowContext* parent){
     CloseWindowX(context);*/
 }
 
+void DrawCalculatorWindow(WindowContext* parent){
+    WindowContext* context = DrawWindow(parent, 600, 40, 960, 1140, "Calculator App", CYAN, LIGHTGREY, BLACK);
+    DrawText(context, 30, 30, "Calculator", 10, BLACK, LIGHTGREY);
+}
+
 void DrawStateWindow(WindowContext* parent){
     WindowContext* context = DrawWindow(parent, 30, 600, 560, 580, "Stats", GREEN, LIGHTGREY, BLACK);
 
@@ -68,5 +73,17 @@ void DrawUI(void){
     if(GetSystemContext()->window == 1){
         DrawInfoWindow(context);
     }
+    else if(GetSystemContext()->window == 2){
+        DrawCalculatorWindow(context);
+    }
 
+}
+
+void SwichWindow(void){
+    GetSystemContext()->window++;
+    if(GetSystemContext()->window>GetSystemContext()->windowsCount){
+        GetSystemContext()->window=1;
+    }
+
+    DrawUI();
 }

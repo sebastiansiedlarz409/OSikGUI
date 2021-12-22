@@ -11,6 +11,7 @@ typedef struct _SystemContext{
     uint64_t heapAddress;
     uint64_t heapNextFree;
     uint8_t window;
+    uint8_t windowsCount;
     WindowContext* mainWindow;
 } SystemContext;
 

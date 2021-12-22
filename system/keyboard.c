@@ -7,6 +7,8 @@
 
 #include <stdint.h>
 
+uint8_t kHit = 0;
+
 const char scanCodeCh[] = {
    0, 0, '1', '2', //empty, esc
    '3', '4', '5', '6',
@@ -68,9 +70,18 @@ char GetChar(uint8_t scanCode)
 void KeyboardHandler(void){
     uint8_t scanCode;
     PortInByte(0x60, &scanCode);
-    DrawString(100, 100, "ASDASD", 4, RED, GREY);
-    /*if(scanCode == 0x01 || scanCode == 0x81){ //esc
-        //close actually open window
-        CloseWindow(&(GetSystemContext()->mainWindow));
-    }*/
+
+    if(!kHit){
+        if(scanCode == 0x01 || scanCode == 0x81){ //esc
+            //close actually open window
+            CloseWindow(GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1]);
+        }
+        else if(scanCode == 0x0F || scanCode == 0x8F){
+            SwichWindow();
+        }
+        kHit++;
+    }
+    else{
+        kHit=0;
+    }
 }

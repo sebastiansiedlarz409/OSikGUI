@@ -9,6 +9,7 @@ static SystemContext context = {
     0, //heap size
     0, //heap next free address
     1, //window, 0 is BSOD
+    2, //max window index
     0  //pointer to main window
 };
 
