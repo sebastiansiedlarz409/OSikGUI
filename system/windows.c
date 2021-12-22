@@ -65,18 +65,12 @@ WindowContext* DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint1
 
 void CloseWindow(WindowContext* w){
     if(w->childrenCount > 0){
-        //WindowContext* lastChild = w->children[w->childrenCount-1];
+        WindowContext* lastChild = w->children[w->childrenCount-1];
 
-        /*DrawRectangle(200, 200, 100, 100, 
-            RED, RED);*/
+        DrawRectangle(lastChild->x, lastChild->y, lastChild->x+lastChild->w, lastChild->y+lastChild->h, 
+            lastChild->parent->background, lastChild->parent->background);
         
-        /*w->childrenCount--;
-        char buffer[100];
-        MemsetBuffer(buffer, 0, 100);
-        FormatString(buffer, "ASD %u %u %u %u %u", lastChild->x, lastChild->y, lastChild->w, lastChild->h, w->childrenCount);
-
-        DrawString(300, 300, buffer, 4, RED, GREY);*/
-
+        w->childrenCount--;
         return;
     }
 
