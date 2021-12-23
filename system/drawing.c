@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-void DrawPixel(uint16_t x, uint16_t y, uint8_t color){
+void DrawPixel(uint16_t x, uint16_t y, COLORS color){
     //paging map 0xC000000 to 0xFD000000 where frame buffer is
     uint8_t* frame = (uint8_t*)0xC00000;
     //y++;
@@ -12,21 +12,21 @@ void DrawPixel(uint16_t x, uint16_t y, uint8_t color){
     frame[(y*WIDTH)+x] = color;
 }
 
-void DrawHorizontalLine(uint16_t x, uint16_t y, uint16_t len, uint8_t color){
+void DrawHorizontalLine(uint16_t x, uint16_t y, uint16_t len, COLORS color){
     len+=x;
     for(uint16_t i = x;i<len;i++){
         DrawPixel(i, y, color);
     }
 }
 
-void DrawVerticalLine(uint16_t x, uint16_t y, uint16_t len, uint8_t color){
+void DrawVerticalLine(uint16_t x, uint16_t y, uint16_t len, COLORS color){
     len+=y;
     for(uint16_t i = y;i<len;i++){
         DrawPixel(x, i, color);
     }
 }
 
-void DrawLine(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, uint8_t color){
+void DrawLine(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS color){
     uint16_t dx = ex - sx;
     uint16_t dy = ey - sy;
 
@@ -36,7 +36,7 @@ void DrawLine(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, uint8_t color){
     }
 }
 
-void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, uint8_t border_color, uint8_t fill_color){
+void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS border_color, COLORS fill_color){
     //border
     ex--;
     ey--;
@@ -53,7 +53,7 @@ void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, uint8_t bo
     }
 }
 
-void DrawCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t border_color, uint8_t fill_color){
+void DrawCircle(uint16_t x, uint16_t y, uint16_t r, COLORS border_color, COLORS fill_color){
     for(uint16_t dy = 0;dy<HEIGHT;dy++){
         for(uint16_t dx = 0;dx<WIDTH;dx++){
             uint16_t distance = (uint16_t)isqrt((dx-x)*(dx-x)+(dy-y)*(dy-y));
@@ -68,7 +68,7 @@ void DrawCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t border_color, uint8_
     }
 }
 
-void DrawProgressBar(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint8_t percent, uint8_t border_color, uint8_t fill_color){
+void DrawProgressBar(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint8_t percent, COLORS border_color, COLORS fill_color){
     if(percent == 0){
         DrawRectangle(sx, sy, ex, ey, border_color, BLACK);
     }
@@ -93,7 +93,7 @@ void DrawProgressBar(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint8_t
     }
 }
 
-void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, uint8_t color, uint8_t background){
+void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, COLORS color, COLORS background){
 	if(chr > 0x7E) return; // chr > '~'
 
 	for(uint8_t i=0; i<font[1]; i++ )
@@ -120,7 +120,7 @@ void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, uint8_t color
     }
 }
 
-void DrawString(int x, int y, const char* str, uint8_t font_size, uint8_t color, uint8_t background)
+void DrawString(int x, int y, const char* str, uint8_t font_size, COLORS color, COLORS background)
 {
 	int x_tmp = x;
 	char znak;
@@ -140,7 +140,7 @@ void DrawString(int x, int y, const char* str, uint8_t font_size, uint8_t color,
 	}
 }
 
-void FillScreen(uint8_t color){
+void FillScreen(COLORS color){
     for(uint16_t y = 0;y<HEIGHT;y++){
         for(uint16_t x = 0;x<WIDTH;x++){
             DrawPixel(x, y, color);
