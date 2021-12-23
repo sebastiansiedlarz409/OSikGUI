@@ -14,24 +14,24 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawString(520, 145, "OSik", 30, RED, BLACK);
     DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREY);
+    DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREYD);
     InitHeap(0x500000, 0x100000);
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(610, 520, "Setup Interrupts!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREY);
+    DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREYD);
     InitInterrupt();
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(635, 520, "Start Timers!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 50, GREEN, GREY);
+    DrawProgressBar(610, 620, 1020, 670, 50, GREEN, GREYD);
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(620, 520, "Start Usermode!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREY);
+    DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREYD);
     WaitSeconds(1);
 }
 
@@ -64,11 +64,11 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawString(320, 580, buffer, 2, BLUE, LIGHTGREY);*/
 
     //test int 0
-    /*WaitSeconds(5);
+    WaitSeconds(5);
     int a = 0, b = 0;
     __asm__ volatile("div %2\n"
        : "=d" (a), "=a" (b)
-       : "r" (a), "d" (a), "a" (a));*/
+       : "r" (a), "d" (a), "a" (a));
 
     for(;;);
 }

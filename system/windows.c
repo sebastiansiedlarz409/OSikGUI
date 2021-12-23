@@ -37,7 +37,7 @@ void DrawTitleBar(uint16_t sx, uint16_t sy, uint16_t width, const char* title, u
     DrawString(sx+5, sy+2, title, 2, font_color, theme);
 
     //icons
-    DrawCircle(sx+width-10, sy+10, 6, theme == RED ? BRONZE : RED, theme == RED ? BRONZE : RED);
+    DrawCircle(sx+width-10, sy+10, 6, theme == RED ? BROWN : RED, theme == RED ? BROWN : RED);
 }
 
 WindowContext* DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, uint8_t theme, uint8_t backgroud, uint8_t font_color){
