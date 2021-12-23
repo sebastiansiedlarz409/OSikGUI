@@ -7,11 +7,10 @@
 
 #include <stdint.h>
 
-#define TITLE_BAR_WIDTH 20
-#define MIN_WIDTH 80
-#define MIN_HEIGHT (TITLE_BAR_WIDTH+20)
+#define TITLE_BAR_WIDTH 25
 
-void DrawText(WindowContext* context, uint16_t x, uint16_t y, const char* str, uint8_t font_size, uint8_t color, uint8_t background){
+void DrawText(WindowContext* context, uint16_t x, uint16_t y, const char* str, 
+                uint8_t font_size, uint8_t color, uint8_t background){
     if(x+context->x > context->x+context->w || y+context->y+TITLE_BAR_WIDTH>context->y+context->h){
         return;
     }
@@ -20,7 +19,9 @@ void DrawText(WindowContext* context, uint16_t x, uint16_t y, const char* str, u
                 background);
 }
 
-void DrawButtonWithDesc(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const char* title, const char* desc, uint8_t border_color, uint8_t fill_color){
+void DrawButtonWithDesc(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const char* title,
+                         const char* desc, uint8_t border_color, uint8_t fill_color){
+
     DrawRectangle(sx, sy, ex, ey, border_color, fill_color);
 
     //title
@@ -30,17 +31,29 @@ void DrawButtonWithDesc(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, cons
     DrawString(sx+10, sy+30, desc, 1, RED, BLACK);
 }
 
-void DrawTitleBar(uint16_t sx, uint16_t sy, uint16_t width, const char* title, uint8_t theme, uint8_t font_color){
+void DrawTitleBar(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, const char* title, uint8_t theme, uint8_t font_color){
     DrawRectangle(sx, sy, sx+width, sy+TITLE_BAR_WIDTH, theme, theme);
     
     //title
-    DrawString(sx+5, sy+2, title, 2, font_color, theme);
+    DrawString(sx+8, sy+4, title, 2, font_color, theme);
 
     //icons
-    DrawCircle(sx+width-10, sy+10, 6, theme == RED ? BROWN : RED, theme == RED ? BROWN : RED);
+    DrawCircle(sx+width-15, sy+12, 6, theme == BRIGHTBLUE ? RED : BRIGHTBLUE, theme == RED ? BROWN : RED);
+
+    //draw rounded window corners
+    //dont draw it when drawing main window
+    if(GetSystemContext()->mainWindow != NULL){
+        DrawRectangle(sx, sy, sx+7, sy+7, parent->background, parent->background);
+        DrawRectangle(sx+width-7, sy, sx+width, sy+7, parent->background, parent->background);
+        DrawQuarterCircle(sx+7,sy+7, 7, 2, theme, theme);
+        DrawQuarterCircle(sx+width-8, sy+7, 7, 1, theme, theme);
+    }
 }
 
-WindowContext* DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, uint8_t theme, uint8_t backgroud, uint8_t font_color){
+WindowContext* DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height,
+                         const char* title, uint8_t theme, uint8_t backgroud, uint8_t font_color){
+
+    //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
     context->x = sx;
     context->y = sy;
@@ -57,10 +70,14 @@ WindowContext* DrawWindow(WindowContext* parent, uint16_t sx, uint16_t sy, uint1
         parent->childrenCount++;
     }
 
+    //set last created window
+    GetSystemContext()->currentWindow = context;
+
     //whole window border
     DrawRectangle(sx+1, sy+1, sx+width-1, sy+height-260, theme, backgroud);
 
-    DrawTitleBar(sx+1, sy+1, width-2, title, theme, font_color);
+    //draw title bar
+    DrawTitleBar(parent, sx+1, sy+1, width-2, title, theme, font_color);
 
     return context;
 }

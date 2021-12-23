@@ -13,6 +13,7 @@ typedef struct _SystemContext{
     uint8_t window;
     uint8_t windowsCount;
     WindowContext* mainWindow;
+    WindowContext* currentWindow;
 } SystemContext;
 
 #define UNUSED(x) (void)(x)
