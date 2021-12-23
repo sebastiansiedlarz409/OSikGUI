@@ -36,14 +36,6 @@ start:
     mov bx, 0x411C ;1600x1200 256colors framebuffer
     int 10h
 
-    ;get framebuffer
-    mov ax, 0x4f01
-    mov cx, 0x411C
-    mov di, 0x8000
-    mov es, di
-    mov di, 0x0
-    int 10h
-
     cli
 
     mov ax, 0x1000
