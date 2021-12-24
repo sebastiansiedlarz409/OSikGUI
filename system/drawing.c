@@ -127,8 +127,7 @@ void DrawProgressBar(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint8_t
         float temp = pr/100;
         uint16_t p = (ex-sx)*temp;
         */
-        uint16_t temp = 100/percent;
-        uint16_t p = (ex-sx)/temp;
+        uint16_t p = ((ex-sx)*percent)/100;
 
         DrawRectangle(sx, sy, sx+p, ey, fill_color, fill_color);
     }
