@@ -62,6 +62,9 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
 
     WindowContext* welcomeWindowProgressBarContext = CreateProgressBarWindowContext(welcomeWindowContext, 20, 40, 230, 80, RED, GREEN);
     DrawProgressBarWindow(welcomeWindowProgressBarContext, 80);
+
+    WindowContext* welcomeWindowButtonContext = CreateDescButtonWindowContext(welcomeWindowContext, 20, 90, 100, 150, GREEN, BLUE, RED, 2);
+    DrawDescButtonWindow(welcomeWindowButtonContext, "Button");
     
     MemsetBuffer(buffer, 0, 100);
     FormatString(buffer, "2 HF: 0x%x SOF(W): 0x%x Id: %u CC: %u",
