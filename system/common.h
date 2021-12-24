@@ -14,6 +14,7 @@ typedef struct _SystemContext{
     uint8_t windowsCount;
     WindowContext* mainWindow;
     WindowContext* currentWindow;
+    uint32_t lastUsedWindowId;
 } SystemContext;
 
 #define UNUSED(x) (void)(x)

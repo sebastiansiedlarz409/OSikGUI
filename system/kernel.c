@@ -14,24 +14,24 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawString(520, 145, "OSik", 30, RED, BLACK);
     DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREYB);
+    DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREY3);
     InitHeap(0x500000, 0x100000);
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(610, 520, "Setup Interrupts!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREYB);
+    DrawProgressBar(610, 620, 1020, 670, 20, GREEN, GREY3);
     InitInterrupt();
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(635, 520, "Start Timers!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 50, GREEN, GREYB);
+    DrawProgressBar(610, 620, 1020, 670, 50, GREEN, GREY3);
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
     DrawString(620, 520, "Start Usermode!", 5, BLUE, BLACK);
-    DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREYB);
+    DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREY3);
     WaitSeconds(1);
 }
 
@@ -39,6 +39,45 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     KERN_Load(kernelEntryPointAddress, stackAddress);
 
     DrawUI();
+
+    //windows api tests
+
+    WindowContext* welcomeWindowContext = CreateWindowContext(
+        GetSystemContext()->mainWindow,
+        10, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK
+    );
+    DrawWindow(welcomeWindowContext);
+
+    char buffer[100];
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "1 HF: 0x%x SOF(W): 0x%x Id: %u CC: %u",
+                        GetSystemContext()->heapNextFree,
+                        sizeof(WindowContext),
+                         (uint64_t)GetSystemContext()->mainWindow->id,
+                         GetSystemContext()->mainWindow->childrenCount);
+    DrawString(320, 720, buffer, 2, BLUE, GREY1);
+    
+    WindowContext* welcomeWindowTextContext = CreateTextWindowContext(welcomeWindowContext, 20, 20, welcomeWindowContext->background, BROWN, 2);
+    DrawText(welcomeWindowTextContext, "Welcome inside OSikGUI");
+    
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "2 HF: 0x%x SOF(W): 0x%x Id: %u CC: %u",
+                        GetSystemContext()->heapNextFree,
+                        sizeof(WindowContext),
+                         welcomeWindowContext->id,
+                         welcomeWindowContext->childrenCount);
+    DrawString(320, 750, buffer, 2, BLUE, GREY1);
+
+    WaitSeconds(3);
+    CloseWindow(welcomeWindowContext);
+    
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "3 HF: 0x%x SOF(W): 0x%x Id: %u CC: %u",
+                        GetSystemContext()->heapNextFree,
+                        sizeof(WindowContext),
+                         (uint64_t)GetSystemContext()->mainWindow->id,
+                         GetSystemContext()->mainWindow->childrenCount);
+    DrawString(320, 780, buffer, 2, BLUE, GREY1);
 
     //heap tests
     /*char buffer[100];

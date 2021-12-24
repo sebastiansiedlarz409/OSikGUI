@@ -55,7 +55,7 @@ void* MallocHeap(uint64_t size){
 
         GetSystemContext()->heapNextFree = (uint64_t)HeapSegmentFree;
 
-        return (void*)HeapSegmentCurrent->prev;
+        return (void*)((uint8_t*)HeapSegmentCurrent->prev+sizeof(HeapSegment));
     }
     else{
         return 0;
@@ -86,7 +86,7 @@ void ConcatSegments(HeapSegment* a, HeapSegment* b){
 }
 
 void FreeHeap(void* ptr){
-    HeapSegment* HeapSegmentCurrent = ((HeapSegment*)ptr);
+    HeapSegment* HeapSegmentCurrent = ((HeapSegment*)((uint8_t*)ptr-sizeof(HeapSegment)));
 
     HeapSegmentCurrent->free = 1;
 

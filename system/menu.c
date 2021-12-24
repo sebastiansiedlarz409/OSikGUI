@@ -5,24 +5,13 @@
 #include "heap.h"
 #include "windows.h"
 
-void DrawInfoWindow(WindowContext* parent){
-    WindowContext* context = DrawWindow(parent, 600, 40, 960, 1140, "Information", BLUE, GREYE, BLACK);
+/*void DrawInfoWindow(WindowContext* parent){
+    WindowContext* context = DrawWindow(CreateWindowContext(parent, 600, 40, 960, 900, "Information", BLUE, GREYE, BLACK));
     DrawText(context, 30, 30, "OSikGUI", 10, BROWN, GREYE);
-
-    /*DrawWindow(context, 620, 260, 200, 600, "Subwindow 1", GREEN, GREY, BLACK);
-    DrawWindow(context, 840, 260, 200, 600, "Subwindow 2", PINK, GREY, BLACK);
-
-    WaitSeconds(1);
-
-    CloseWindow(context);*/
-
-    /*WaitSeconds(1);
-
-    CloseWindowX(context);*/
 }
 
 void DrawCalculatorWindow(WindowContext* parent){
-    WindowContext* context = DrawWindow(parent, 600, 40, 960, 1140, "Calculator App", CYAN, GREYE, BLACK);
+    WindowContext* context = DrawWindow(CreateWindowContext(parent, 600, 40, 960, 900, "Calculator App", CYAN, GREYE, BLACK));
     DrawText(context, 30, 30, "Calculator", 10, BLACK, GREYE);
 }
 
@@ -32,7 +21,7 @@ void DrawStateWindow(WindowContext* parent){
         FreeHeap(GetSystemContext()->mainWindow->children[0]);
     }
 
-    WindowContext* context = DrawWindow(parent, 30, 600, 560, 580, "Stats", GREEN, GREYE, BLACK);
+    WindowContext* context = DrawWindow(CreateWindowContext(parent, 30, 500, 560, 840, "Stats", GREEN, GREYE, BLACK));
 
     char buffer[100];
 
@@ -71,27 +60,27 @@ void DrawSubWindow(WindowContext* context){
     else if(GetSystemContext()->window == 2){
         DrawCalculatorWindow(context);
     }
-}
+}*/
 
 void DrawUI(void){
     ClearFullScreen();
 
+    //create main system window
     WindowContext* context;
     if(GetSystemContext()->window!=0){
-        context = DrawWindow(NULL, 0, 0, 1600, 1200, "Desktop", RED, GREYA, WHITE);
+        context = CreateWindowContext(NULL, 0, 0, 1600, 950, "Desktop", RED, GREYA, WHITE);
+        DrawWindow(context);
         GetSystemContext()->mainWindow = context;
 
     }
     else{
-        context = DrawWindow(NULL, 0, 0, 1600, 1200, "BSOD", BLUE, BLACK, WHITE); //BSOD
+        context = CreateWindowContext(NULL, 0, 0, 1600, 950, "BSOD", BLUE, BLACK, WHITE);
+        DrawWindow(context); //BSOD
         GetSystemContext()->mainWindow = context;
     }
-
-    DrawSubWindow(context);
-
 }
 
-void SwichWindow(void){
+/*void SwichWindow(void){
     FreeHeap(GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1]);
 
     GetSystemContext()->window++;
@@ -100,4 +89,4 @@ void SwichWindow(void){
     }
 
     DrawSubWindow(GetSystemContext()->mainWindow);
-}
+}*/

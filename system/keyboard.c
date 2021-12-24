@@ -1,7 +1,9 @@
 #include "keyboard.h"
 #include "common.h"
 #include "hal.h"
+#include "heap.h"
 #include "menu.h"
+#include "string.h"
 #include "windows.h"
 #include "drawing.h"
 
@@ -76,8 +78,23 @@ void KeyboardHandler(void){
             //close actually open window
             CloseWindow(GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1]);
         }
-        else if(scanCode == 0x0F || scanCode == 0x8F){
-            SwichWindow();
+        else if(scanCode == 0x0F || scanCode == 0x8F){ //tab
+            //SwichWindow();
+        }
+        else if(scanCode == 0x38 || scanCode == 0xB8){ //left alt
+            /*WindowContext* context = GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1];
+            
+            WindowContext* bcontext = (WindowContext*)MallocHeap(sizeof(WindowContext));
+            MemcpyBuffers((char*)bcontext, (char*)context, sizeof(WindowContext));
+            
+            char buffer[100];
+            FormatString(buffer, "C %u %u %u %u", context->x, context->y, bcontext->x, bcontext->y);
+            DrawText(context, 30, 30, buffer, 2, RED, GREYB);
+
+            //CloseWindow(bcontext);
+            context->x+=10;
+            context->y+=5;
+            DrawWindow(context);*/
         }
         kHit++;
     }
