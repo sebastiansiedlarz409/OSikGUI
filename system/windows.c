@@ -57,7 +57,28 @@ WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint1
     return context;
 }
 
-void DrawText(WindowContext* context, const char* str){
+WindowContext* CreateProgressBarWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, COLORS border_color, COLORS fill_color){
+    //prepare window context
+    WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
+    context->id = ++GetSystemContext()->lastUsedWindowId;
+    context->x = sx;
+    context->y = sy;
+    context->w = ex-sx;
+    context->h = ey-sy;
+    context->fill_color = fill_color;
+    context->border_color = border_color;
+    context->parent = parent;
+    context->childrenCount = 0;
+
+    if(parent != NULL){
+        parent->children[parent->childrenCount] = context;
+        parent->childrenCount++;
+    }
+
+    return context;
+}
+
+void DrawTextWindow(WindowContext* context, const char* str){
     if(context->parent != NULL){
         if(context->w > context->parent->w-context->x-10){
             context->w = context->parent->w-context->x-10;
@@ -81,7 +102,27 @@ void DrawText(WindowContext* context, const char* str){
                 context->background);
 }
 
-void DrawButtonWithDesc(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const char* title,
+void DrawProgressBarWindow(WindowContext* context, uint8_t percent){
+    if(context->parent != NULL){
+        if(context->w > context->parent->w-context->x-10){
+            context->w = context->parent->w-context->x-10;
+        }
+        if(context->h > context->parent->h-context->y-10){
+            context->h = context->parent->h-context->y-10;
+        }
+        if(context->x<context->parent->x+10){
+            context->x+=10;
+        }
+        if(context->y<context->parent->y+10){
+            context->y=context->parent->y+10;
+        }
+    }
+
+    DrawProgressBar(context->x, context->y+TITLE_BAR_WIDTH*2, context->x+context->w, context->y+context->h+TITLE_BAR_WIDTH*2, percent, 
+                    context->border_color, context->fill_color);
+}
+
+void DrawButtonWithDescWindow(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const char* title,
                          const char* desc, COLORS border_color, COLORS fill_color){
 
     DrawRectangle(sx, sy, ex, ey, border_color, fill_color);
@@ -105,12 +146,10 @@ void DrawTitleBar(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t widt
 
     //draw rounded window corners
     //dont draw it when drawing main window
-    if(GetSystemContext()->mainWindow != NULL){
-        DrawRectangle(sx, sy, sx+7, sy+7, parent->background, parent->background);
-        DrawRectangle(sx+width-7, sy, sx+width, sy+7, parent->background, parent->background);
-        DrawQuarterCircle(sx+7,sy+7, 7, 2, theme, theme);
-        DrawQuarterCircle(sx+width-8, sy+7, 7, 1, theme, theme);
-    }
+    DrawRectangle(sx, sy, sx+7, sy+7, parent->background, parent->background);
+    DrawRectangle(sx+width-7, sy, sx+width, sy+7, parent->background, parent->background);
+    DrawQuarterCircle(sx+7,sy+7, 7, 2, theme, theme);
+    DrawQuarterCircle(sx+width-8, sy+7, 7, 1, theme, theme);
 }
 
 void DrawWindow(WindowContext* context){

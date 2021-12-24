@@ -58,7 +58,10 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawString(320, 720, buffer, 2, BLUE, GREY1);
     
     WindowContext* welcomeWindowTextContext = CreateTextWindowContext(welcomeWindowContext, 20, 20, welcomeWindowContext->background, BROWN, 2);
-    DrawText(welcomeWindowTextContext, "Welcome inside OSikGUI");
+    DrawTextWindow(welcomeWindowTextContext, "Welcome inside OSikGUI");
+
+    WindowContext* welcomeWindowProgressBarContext = CreateProgressBarWindowContext(welcomeWindowContext, 20, 40, 230, 80, RED, GREEN);
+    DrawProgressBarWindow(welcomeWindowProgressBarContext, 80);
     
     MemsetBuffer(buffer, 0, 100);
     FormatString(buffer, "2 HF: 0x%x SOF(W): 0x%x Id: %u CC: %u",
@@ -68,8 +71,8 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
                          welcomeWindowContext->childrenCount);
     DrawString(320, 750, buffer, 2, BLUE, GREY1);
 
-    WaitSeconds(3);
-    CloseWindow(welcomeWindowContext);
+    //WaitSeconds(3);
+    //CloseWindow(welcomeWindowContext);
     
     MemsetBuffer(buffer, 0, 100);
     FormatString(buffer, "3 HF: 0x%x SOF(W): 0x%x Id: %u CC: %u",
