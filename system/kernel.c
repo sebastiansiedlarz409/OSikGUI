@@ -3,9 +3,11 @@
 #include "windows.h"
 #include "menu.h"
 #include "heap.h"
+#include "streams.h"
 #include "string.h"
 #include "keyboard.h"
 #include "interrupt.h"
+
 #include <stdint.h>
 
 void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
@@ -40,9 +42,16 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawUI();
 
-    //windows api tests
+    //streams tests
+    /*GetSystemContext()->PushInStream(53);
+    uint8_t value = GetSystemContext()->PopInSteam();
+    char buffer[100];
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "STDIN %u", value);
+    DrawString(320, 720, buffer, 2, BLUE, GREY1);*/
 
-    WindowContext* welcomeWindowContext = CreateWindowContext(
+    //windows api tests
+    /*WindowContext* welcomeWindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
         10, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK
     );
@@ -83,7 +92,7 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
                         sizeof(WindowContext),
                          (uint64_t)GetSystemContext()->mainWindow->id,
                          GetSystemContext()->mainWindow->childrenCount);
-    DrawString(320, 780, buffer, 2, BLUE, GREY1);
+    DrawString(320, 780, buffer, 2, BLUE, GREY1);*/
 
     //heap tests
     /*char buffer[100];

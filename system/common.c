@@ -1,4 +1,5 @@
 #include "common.h"
+#include "streams.h"
 
 #include <stdint.h>
 
@@ -13,28 +14,12 @@ static SystemContext context = {
     0, //pointer to main window
     0, //pointer to last created window
     0, //last used window id
+    PushInStream, //pointer to push stdin
+    PopInStream, //pointer to pop stdin
 };
 
 SystemContext* GetSystemContext(void){
     return &context;
-}
-
-int32_t isqrt(int32_t num) {
-    int32_t res = 0;
-    int32_t bit = 1 << 30; 
-    
-    while (bit > num)
-        bit >>= 2;
-
-    while (bit != 0) {
-        if (num >= res + bit) {
-            num -= res + bit;
-            res = (res >> 1) + bit;
-        } else
-            res >>= 1;
-        bit >>= 2;
-    }
-    return res;
 }
 
 void WaitSeconds(uint64_t seconds){

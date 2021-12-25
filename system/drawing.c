@@ -1,6 +1,7 @@
 #include "drawing.h"
 #include "common.h"
 #include "font.h"
+#include "math.h"
 
 #include <stdint.h>
 
@@ -56,7 +57,7 @@ void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS bor
 void DrawCircle(uint16_t x, uint16_t y, uint16_t r, COLORS border_color, COLORS fill_color){
     for(uint16_t dy = 0;dy<HEIGHT;dy++){
         for(uint16_t dx = 0;dx<WIDTH;dx++){
-            uint16_t distance = (uint16_t)isqrt((dx-x)*(dx-x)+(dy-y)*(dy-y));
+            uint16_t distance = (uint16_t)MathSqrt((dx-x)*(dx-x)+(dy-y)*(dy-y));
 
             if(distance == r){
                 DrawPixel(dx, dy, border_color);
@@ -71,7 +72,7 @@ void DrawCircle(uint16_t x, uint16_t y, uint16_t r, COLORS border_color, COLORS 
 void DrawQuarterCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t quarter, COLORS border_color, COLORS fill_color){
     for(uint16_t dy = 0;dy<HEIGHT;dy++){
         for(uint16_t dx = 0;dx<WIDTH;dx++){
-            uint16_t distance = (uint16_t)isqrt((dx-x)*(dx-x)+(dy-y)*(dy-y));
+            uint16_t distance = (uint16_t)MathSqrt((dx-x)*(dx-x)+(dy-y)*(dy-y));
 
             if(quarter == 4 && dx>=x && dy>=y){ //first quarter
                 if(distance == r){
