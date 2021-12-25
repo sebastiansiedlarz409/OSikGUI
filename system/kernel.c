@@ -42,6 +42,13 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawUI();
 
+    //tests stdin and keyboard
+    WindowContext* welcomeWindowContext = CreateWindowContext(
+        GetSystemContext()->mainWindow,
+        10, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK
+    );
+    DrawWindow(welcomeWindowContext);
+
     //streams tests
     /*GetSystemContext()->PushInStream(53);
     uint8_t value = GetSystemContext()->PopInSteam();
