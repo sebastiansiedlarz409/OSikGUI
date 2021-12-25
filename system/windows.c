@@ -9,15 +9,15 @@
 
 #define TITLE_BAR_WIDTH 25
 
-WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, COLORS theme,
+WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const char* title, COLORS theme,
                                     COLORS backgroud, COLORS font_color, void (*onInputStreamPushHandler)(WindowContext* context)){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
     context->id = ++GetSystemContext()->lastUsedWindowId;
-    context->x = sx;
-    context->y = sy;
-    context->w = width;
-    context->h = height;
+    context->sx = sx;
+    context->sy = sy;
+    context->ex = ex;
+    context->ey = ey;
     context->theme = theme;
     context->background = backgroud;
     context->font_color = font_color;
@@ -41,8 +41,8 @@ WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint1
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
     context->id = ++GetSystemContext()->lastUsedWindowId;
-    context->x = sx;
-    context->y = sy;
+    context->sx = sx;
+    context->sy = sy;
     context->background = backgroud;
     context->font_color = font_color;
     context->parent = parent;
@@ -62,10 +62,10 @@ WindowContext* CreateProgressBarWindowContext(WindowContext* parent, uint16_t sx
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
     context->id = ++GetSystemContext()->lastUsedWindowId;
-    context->x = sx;
-    context->y = sy;
-    context->w = ex-sx;
-    context->h = ey-sy;
+    context->sx = sx;
+    context->sy = sy;
+    context->ex = ex;
+    context->ey = ey;
     context->fill_color = fill_color;
     context->border_color = border_color;
     context->parent = parent;
@@ -84,10 +84,10 @@ WindowContext* CreateDescButtonWindowContext(WindowContext* parent, uint16_t sx,
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
     context->id = ++GetSystemContext()->lastUsedWindowId;
-    context->x = sx;
-    context->y = sy;
-    context->w = ex-sx;
-    context->h = ey-sy;
+    context->sx = sx;
+    context->sy = sy;
+    context->ex = ex;
+    context->ey = ey;
     context->fill_color = fill_color;
     context->border_color = border_color;
     context->font_color = font_color;
@@ -105,18 +105,8 @@ WindowContext* CreateDescButtonWindowContext(WindowContext* parent, uint16_t sx,
 
 void DrawTextWindow(WindowContext* context, const char* str){
     if(context->parent != NULL){
-        if(context->w > context->parent->w-context->x-10){
-            context->w = context->parent->w-context->x-10;
-        }
-        if(context->h > context->parent->h-context->y-10){
-            context->h = context->parent->h-context->y-10;
-        }
-        if(context->x<context->parent->x+10){
-            context->x+=10;
-        }
-        if(context->y<context->parent->y+10){
-            context->y=context->parent->y+10;
-        }
+        context->sx+=(context->parent->sx);
+        context->sy+=(context->parent->sy+TITLE_BAR_WIDTH);
     }
 
     //save data in context
@@ -124,53 +114,49 @@ void DrawTextWindow(WindowContext* context, const char* str){
     MemsetBuffer(context->content, 0, StringLength((char*)str));
     MemcpyBuffers(context->content, (char*)str, StringLength((char*)str));
 
-    DrawString(context->x, context->y+TITLE_BAR_WIDTH, str, context->font_size, context->font_color,
+    DrawString(context->sx, context->sy, str, context->font_size, context->font_color,
                 context->background);
 }
 
 void DrawProgressBarWindow(WindowContext* context, uint8_t percent){
     if(context->parent != NULL){
-        if(context->w > context->parent->w-context->x-10){
-            context->w = context->parent->w-context->x-10;
+        context->ex+=context->parent->sx;
+        context->ey+=(context->parent->sy+TITLE_BAR_WIDTH);
+        if(context->ex > context->parent->ex-10){
+            context->ex = context->parent->ex-10;
         }
-        if(context->h > context->parent->h-context->y-10){
-            context->h = context->parent->h-context->y-10;
+        if(context->ey > context->parent->ey-10){
+            context->ey = context->parent->ey-10;
         }
-        if(context->x<context->parent->x+10){
-            context->x+=10;
-        }
-        if(context->y<context->parent->y+10){
-            context->y=context->parent->y+10;
-        }
+        context->sx+=(context->parent->sx);
+        context->sy+=(context->parent->sy+TITLE_BAR_WIDTH);
     }
 
-    DrawProgressBar(context->x, context->y+TITLE_BAR_WIDTH*2, context->x+context->w, context->y+context->h+TITLE_BAR_WIDTH*2, percent, 
+    DrawProgressBar(context->sx, context->sy, context->ex, context->ey, percent, 
                     context->border_color, context->fill_color);
 }
 
 void DrawDescButtonWindow(WindowContext* context, const char* desc){
     if(context->parent != NULL){
-        if(context->w > context->parent->w-context->x-10){
-            context->w = context->parent->w-context->x-10;
+        context->ex+=context->parent->sx;
+        context->ey+=(context->parent->sy+TITLE_BAR_WIDTH);
+        if(context->ex > context->parent->ex-10){
+            context->ex = context->parent->ex-10;
         }
-        if(context->h > context->parent->h-context->y-10){
-            context->h = context->parent->h-context->y-10;
+        if(context->ey > context->parent->ey-10){
+            context->ey = context->parent->ey-10;
         }
-        if(context->x<context->parent->x+10){
-            context->x+=10;
-        }
-        if(context->y<context->parent->y+10){
-            context->y=context->parent->y+10;
-        }
+        context->sx+=(context->parent->sx);
+        context->sy+=(context->parent->sy+TITLE_BAR_WIDTH);
     }
 
     context->content = (char*)MallocHeap(StringLength((char*)desc)+1);
     MemcpyBuffers(context->content, (char*)desc, StringLength((char*)desc)+1);
 
-    DrawRectangle(context->x, context->y+TITLE_BAR_WIDTH*2, context->x+context->w, context->y+context->h+TITLE_BAR_WIDTH*2, context->border_color, context->fill_color);
+    DrawRectangle(context->sx, context->sy, context->ex, context->ey, context->border_color, context->fill_color);
 
     //desc
-    DrawString(context->x+10, context->y+30+TITLE_BAR_WIDTH*2, desc, context->font_size, context->font_color, context->parent->background);
+    DrawString(context->sx+10, context->sy+30, desc, context->font_size, context->font_color, context->parent->background);
 }
 
 void DrawTitleBar(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, const char* title, 
@@ -195,17 +181,17 @@ void DrawWindow(WindowContext* context){
     //cut when too height or too wide
     //10px margin
     if(context->parent != NULL){
-        if(context->w > context->parent->w-context->x-10){
-            context->w = context->parent->w-context->x-10;
+        if(context->ex > context->parent->ex-10){
+            context->ex = context->parent->ex-10;
         }
-        if(context->h > context->parent->h-context->y-10){
-            context->h = context->parent->h-context->y-10;
+        if(context->ey > context->parent->ey-10){
+            context->ey = context->parent->ey-10;
         }
-        if(context->x<context->parent->x+10){
-            context->x+=10;
+        if(context->sx<context->parent->sx+10){
+            context->sx+=10;
         }
-        if(context->y<context->parent->y+TITLE_BAR_WIDTH+10){
-            context->y=context->parent->y+TITLE_BAR_WIDTH+10;
+        if(context->sy<context->parent->sy+TITLE_BAR_WIDTH+10){
+            context->sy=context->parent->sy+TITLE_BAR_WIDTH+10;
         }
     }
 
@@ -213,17 +199,17 @@ void DrawWindow(WindowContext* context){
     GetSystemContext()->currentWindow = context;
 
     //whole window border
-    DrawRectangle(context->x+1, context->y+1, context->x+context->w-1, context->y+context->h, context->theme, context->background);
+    DrawRectangle(context->sx+1, context->sy+1, context->ex-1, context->ey, context->theme, context->background);
 
     //draw title bar
-    DrawTitleBar(context->parent, context->x+1, context->y+1, context->w-2, context->title, context->theme, context->font_color);
+    DrawTitleBar(context->parent, context->sx+1, context->sy+1, context->ex-context->sx-2, context->title, context->theme, context->font_color);
 }
 
 void CloseWindow(WindowContext* w){
     if(w->parent != NULL){
         w->parent->childrenCount--;
 
-        DrawRectangle(w->x, w->y, w->x+w->w, w->y+w->h, w->parent->background, w->parent->background);
+        DrawRectangle(w->sx, w->sy, w->ex, w->ey, w->parent->background, w->parent->background);
 
         for(uint32_t i = 0;i<w->childrenCount;i++){
             FreeHeap(w->children[i]);

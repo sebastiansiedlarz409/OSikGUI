@@ -57,7 +57,6 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
         30, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandler
     );
     DrawWindow(welcomeWindowContext);
-
     
     WindowContext* welcomeWindowContext2 = CreateWindowContext(
         GetSystemContext()->mainWindow,
@@ -74,9 +73,9 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawString(320, 720, buffer, 2, BLUE, GREY1);*/
 
     //windows api tests
-    WindowContext* welcomeWindowContext = CreateWindowContext(
+    /*WindowContext* welcomeWindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
-        100, 100, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK, NULL
+        400, 100, 800, 400, "Welcome", LIGHTBLUE, GREYE, BLACK, NULL
     );
     DrawWindow(welcomeWindowContext);
 
@@ -115,7 +114,7 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
                         sizeof(WindowContext),
                          (uint64_t)GetSystemContext()->mainWindow->id,
                          GetSystemContext()->mainWindow->childrenCount);
-    DrawString(320, 780, buffer, 2, BLUE, GREY1);
+    DrawString(320, 780, buffer, 2, BLUE, GREY1);*/
 
     //heap tests
     /*char buffer[100];

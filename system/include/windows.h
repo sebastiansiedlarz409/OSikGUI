@@ -6,10 +6,10 @@
 
 typedef struct _WindowContext{
     uint32_t id;
-    uint16_t x;
-    uint16_t y;
-    uint16_t w;
-    uint16_t h;
+    uint16_t sx;
+    uint16_t sy;
+    uint16_t ex;
+    uint16_t ey;
     uint8_t theme;
     uint8_t background;
     uint8_t font_color;
