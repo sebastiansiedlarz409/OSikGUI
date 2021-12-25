@@ -10,7 +10,7 @@
 #define TITLE_BAR_WIDTH 25
 
 WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, COLORS theme,
-                                    COLORS backgroud, COLORS font_color){
+                                    COLORS backgroud, COLORS font_color, void (*onInputStreamPushHandler)(WindowContext* context)){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
     context->id = ++GetSystemContext()->lastUsedWindowId;
@@ -25,6 +25,7 @@ WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t 
     context->childrenCount = 0;
     context->content = NULL;
     context->font_size = 0;
+    context->onInputStreamPushHandler = onInputStreamPushHandler;
 
     MemcpyBuffers(context->title, (char*)title, StringLength((char*)title)+1);
 
@@ -119,10 +120,11 @@ void DrawTextWindow(WindowContext* context, const char* str){
     }
 
     //save data in context
-    context->content = (char*)MallocHeap(StringLength((char*)str)+1);
-    MemcpyBuffers(context->content, (char*)str, StringLength((char*)str)+1);
+    context->content = (char*)MallocHeap(StringLength((char*)str));
+    MemsetBuffer(context->content, 0, StringLength((char*)str));
+    MemcpyBuffers(context->content, (char*)str, StringLength((char*)str));
 
-    DrawString(context->x, context->y+TITLE_BAR_WIDTH, str, context->font_size, context->theme,
+    DrawString(context->x, context->y+TITLE_BAR_WIDTH, str, context->font_size, context->font_color,
                 context->background);
 }
 

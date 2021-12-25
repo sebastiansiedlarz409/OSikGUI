@@ -21,10 +21,11 @@ typedef struct _WindowContext{
     uint8_t font_size;
     uint8_t border_color;
     uint8_t fill_color;
+    void (*onInputStreamPushHandler)(struct _WindowContext* context);
 } WindowContext;
 
 WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height, const char* title, COLORS theme,
-                                    COLORS backgroud, COLORS font_color);
+                                    COLORS backgroud, COLORS font_color, void (*onInputStreamPushHandler)(WindowContext* context));
 WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, COLORS backgroud, COLORS font_color, uint8_t font_size);
 WindowContext* CreateProgressBarWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey,
                                      COLORS border_color, COLORS fill_color);

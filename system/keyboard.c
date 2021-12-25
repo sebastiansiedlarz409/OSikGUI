@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+uint8_t kHit = 0;
+
 const char scanCodeCh[] = {
    0, 0, '1', '2', //empty, esc
    '3', '4', '5', '6',
@@ -207,6 +209,8 @@ void KeyboardHandler(void){
         
     }
     else{
-        GetSystemContext()->PushInStream(GetChar(scanCode));
+        //test stdin
+        if(GetSystemContext()->GetInStreamSize()<100)
+            GetSystemContext()->PushInStream(GetChar(scanCode));
     }
 }

@@ -1,4 +1,5 @@
 #include "include/streams.h"
+#include "include/common.h"
 
 #include <stdint.h>
 
@@ -8,6 +9,12 @@ Stream STDIN = {
 
 void PushInStream(uint8_t value){
     STDIN.buffer[STDIN.size++] = value;
+
+    if(GetSystemContext()->currentWindow != NULL){
+        if(GetSystemContext()->currentWindow->onInputStreamPushHandler != NULL){
+            GetSystemContext()->currentWindow->onInputStreamPushHandler(GetSystemContext()->currentWindow);
+        }
+    }
 }
 
 uint8_t PopInStream(void){

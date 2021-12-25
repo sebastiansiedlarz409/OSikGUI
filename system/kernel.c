@@ -10,6 +10,15 @@
 
 #include <stdint.h>
 
+void welcomeWindowInputHandler(WindowContext* context){
+    uint8_t value = GetSystemContext()->PopInSteam();
+    char buffer[100];
+    MemsetBuffer(buffer, 0, 100);
+    FormatString(buffer, "%c", value);
+    WindowContext* textContext = CreateTextWindowContext(context, 10, 10, GREY1, RED, 2);
+    DrawTextWindow(textContext, buffer);
+}
+
 void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     GetSystemContext()->kernelAddress=(uint64_t)kernelEntryPointAddress;
     GetSystemContext()->stackAddress=(uint64_t)stackAddress;
@@ -45,9 +54,16 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     //tests stdin and keyboard
     /*WindowContext* welcomeWindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
-        10, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK
+        30, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandler
     );
-    DrawWindow(welcomeWindowContext);*/
+    DrawWindow(welcomeWindowContext);
+
+    
+    WindowContext* welcomeWindowContext2 = CreateWindowContext(
+        GetSystemContext()->mainWindow,
+        600, 10, 400, 400, "Notepad", AMBER, GREYE, BLACK, welcomeWindowInputHandler
+    );
+    DrawWindow(welcomeWindowContext2);*/
 
     //streams tests
     /*GetSystemContext()->PushInStream(53);
@@ -58,9 +74,9 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawString(320, 720, buffer, 2, BLUE, GREY1);*/
 
     //windows api tests
-    /*WindowContext* welcomeWindowContext = CreateWindowContext(
+    WindowContext* welcomeWindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
-        10, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK
+        100, 100, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK, NULL
     );
     DrawWindow(welcomeWindowContext);
 
@@ -99,7 +115,7 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
                         sizeof(WindowContext),
                          (uint64_t)GetSystemContext()->mainWindow->id,
                          GetSystemContext()->mainWindow->childrenCount);
-    DrawString(320, 780, buffer, 2, BLUE, GREY1);*/
+    DrawString(320, 780, buffer, 2, BLUE, GREY1);
 
     //heap tests
     /*char buffer[100];
