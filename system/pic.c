@@ -1,5 +1,5 @@
-#include "pic.h"
-#include "hal.h"
+#include "include/pic.h"
+#include "include/hal.h"
 
 #include <stdint.h>
 

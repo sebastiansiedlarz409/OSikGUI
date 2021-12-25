@@ -1,5 +1,5 @@
-#include "interrupt.h"
-#include "pic.h"
+#include "include/interrupt.h"
+#include "include/pic.h"
 
 #include <stdint.h>
 

@@ -1,7 +1,7 @@
-#include "drawing.h"
-#include "common.h"
-#include "font.h"
-#include "math.h"
+#include "include/drawing.h"
+#include "include/common.h"
+#include "include/font.h"
+#include "include/math.h"
 
 #include <stdint.h>
 

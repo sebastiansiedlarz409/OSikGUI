@@ -1,11 +1,11 @@
-#include "keyboard.h"
-#include "common.h"
-#include "hal.h"
-#include "heap.h"
-#include "menu.h"
-#include "string.h"
-#include "windows.h"
-#include "drawing.h"
+#include "include/keyboard.h"
+#include "include/common.h"
+#include "include/hal.h"
+#include "include/heap.h"
+#include "include/menu.h"
+#include "include/string.h"
+#include "include/windows.h"
+#include "include/drawing.h"
 
 #include <stdint.h>
 

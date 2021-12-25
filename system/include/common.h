@@ -23,6 +23,7 @@ typedef struct _SystemContext{
     //streams api
     void(*PushInStream)(uint8_t);
     uint8_t(*PopInSteam)(void);
+    uint16_t(*GetInStreamSize)(void);
 } SystemContext;
 
 SystemContext* GetSystemContext(void);

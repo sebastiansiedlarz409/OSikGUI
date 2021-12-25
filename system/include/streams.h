@@ -9,3 +9,4 @@ typedef struct _Stream{
 
 void PushInStream(uint8_t value);
 uint8_t PopInStream(void);
+uint16_t GetInStreamSize(void);

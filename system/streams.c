@@ -1,4 +1,4 @@
-#include "streams.h"
+#include "include/streams.h"
 
 #include <stdint.h>
 
@@ -21,4 +21,8 @@ uint8_t PopInStream(void){
         STDIN.size--;
     }
     return ret;
+}
+
+uint16_t GetInStreamSize(void){
+    return STDIN.size;
 }

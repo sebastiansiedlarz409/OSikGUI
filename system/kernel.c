@@ -1,12 +1,12 @@
-#include "common.h"
-#include "drawing.h"
-#include "windows.h"
-#include "menu.h"
-#include "heap.h"
-#include "streams.h"
-#include "string.h"
-#include "keyboard.h"
-#include "interrupt.h"
+#include "include/common.h"
+#include "include/drawing.h"
+#include "include/windows.h"
+#include "include/menu.h"
+#include "include/heap.h"
+#include "include/streams.h"
+#include "include/string.h"
+#include "include/keyboard.h"
+#include "include/interrupt.h"
 
 #include <stdint.h>
 

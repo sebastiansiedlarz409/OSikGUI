@@ -1,9 +1,9 @@
-#include "bsod.h"
-#include "drawing.h"
-#include "windows.h"
-#include "common.h"
-#include "menu.h"
-#include "string.h"
+#include "include/bsod.h"
+#include "include/drawing.h"
+#include "include/windows.h"
+#include "include/common.h"
+#include "include/menu.h"
+#include "include/string.h"
 
 void BSOD(const char* str, void* trapFrame){
     GetSystemContext()->window = 0; //set to BSOD

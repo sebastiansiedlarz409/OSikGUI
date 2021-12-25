@@ -1,5 +1,5 @@
-#include "common.h"
-#include "streams.h"
+#include "include/common.h"
+#include "include/streams.h"
 
 #include <stdint.h>
 
@@ -16,6 +16,7 @@ static SystemContext context = {
     0, //last used window id
     PushInStream, //pointer to push stdin
     PopInStream, //pointer to pop stdin
+    GetInStreamSize, //pointer to func returning size of stdin
 };
 
 SystemContext* GetSystemContext(void){

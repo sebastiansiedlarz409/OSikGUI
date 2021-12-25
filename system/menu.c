@@ -1,9 +1,9 @@
-#include "menu.h"
-#include "common.h"
-#include "drawing.h"
-#include "string.h"
-#include "heap.h"
-#include "windows.h"
+#include "include/menu.h"
+#include "include/common.h"
+#include "include/drawing.h"
+#include "include/string.h"
+#include "include/heap.h"
+#include "include/windows.h"
 
 /*void DrawInfoWindow(WindowContext* parent){
     WindowContext* context = DrawWindow(CreateWindowContext(parent, 600, 40, 960, 900, "Information", BLUE, GREYE, BLACK));
