@@ -6,8 +6,8 @@
 #include <stdint.h>
 
 void DrawPixel(uint16_t x, uint16_t y, COLORS color){
-    //paging map 0xC000000 to 0xFD000000 where frame buffer is
-    uint8_t* frame = (uint8_t*)0xC00000;
+    //paging map 0x10000000 to 0xFD000000 where frame buffer is
+    uint8_t* frame = (uint8_t*)0x10000000;
     //y++;
 
     frame[(y*WIDTH)+x] = color;

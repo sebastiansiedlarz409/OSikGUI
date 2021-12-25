@@ -1,0 +1,45 @@
+//OSIK MAP MEMORY ADDRESSES TO VIRTUAL MEMORY ADDRESSES 1:1
+
+TOTAL MEMORY: 128*2MB+4MB
+
+------------------ 0x00007C00 (F) //bios boot entry point
+|                |
+|  bootsector    |
+|                |
+------------------ 0x00010000 (F) //bootloader is loaded here
+|                |
+|   bootloader   |
+|                |
+|                |
+|                |
+|                |
+------------------ 0x003FF000 (V) //stack
+|                |
+------------------ 0x00400000 (V) //kernel base address
+|                |
+|    kernel      |
+|                |
+|                |
+------------------ 0x00600000 (V) //heap
+|                |
+|     heap       |
+|                |
+|                |
+------------------ 0x00800000 (V) //system api
+|                |
+|   system api   |
+|                |
+|                |
+------------------ 0x00A00000 (V) //apps
+|                |
+|     apps       |
+|                |
+~~~~~~~~~~~~~~~~~~
+|                |
+|                |
+------------------ 0x10000000 (V) //video ram
+|                |
+|   video ram    |
+|                |
+|                |
+------------------ 0x10400000 (V) //end of ram

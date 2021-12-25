@@ -17,7 +17,7 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
     DrawString(520, 145, "OSik", 30, RED, BLACK);
     DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 0, GREEN, GREY3);
-    InitHeap(0x500000, 0x100000);
+    InitHeap(0x600000, 0x200000);
     WaitSeconds(1);
     ClearPartScreen(0, 520, 1600, 1200);
 
@@ -43,11 +43,11 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawUI();
 
     //tests stdin and keyboard
-    WindowContext* welcomeWindowContext = CreateWindowContext(
+    /*WindowContext* welcomeWindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
         10, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK
     );
-    DrawWindow(welcomeWindowContext);
+    DrawWindow(welcomeWindowContext);*/
 
     //streams tests
     /*GetSystemContext()->PushInStream(53);
