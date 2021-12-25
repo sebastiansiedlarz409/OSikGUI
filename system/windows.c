@@ -13,7 +13,7 @@ WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t 
                                     COLORS backgroud, COLORS font_color, void (*onInputStreamPushHandler)(WindowContext* context)){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = ++GetSystemContext()->lastUsedWindowId;
+    context->id = parent->childrenCount+1;
     context->sx = sx;
     context->sy = sy;
     context->ex = ex;
@@ -41,7 +41,7 @@ WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t 
 WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, COLORS backgroud, COLORS font_color, uint8_t font_size){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = ++GetSystemContext()->lastUsedWindowId;
+    context->id = 0;
     context->sx = sx;
     context->sy = sy;
     context->drawn = 0;
@@ -63,7 +63,7 @@ WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint1
 WindowContext* CreateProgressBarWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, COLORS border_color, COLORS fill_color){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = ++GetSystemContext()->lastUsedWindowId;
+    context->id = 0;
     context->sx = sx;
     context->sy = sy;
     context->ex = ex;
@@ -86,7 +86,7 @@ WindowContext* CreateDescButtonWindowContext(WindowContext* parent, uint16_t sx,
                         COLORS border_color, COLORS fill_color, COLORS font_color, uint8_t font_size){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = ++GetSystemContext()->lastUsedWindowId;
+    context->id = 0;
     context->sx = sx;
     context->sy = sy;
     context->ex = ex;
@@ -211,6 +211,7 @@ void DrawWindow(WindowContext* context){
 
     //set last created window
     GetSystemContext()->currentWindow = context;
+    GetSystemContext()->currentWidowId = context->id-1;
 
     //whole window border
     DrawRectangle(context->sx+1, context->sy+1, context->ex-1, context->ey, context->theme, context->background);

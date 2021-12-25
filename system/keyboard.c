@@ -116,7 +116,7 @@ void KeyboardHandler(void){
         //SwichWindow();
     }
     else if(scanCode == 0x8F){ //tab release
-        
+        SwichWindow();
     }
     else if(scanCode == 0x3A){ //caps pushed
         //SwichWindow();

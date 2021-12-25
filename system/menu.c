@@ -80,13 +80,15 @@ void DrawUI(void){
     }
 }
 
-/*void SwichWindow(void){
-    FreeHeap(GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1]);
+void SwichWindow(void){
+    if(GetSystemContext()->mainWindow->childrenCount==0)
+        return;
 
-    GetSystemContext()->window++;
-    if(GetSystemContext()->window>GetSystemContext()->windowsCount){
-        GetSystemContext()->window=1;
+    GetSystemContext()->currentWidowId++;
+
+    if(GetSystemContext()->currentWidowId>=GetSystemContext()->mainWindow->childrenCount){
+        GetSystemContext()->currentWidowId=0;
     }
 
-    DrawSubWindow(GetSystemContext()->mainWindow);
-}*/
+    GetSystemContext()->currentWindow=GetSystemContext()->mainWindow->children[GetSystemContext()->currentWidowId];
+}

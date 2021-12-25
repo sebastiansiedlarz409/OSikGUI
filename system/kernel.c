@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-void welcomeWindowInputHandler(WindowContext* context){
+void notepadWindowInputHandle(WindowContext* context){
     uint8_t value = GetSystemContext()->PopInSteam();
 
     char buffer[100];
@@ -23,12 +23,7 @@ void welcomeWindowInputHandler(WindowContext* context){
         MemsetBuffer(buffer, 0, 100);
         FormatString(buffer, "%c", value);
     }
-    else{        
-        MemsetBuffer(buffer, 0, 100);
-        FormatString(buffer, "%u %u %s", textContext->sx, textContext->sy, textContext->content);
-        DrawString(800,800,buffer, 1, RED, GREY1);
-        MemsetBuffer(buffer,0,100);
-        
+    else{    
         MemsetBuffer(buffer, 0, 100);
         FormatString(buffer, "%s%%c",textContext->content, value);
     }
@@ -69,17 +64,23 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawUI();
 
     //tests stdin and keyboard
-    WindowContext* welcomeWindowContext = CreateWindowContext(
+    WindowContext* notepad1WindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
-        30, 10, 430, 410, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandler
+        30, 10, 430, 410, "Notepad1", LIGHTBLUE, GREYE, BLACK, notepadWindowInputHandle
     );
-    DrawWindow(welcomeWindowContext);
+    DrawWindow(notepad1WindowContext);
     
-    WindowContext* welcomeWindowContext2 = CreateWindowContext(
+    WindowContext* notepad2WindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
-        600, 10, 1000, 410, "Notepad", AMBER, GREYE, BLACK, welcomeWindowInputHandler
+        600, 10, 1000, 410, "Notepad2", AMBER, GREYE, BLACK, notepadWindowInputHandle
     );
-    DrawWindow(welcomeWindowContext2);
+    DrawWindow(notepad2WindowContext);
+
+    WindowContext* notepad3WindowContext = CreateWindowContext(
+        GetSystemContext()->mainWindow,
+        1100, 10, 1500, 410, "Notepad3", LIGHTMAGENTA, GREYE, BLACK, notepadWindowInputHandle
+    );
+    DrawWindow(notepad3WindowContext);
 
     //streams tests
     /*GetSystemContext()->PushInStream(53);
