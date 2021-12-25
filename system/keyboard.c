@@ -209,8 +209,14 @@ void KeyboardHandler(void){
         
     }
     else{
-        //test stdin
-        if(GetSystemContext()->GetInStreamSize()<100)
-            GetSystemContext()->PushInStream(GetChar(scanCode));
+        if(kHit==0){
+            kHit++;    
+            //test stdin
+            if(GetSystemContext()->GetInStreamSize()<100)
+                GetSystemContext()->PushInStream(GetChar(scanCode));
+        }
+        else{
+            kHit=0;
+        }
     }
 }

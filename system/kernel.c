@@ -12,10 +12,27 @@
 
 void welcomeWindowInputHandler(WindowContext* context){
     uint8_t value = GetSystemContext()->PopInSteam();
+
     char buffer[100];
-    MemsetBuffer(buffer, 0, 100);
-    FormatString(buffer, "%c", value);
-    WindowContext* textContext = CreateTextWindowContext(context, 10, 10, GREY1, RED, 2);
+
+    WindowContext* textContext = context->children[0];
+
+    if(textContext == NULL){
+        textContext = CreateTextWindowContext(context, 10, 10, GREY1, RED, 2);
+                
+        MemsetBuffer(buffer, 0, 100);
+        FormatString(buffer, "%c", value);
+    }
+    else{        
+        MemsetBuffer(buffer, 0, 100);
+        FormatString(buffer, "%u %u %s", textContext->sx, textContext->sy, textContext->content);
+        DrawString(800,800,buffer, 1, RED, GREY1);
+        MemsetBuffer(buffer,0,100);
+        
+        MemsetBuffer(buffer, 0, 100);
+        FormatString(buffer, "%s%%c",textContext->content, value);
+    }
+
     DrawTextWindow(textContext, buffer);
 }
 
@@ -52,17 +69,17 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
     DrawUI();
 
     //tests stdin and keyboard
-    /*WindowContext* welcomeWindowContext = CreateWindowContext(
+    WindowContext* welcomeWindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
-        30, 10, 400, 400, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandler
+        30, 10, 430, 410, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandler
     );
     DrawWindow(welcomeWindowContext);
     
     WindowContext* welcomeWindowContext2 = CreateWindowContext(
         GetSystemContext()->mainWindow,
-        600, 10, 400, 400, "Notepad", AMBER, GREYE, BLACK, welcomeWindowInputHandler
+        600, 10, 1000, 410, "Notepad", AMBER, GREYE, BLACK, welcomeWindowInputHandler
     );
-    DrawWindow(welcomeWindowContext2);*/
+    DrawWindow(welcomeWindowContext2);
 
     //streams tests
     /*GetSystemContext()->PushInStream(53);

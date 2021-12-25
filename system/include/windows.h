@@ -13,6 +13,7 @@ typedef struct _WindowContext{
     uint8_t theme;
     uint8_t background;
     uint8_t font_color;
+    uint8_t drawn;
     char title[30];
     struct _WindowContext* parent;
     struct _WindowContext* children[10];
