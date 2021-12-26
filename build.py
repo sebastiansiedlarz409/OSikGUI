@@ -66,9 +66,10 @@ padding = 0
 stage2_size = os.stat(cmds[1][1]).st_size
 kernel_size = os.stat(cmds[2][1]).st_size
 sectors = (stage2_size + kernel_size) / 512
+p = 0
 
 if (sectors - int(sectors)) != 0:
-    padding=1
+    padding= 512 - ((stage2_size + kernel_size) % 512)
 
 print(f"Images sizes: {stage2_size} {kernel_size} {padding} {sectors}")
 
@@ -89,10 +90,15 @@ for file in cmds:
         with open(file[1],"rb") as f:
             image.append(f.read())
 
+print("Add padding...")
 while padding:
-    print("Add padding...")
+    p+=1
     image.append(b"\0")
     padding-=1
+
+sectors = (stage2_size + kernel_size + p) / 512
+if p > 0:
+    print(f"Images sizes: {stage2_size} {kernel_size} {padding} {sectors}")
 
 #make image
 with open("floppy.bin", "wb") as f:

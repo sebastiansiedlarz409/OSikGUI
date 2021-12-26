@@ -9,9 +9,9 @@ TOTAL MEMORY: 128*2MB+4MB
 ------------------ 0x00010000 (F) //bootloader is loaded here
 |                |
 |   bootloader   |
-|                |
-|                |
-|                |
+|       +        |
+|     kernel     |
+|     image      |
 |                |
 ------------------ 0x003FF000 (V) //stack
 |                |

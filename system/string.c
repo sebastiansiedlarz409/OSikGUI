@@ -150,7 +150,8 @@ void FormatString(char* dst, char* str, ...){
 
 void MemcpyBuffers(char* dst, char* src, uint64_t size){
     for(uint64_t i = 0;i<size;i++){
-        dst[i] = src[i];
+        if(dst[i] != src[i])
+            dst[i] = src[i];
     }
 }
 

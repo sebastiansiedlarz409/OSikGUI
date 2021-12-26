@@ -9,13 +9,13 @@
 void RefreshScreen(void){
     //paging map 0x10000000 to 0xFD000000 where frame buffer is
     char* frame = (char*)0x10000000;
-    char* buffer = (char*)0x10400000;
+    char* buffer = (char*)0x10200000;
 
-    MemcpyBuffers(frame, buffer, WIDTH*HEIGHT);
+    MemcpyBuffers(frame, buffer, WIDTH*961);
 }
 
 void DrawPixel(uint16_t x, uint16_t y, COLORS color){
-    uint8_t* frame = (uint8_t*)0x10400000;
+    uint8_t* frame = (uint8_t*)0x10200000;
 
     frame[(y*WIDTH)+x] = color;
 }
