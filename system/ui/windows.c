@@ -1,9 +1,9 @@
-#include "include/windows.h"
-#include "include/drawing.h"
-#include "include/common.h"
-#include "include/string.h"
-#include "include/heap.h"
-#include "include/menu.h"
+#include "../include/windows.h"
+#include "../include/drawing.h"
+#include "../include/common.h"
+#include "../include/string.h"
+#include "../include/heap.h"
+#include "../include/menu.h"
 
 #include <stdint.h>
 

@@ -1,5 +1,5 @@
-#include "include/heap.h"
-#include "include/common.h"
+#include "../include/heap.h"
+#include "../include/common.h"
 
 #include <stdint.h>
 

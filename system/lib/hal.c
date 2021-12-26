@@ -1,4 +1,4 @@
-#include "include/hal.h"
+#include "../include/hal.h"
 
 #include <stdint.h>
 

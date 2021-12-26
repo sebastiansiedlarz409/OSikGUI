@@ -1,10 +1,10 @@
-#include "include/common.h"
-#include "include/menu.h"
-#include "include/bsod.h"
-#include "include/drawing.h"
-#include "include/keyboard.h"
-#include "include/pic.h"
-#include "include/interrupt_handlers.h"
+#include "../include/common.h"
+#include "../include/menu.h"
+#include "../include/bsod.h"
+#include "../include/drawing.h"
+#include "../include/keyboard.h"
+#include "../include/pic.h"
+#include "../include/interrupt_handlers.h"
 
 #include <stdint.h>
 

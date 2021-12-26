@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "interrupt.h": "c",
+        "hal.h": "c",
+        "heap.h": "c",
+        "math.h": "c",
+        "menu.h": "c",
+        "streams.h": "c",
+        "string.h": "c",
+        "windows.h": "c",
+        "drawing.h": "c"
+    }
+}

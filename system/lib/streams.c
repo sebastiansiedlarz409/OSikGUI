@@ -1,5 +1,5 @@
-#include "include/streams.h"
-#include "include/common.h"
+#include "../include/streams.h"
+#include "../include/common.h"
 
 #include <stdint.h>
 

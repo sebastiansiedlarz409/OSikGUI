@@ -1,8 +1,8 @@
-#include "include/drawing.h"
-#include "include/common.h"
-#include "include/font.h"
-#include "include/math.h"
-#include "include/string.h"
+#include "../include/drawing.h"
+#include "../include/common.h"
+#include "../include/font.h"
+#include "../include/math.h"
+#include "../include/string.h"
 
 #include <stdint.h>
 
