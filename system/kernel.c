@@ -25,7 +25,7 @@ void notepadWindowInputHandle(WindowContext* context){
     }
     else{    
         MemsetBuffer(buffer, 0, 100);
-        FormatString(buffer, "%s%%c",textContext->content, value);
+        FormatString(buffer, "%s%%c",textContext->data.content, value);
     }
 
     DrawTextWindow(textContext, buffer);

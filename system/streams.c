@@ -11,8 +11,8 @@ void PushInStream(uint8_t value){
     STDIN.buffer[STDIN.size++] = value;
 
     if(GetSystemContext()->currentWindow != NULL){
-        if(GetSystemContext()->currentWindow->onInputStreamPushHandler != NULL){
-            GetSystemContext()->currentWindow->onInputStreamPushHandler(GetSystemContext()->currentWindow);
+        if(GetSystemContext()->currentWindow->events.onInputStreamPushHandler != NULL){
+            GetSystemContext()->currentWindow->events.onInputStreamPushHandler(GetSystemContext()->currentWindow);
         }
     }
 }
