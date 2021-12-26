@@ -129,6 +129,8 @@ void DrawTextWindow(WindowContext* context, const char* str){
 
     DrawString(context->position.sx, context->position.sy, str, context->font.font_size, context->font.font_color,
                 context->theme.background);
+
+    RefreshScreen();
 }
 
 void DrawProgressBarWindow(WindowContext* context, uint8_t percent){
@@ -149,6 +151,8 @@ void DrawProgressBarWindow(WindowContext* context, uint8_t percent){
 
     DrawProgressBar(context->position.sx, context->position.sy, context->position.ex, context->position.ey, percent, 
                     context->theme.border_color, context->theme.fill_color);
+    
+    RefreshScreen();
 }
 
 void DrawDescButtonWindow(WindowContext* context, const char* desc){
@@ -176,6 +180,8 @@ void DrawDescButtonWindow(WindowContext* context, const char* desc){
     //desc
     DrawString(context->position.sx+10, context->position.sy+30, desc, context->font.font_size,
                 context->font.font_color, context->parent->theme.background);
+    
+    RefreshScreen();
 }
 
 void DrawTitleBar(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, const char* title, 
@@ -226,6 +232,8 @@ void DrawWindow(WindowContext* context){
     DrawTitleBar(context->parent, context->position.sx+1, context->position.sy+1,
                 context->position.ex-context->position.sx-2, context->data.title, context->theme.theme,
                 context->font.font_color);
+    
+    RefreshScreen();
 }
 
 void CloseWindow(WindowContext* w){
@@ -244,5 +252,6 @@ void CloseWindow(WindowContext* w){
         }
 
         FreeHeap(w);
+        RefreshScreen();
     }
 }

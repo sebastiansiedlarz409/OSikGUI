@@ -2,13 +2,20 @@
 #include "include/common.h"
 #include "include/font.h"
 #include "include/math.h"
+#include "include/string.h"
 
 #include <stdint.h>
 
-void DrawPixel(uint16_t x, uint16_t y, COLORS color){
+void RefreshScreen(void){
     //paging map 0x10000000 to 0xFD000000 where frame buffer is
-    uint8_t* frame = (uint8_t*)0x10000000;
-    //y++;
+    char* frame = (char*)0x10000000;
+    char* buffer = (char*)0x10400000;
+
+    MemcpyBuffers(frame, buffer, WIDTH*HEIGHT);
+}
+
+void DrawPixel(uint16_t x, uint16_t y, COLORS color){
+    uint8_t* frame = (uint8_t*)0x10400000;
 
     frame[(y*WIDTH)+x] = color;
 }
