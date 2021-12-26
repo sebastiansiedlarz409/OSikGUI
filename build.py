@@ -2,107 +2,133 @@ import os
 import subprocess
 from glob import glob
 
-image = []
+def saveImage(name, data):
+    #make image
+    with open(name, "wb") as f:
+        for b in data:
+            f.write(b)
+    print(f"Saved image: {name}")
 
-cmds = []
-obj_cmds = []
+def getSubdirs(name, subdirs):
+    dirs = [d for d in os.listdir(name) if os.path.isdir(os.path.join(name, d))]
+    for el in dirs:
+        subdirs.append(f"{name}\{el}")
+    
+    for el in dirs:
+        getSubdirs(f"{name}\{el}", subdirs)
 
-obj_files = []
+def buildSystem():
+    print("BUILD OSikGUI")
+    print()
 
-gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"
-ld_flags = "--image-base 0x400000 -entry=KERN_Start -s"
-asm_flags = "-masm=intel -c"
+    #floppy image
+    image = []
 
-dirs = [d for d in os.listdir("system") if os.path.isdir(os.path.join("system", d))]
+    gcc_cmds = []
+    obj_files = []
 
-#compile *.c
-for d in dirs:
-    for fname in glob(f"system\{d}\*.c"):
-        binary = f"{fname.split('.')[0]}.o"
-        obj_files.append(binary)
-        obj_cmds.append([f"gcc {fname} {gcc_flags} -o {binary}"])
+    nasm_cmds = []
+    boot_files = []
 
-#compile *.s
-for d in dirs:
-    for fname in glob(f"system\{d}\*.s"):
-        binary = f"{fname.split('.')[0]}.obj"
-        obj_files.append(binary)
-        obj_cmds.append([f"gcc {fname} {asm_flags} -o {binary}"])
+    files = ["boot\\bootsector","boot\\bootloader","system\kernel"]
 
-# compile *.c in main kernel directory
-for fname in glob("system\*.c"):
-    binary = f"{fname.split('.')[0]}.o"
-    obj_files.append(binary)
-    obj_cmds.append([f"gcc {fname} {gcc_flags} -o {binary}"])
+    #flags
+    gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"
+    ld_flags = "--image-base 0x400000 -entry=KERN_Start -s"
+    asm_flags = "-masm=intel -c"
 
-# compile *.s in main kernel directory
-for fname in glob("system\*.s"):
-    binary = f"{fname.split('.')[0]}.obj"
-    obj_files.append(binary)
-    obj_cmds.append([f"gcc {fname} {asm_flags} -o {binary}"])
+    #get all subdirectories
+    dirs = ["boot","system"]
+    getSubdirs("system", dirs)
 
-for cmd in obj_cmds:
-    result = subprocess.check_output(cmd[0], shell=True)
-    print(f"Execute: {cmd[0]}")
+    #compile bootloader
+    #grab *.asm
+    for d in dirs:
+        for fname in glob(f"{d}\*.asm"):
+            binary = fname.split('.')[0]
+            boot_files.append(binary)
+            nasm_cmds.append([f"nasm {fname}"])
+
+    #compile
+    for cmd in nasm_cmds:
+        result = subprocess.check_output(cmd[0], shell=True)
+        print(f"Execute: {cmd[0]}")
+        if result:
+            print(result)
+        print()
+    
+    #compile system
+    #grab *.c
+    for d in dirs:
+        for fname in glob(f"{d}\*.c"):
+            binary = f"{fname.split('.')[0]}.o"
+            obj_files.append(binary)
+            gcc_cmds.append([f"gcc {fname} {gcc_flags} -o {binary}"])
+
+    #grab *.s
+    for d in dirs:
+        for fname in glob(f"{d}\*.s"):
+            binary = f"{fname.split('.')[0]}.obj"
+            obj_files.append(binary)
+            gcc_cmds.append([f"gcc {fname} {asm_flags} -o {binary}"])
+
+    #compile to object files
+    for cmd in gcc_cmds:
+        result = subprocess.check_output(cmd[0], shell=True)
+        print(f"Execute: {cmd[0]}")
+        if result:
+            print(result)
+        print()
+
+    #link
+    link = f"ld {(' '.join(obj_files))} {ld_flags} -o {files[2]}"
+    result = subprocess.check_output(link, shell=True)
+    print(f"Execute: {link}")
     if result:
         print(result)
     print()
 
-#link everything
-cmds = [
-    ["nasm boot\\bootsector.asm", "boot\\bootsector"],
-    ["nasm boot\\bootloader.asm", "boot\\bootloader"],
-    [f"ld {(' '.join(obj_files))} {ld_flags} -o system\kernel.exe", "system\kernel.exe"],
-]
+    padding = 0
+    bootloader_size = os.stat(files[1]).st_size
+    kernel_size = os.stat(files[2]).st_size
+    sectors = (bootloader_size + kernel_size) / 512
 
-for cmd in cmds:
-    result = subprocess.check_output(cmd[0], shell=True)
-    print(f"Execute: {cmd[0]}")
-    if result:
-        print(result)
-    print()
+    if (sectors - int(sectors)) != 0:
+        padding = 512 - ((bootloader_size + kernel_size) % 512)
 
-padding = 0
-stage2_size = os.stat(cmds[1][1]).st_size
-kernel_size = os.stat(cmds[2][1]).st_size
-sectors = (stage2_size + kernel_size) / 512
-p = 0
+    print(f"Bootloader size: {bootloader_size} B\nKernel size: {kernel_size} B\nPadding: {padding} B\nSectors: {sectors}")
 
-if (sectors - int(sectors)) != 0:
-    padding= 512 - ((stage2_size + kernel_size) % 512)
+    if sectors > 255:
+        exit("Image is to large! Exit")
 
-print(f"Images sizes: {stage2_size} {kernel_size} {padding} {sectors}")
+    with open(files[0], "rb+") as stage1:
+        data = stage1.read()
+        index = data.index(b"\xb0\x97\x90\x90")
+        data = bytearray(data)
+        data[index+1] = int(sectors)
+        stage1.seek(0)
+        stage1.write(data)
+        print("Bootsector fixed")
 
-if sectors > 255:
-    raise("Image is to large...")
+    for file in files:
+        if file is not None:
+            with open(file,"rb") as f:
+                image.append(f.read())
+    print("Image generated")
 
-with open(cmds[0][1], "rb+") as stage1:
-    data = stage1.read()
-    index = data.index(b"\xb0\x97\x90\x90")
-    data = bytearray(data)
-    data[index+1] = int(sectors)
-    stage1.seek(0)
-    stage1.write(data)
-    print("Stage1 fixed")
+    print(f"Add padding: {padding} B")
+    
+    sectors = (bootloader_size + kernel_size + padding) / 512
 
-for file in cmds:
-    if file[1] is not None:
-        with open(file[1],"rb") as f:
-            image.append(f.read())
+    print(f"Sectors after adding padding: {sectors}")
 
-print("Add padding...")
-while padding:
-    p+=1
-    image.append(b"\0")
-    padding-=1
+    while padding:
+        image.append(b"\0")
+        padding-=1
 
-sectors = (stage2_size + kernel_size + p) / 512
-if p > 0:
-    print(f"Images sizes: {stage2_size} {kernel_size} {padding} {sectors}")
+    saveImage("floppy.bin", image)
 
-#make image
-with open("floppy.bin", "wb") as f:
-    for b in image:
-        f.write(b)
+buildSystem()
 
+print("Booting system...")
 subprocess.call("runqemu.bat")
