@@ -1,4 +1,5 @@
 import os
+import struct
 import subprocess
 from glob import glob
 
@@ -17,6 +18,48 @@ def getSubdirs(name, subdirs):
     for el in dirs:
         getSubdirs(f"{name}\{el}", subdirs)
 
+def buildApps():
+    apps = ["welcome"]
+
+    for app in apps:
+        buildApp(app)
+
+def buildApp(name):
+    print(f"BUILD {name.upper()}")
+    print()
+
+    gcc_cmds = []
+    obj_files = []
+
+    gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"
+    ld_flags = "--image-base 0xA00000 -entry=APP_Start -s"
+
+    dirs = [f"apps\\{name}"]
+    getSubdirs(f"apps\\{name}", dirs)
+    
+    #compile system
+    #grab *.c
+    for d in dirs:
+        for fname in glob(f"{d}\*.c"):
+            binary = f"{fname.split('.')[0]}.o"
+            obj_files.append(binary)
+            gcc_cmds.append([f"gcc {fname} {gcc_flags} -o {binary}"])
+
+    #compile to object files
+    for cmd in gcc_cmds:
+        result = subprocess.check_output(cmd[0], shell=True)
+        print(f"Execute: {cmd[0]}")
+        if result:
+            print(result)
+        print()
+
+    link = f"ld {(' '.join(obj_files))} {ld_flags} -o apps\{name}\{name}"
+    result = subprocess.check_output(link, shell=True)
+    print(f"Execute: {link}")
+    if result:
+        print(result)
+    print()
+
 def buildSystem():
     print("BUILD OSikGUI")
     print()
@@ -30,7 +73,7 @@ def buildSystem():
     nasm_cmds = []
     boot_files = []
 
-    files = ["boot\\bootsector","boot\\bootloader","system\kernel"]
+    files = ["boot\\bootsector","boot\\bootloader","system\kernel","apps\welcome\welcome"]
 
     #flags
     gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"
@@ -90,35 +133,41 @@ def buildSystem():
 
     padding = 0
     bootloader_size = os.stat(files[1]).st_size
-    kernel_size = os.stat(files[2]).st_size
-    sectors = (bootloader_size + kernel_size) / 512
+    system_size = 0
+    for i in range(2, len(files)):
+        system_size += os.stat(files[i]).st_size
+    sectors = (bootloader_size + system_size) / 512
 
     if (sectors - int(sectors)) != 0:
-        padding = 512 - ((bootloader_size + kernel_size) % 512)
+        padding = 512 - ((bootloader_size + system_size) % 512)
 
-    print(f"Bootloader size: {bootloader_size} B\nKernel size: {kernel_size} B\nPadding: {padding} B\nSectors: {sectors}")
+    print(f"Bootloader size: {bootloader_size} B\nSystem size: {system_size} B\nPadding: {padding} B\nSectors: {sectors}")
 
     if sectors > 255:
         exit("Image is to large! Exit")
 
-    with open(files[0], "rb+") as stage1:
-        data = stage1.read()
+    with open(files[0], "rb+") as bsec:
+        data = bsec.read()
         index = data.index(b"\xb0\x97\x90\x90")
         data = bytearray(data)
         data[index+1] = int(sectors)
-        stage1.seek(0)
-        stage1.write(data)
+        bsec.seek(0)
+        bsec.write(data)
         print("Bootsector fixed")
 
     for file in files:
         if file is not None:
             with open(file,"rb") as f:
                 image.append(f.read())
+
+    apps_ptr = len(image[0])+len(image[1])
+
+    print(f"Apps table offset: {hex(apps_ptr)}")
     print("Image generated")
 
     print(f"Add padding: {padding} B")
     
-    sectors = (bootloader_size + kernel_size + padding) / 512
+    sectors = (bootloader_size + system_size + padding) / 512
 
     print(f"Sectors after adding padding: {sectors}")
 
@@ -126,8 +175,11 @@ def buildSystem():
         image.append(b"\0")
         padding-=1
 
+    image[1] = image[1][:-8]
+    image.insert(2, struct.pack("<q", len(image[1]) + len(image[2]) + 8 ))
     saveImage("floppy.bin", image)
 
+buildApps()
 buildSystem()
 
 print("Booting system...")

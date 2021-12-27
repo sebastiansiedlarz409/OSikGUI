@@ -108,8 +108,8 @@ loader:
 
     ;extract offset of PE header 4byte value e_lfanew
     ;we skip MZ part
-    mov esi, [0x10000 + kernel64 + 0x3C]                    ;in rsi we have PE Header in file
-    add esi, 0x10000 + kernel64                             ;we add to this offset memory offset
+    mov esi, [0x10000 + system + 0x3C]                    ;in rsi we have PE Header in file
+    add esi, 0x10000 + system                             ;we add to this offset memory offset
 
     ;section count 1 byte value NumberOfSections
     xor rcx, rcx
@@ -146,7 +146,7 @@ loader:
     rep stosb
 
     ;copy sections
-    lea rsi, [0x10000 + kernel64 + r10d]                    ;what should be copied, remember to add offset in image
+    lea rsi, [0x10000 + system + r10d]                      ;what should be copied, remember to add offset in image
     mov rdi, r9                                             ;where it should be copied in memory
     mov rcx, r13                                            ;how many bytes copy
     rep movsb                                               ;execute copy
@@ -166,6 +166,7 @@ loader:
     ;page 10 -> https://www.agner.org/optimize/calling_conventions.pdf
     lea rcx, [ebx + r11d]                                   ;first argument
     mov rdx, rsp                                            ;second argument
+    lea r8, [0x10000 + system - 8]                          ;third argument
 
     lea rax, [ebx + r11d]                                   ;jump to entry point, _start in kernel
     call rax
@@ -338,4 +339,4 @@ dq 1 | (1 << 1) | (1 << 7) | (0xFD000000)
 dq 1 | (1 << 1) | (1 << 7) | (0xFD200000)
 
 times (512 - ($ - $$) % 512) db 0
-kernel64:
+system:

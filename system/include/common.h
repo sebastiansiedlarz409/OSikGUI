@@ -11,6 +11,7 @@ typedef struct _SystemContext{
     //general information
     uint64_t kernelAddress;
     uint64_t stackAddress;
+    uint64_t appsTableAddress;
     uint64_t heapSize;
     uint64_t heapAddress;
     uint64_t heapNextFree;
@@ -27,6 +28,5 @@ typedef struct _SystemContext{
 } SystemContext;
 
 SystemContext* GetSystemContext(void);
-int32_t isqrt(int32_t num);
 
 void WaitSeconds(uint64_t seconds);

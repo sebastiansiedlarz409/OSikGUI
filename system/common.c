@@ -6,6 +6,7 @@
 static SystemContext context = {
     0, //kernel address
     0, //stack address
+    0, //apps address
     0, //heap start address
     0, //heap size
     0, //heap next free address

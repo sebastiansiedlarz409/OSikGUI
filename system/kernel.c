@@ -1,8 +1,10 @@
+#include "include/api.h"
 #include "include/common.h"
 #include "include/drawing.h"
 #include "include/windows.h"
 #include "include/menu.h"
 #include "include/heap.h"
+#include "include/loader.h"
 #include "include/streams.h"
 #include "include/string.h"
 #include "include/keyboard.h"
@@ -31,9 +33,10 @@ void notepadWindowInputHandle(WindowContext* context){
     DrawTextWindow(textContext, buffer);
 }
 
-void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
+void KERN_Load(void* kernelEntryPointAddress, void* stackAddress, void* appsTableAddress){
     GetSystemContext()->kernelAddress=(uint64_t)kernelEntryPointAddress;
     GetSystemContext()->stackAddress=(uint64_t)stackAddress;
+    GetSystemContext()->appsTableAddress=(uint64_t)appsTableAddress;
 
     DrawString(520, 145, "OSik", 30, RED, BLACK);
     DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
@@ -58,17 +61,23 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress){
 
     DrawString(620, 520, "Start Usermode!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 100, GREEN, GREY3);
+    InitAPI();
     RefreshScreen();
     WaitSeconds(1);
 }
 
-void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
-    KERN_Load(kernelEntryPointAddress, stackAddress);
+void KERN_Start(void* kernelEntryPointAddress, void* stackAddress, void* appsTableAddress){
+    KERN_Load(kernelEntryPointAddress, stackAddress, appsTableAddress);
 
     DrawUI();
 
+    //testloader
+    uint64_t firstappPointer = 0x10000 + *((uint64_t*)GetSystemContext()->appsTableAddress);
+    void* entry = LoadApp((void*)firstappPointer);
+    RunApp(entry);
+
     //tests stdin and keyboard
-    WindowContext* notepad1WindowContext = CreateWindowContext(
+    /*WindowContext* notepad1WindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
         30, 10, 430, 410, "Notepad1", LIGHTBLUE, GREYE, BLACK, notepadWindowInputHandle
     );
@@ -78,7 +87,7 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress){
         GetSystemContext()->mainWindow,
         600, 10, 1000, 410, "Notepad2", AMBER, GREYE, BLACK, notepadWindowInputHandle
     );
-    DrawWindow(notepad2WindowContext);
+    DrawWindow(notepad2WindowContext);*/
 
     WindowContext* notepad3WindowContext = CreateWindowContext(
         GetSystemContext()->mainWindow,
