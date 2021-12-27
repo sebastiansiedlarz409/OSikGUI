@@ -81,7 +81,7 @@ void DrawUI(void){
 }
 
 void SwichWindow(void){
-    if(GetSystemContext()->mainWindow->childrenCount==0)
+    /*if(GetSystemContext()->mainWindow->childrenCount==0)
         return;
 
     GetSystemContext()->currentWidowId++;
@@ -90,5 +90,5 @@ void SwichWindow(void){
         GetSystemContext()->currentWidowId=0;
     }
 
-    GetSystemContext()->currentWindow=GetSystemContext()->mainWindow->children[GetSystemContext()->currentWidowId];
+    GetSystemContext()->currentWindow=GetSystemContext()->mainWindow->children[GetSystemContext()->currentWidowId];*/
 }

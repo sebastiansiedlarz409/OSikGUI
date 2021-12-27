@@ -78,7 +78,8 @@ void KeyboardHandler(void){
     //here goes only some functional keys
     if(scanCode == 0x81){ //esc release
         //close actually open window
-        CloseWindow(GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1]);
+        if(GetSystemContext()->currentWindow!=NULL)
+            CloseWindow(GetSystemContext()->currentWindow);
     }
     else if(scanCode == 0x01){ //esc pushed
 

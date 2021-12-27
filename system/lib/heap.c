@@ -1,5 +1,6 @@
 #include "../include/heap.h"
 #include "../include/common.h"
+#include "../include/string.h"
 
 #include <stdint.h>
 
@@ -34,6 +35,9 @@ void* MallocHeap(uint64_t size){
         if(size+sizeof(HeapSegment) <= HeapSegmentCurrent->size){
             //move segment pointer
             HeapSegment* HeapSegmentNew = (HeapSegment*)((uint8_t*)HeapSegmentCurrent+sizeof(HeapSegment)+size);
+
+            //clear mem
+            //MemsetBuffer((char*)HeapSegmentNew, 0, sizeof(HeapSegment)+size);
 
             //decrease size
             HeapSegmentNew->size = HeapSegmentCurrent->size-sizeof(HeapSegment)+size;

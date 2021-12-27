@@ -14,7 +14,9 @@ WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t 
                                     void (*onInputStreamPushHandler)(WindowContext* context)){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = parent->childrenCount+1;
+
+    MemsetBuffer((char*)context, 0, sizeof(WindowContext));
+
     context->drawn = 0;
     context->position.sx = sx;
     context->position.sy = sy;
@@ -43,7 +45,9 @@ WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint1
                                      COLORS font_color, uint8_t font_size){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = 0;
+
+    MemsetBuffer((char*)context, 0, sizeof(WindowContext));
+
     context->drawn = 0;
     context->position.sx = sx;
     context->position.sy = sy;
@@ -66,7 +70,9 @@ WindowContext* CreateProgressBarWindowContext(WindowContext* parent, uint16_t sx
                                              uint16_t ey, COLORS border_color, COLORS fill_color){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = 0;
+
+    MemsetBuffer((char*)context, 0, sizeof(WindowContext));
+
     context->drawn = 0;
     context->position.sx = sx;
     context->position.sy = sy;
@@ -89,7 +95,9 @@ WindowContext* CreateDescButtonWindowContext(WindowContext* parent, uint16_t sx,
                         COLORS border_color, COLORS fill_color, COLORS font_color, uint8_t font_size){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
-    context->id = 0;
+
+    MemsetBuffer((char*)context, 0, sizeof(WindowContext));
+
     context->drawn = 0;
     context->position.sx = sx;
     context->position.sy = sy;
@@ -222,7 +230,6 @@ void DrawWindow(WindowContext* context){
 
     //set last created window
     GetSystemContext()->currentWindow = context;
-    GetSystemContext()->currentWidowId = context->id-1;
 
     //whole window border
     DrawRectangle(context->position.sx+1, context->position.sy+1, context->position.ex-1, context->position.ey,
@@ -238,12 +245,38 @@ void DrawWindow(WindowContext* context){
 
 void CloseWindow(WindowContext* w){
     if(w->parent != NULL){
-        w->parent->childrenCount--;
+
+        //set remove this child from parent children list
+        for(uint32_t i = 0;i<MAX_CHILDREN;i++){
+            if(w->parent->children[i] == w){
+                w->parent->children[i] = NULL;
+            }
+        }
+        
+        w->parent->childrenCount=0;
+        for(uint32_t i = 0;i<MAX_CHILDREN;i++){
+            if(w->parent->children[i] != NULL){
+                w->parent->children[w->parent->childrenCount] = w->parent->children[i];
+                if(i!=w->parent->childrenCount)
+                    w->parent->children[i] = NULL;
+                w->parent->childrenCount++;
+            }
+        }
+
+        if(w->parent->childrenCount==0){
+            GetSystemContext()->currentWindow=NULL;
+        }
+        else{
+            GetSystemContext()->currentWindow=GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1];
+        }
 
         DrawRectangle(w->position.sx, w->position.sy, w->position.ex, w->position.ey, w->parent->theme.background,
                         w->parent->theme.background);
 
         for(uint32_t i = 0;i<w->childrenCount;i++){
+            if(w->children[i]->data.content != NULL)
+                FreeHeap(w->children[i]->data.content);
+
             FreeHeap(w->children[i]);
         }
 

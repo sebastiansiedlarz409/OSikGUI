@@ -4,8 +4,9 @@
 
 #include <stdint.h>
 
+#define MAX_CHILDREN 10
+
 typedef struct _WindowContext{
-    uint32_t id;
     uint8_t drawn;
     struct _position{        
         uint16_t sx;
@@ -31,7 +32,7 @@ typedef struct _WindowContext{
         void (*onInputStreamPushHandler)(struct _WindowContext* context);
     } events;
     struct _WindowContext* parent;
-    struct _WindowContext* children[10];
+    struct _WindowContext* children[MAX_CHILDREN];
     uint8_t childrenCount;
 } WindowContext;
 
