@@ -84,7 +84,7 @@ void SwichWindow(void){
     if(GetSystemContext()->mainWindow->childrenCount==0)
         return;
 
-    for(uint32_t i = MAX_CHILDREN-1;i>=0;i--){
+    for(int32_t i = MAX_CHILDREN-1;i>=0;i--){
         if(GetSystemContext()->mainWindow->children[i] != NULL){
             if(GetSystemContext()->mainWindow->children[i] != GetSystemContext()->currentWindow){
                 GetSystemContext()->currentWindow = GetSystemContext()->mainWindow->children[i];

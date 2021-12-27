@@ -4,7 +4,7 @@ TOTAL MEMORY: 128*2MB+4MB
 
 ------------------ 0x00007C00 (F) //bios boot entry point
 |                |
-|  bootsector    |
+|   bootsector   |
 |                |
 ------------------ 0x00010000 (F) //bootloader is loaded here
 |                |
@@ -12,12 +12,14 @@ TOTAL MEMORY: 128*2MB+4MB
 |       +        |
 |     kernel     |
 |     image      |
+|       +        |
+|      apps      |
+|     images     |
 |                |
------------------- 0x003FF000 (V) //stack
-|                |
+------------------ 0x003FFE00 (V) //app table
 ------------------ 0x00400000 (V) //kernel base address
 |                |
-|    kernel      |
+|     kernel     |
 |                |
 |                |
 ------------------ 0x00600000 (V) //heap
@@ -30,9 +32,13 @@ TOTAL MEMORY: 128*2MB+4MB
 |   system api   |
 |                |
 |                |
------------------- 0x00A00000 (V) //apps
+------------------ 0x00A00000 (V) //stack
 |                |
-|     apps       |
+|     stack      |
+|                |
+-----------------| 0x01000000 (V) //apps (+0x00200000 for every app)
+|                |
+|      apps      |
 |                |
 ~~~~~~~~~~~~~~~~~~
 |                |
