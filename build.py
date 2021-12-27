@@ -73,8 +73,9 @@ def buildSystem():
     nasm_cmds = []
     boot_files = []
 
-    files = ["boot\\bootsector","boot\\bootloader","system\kernel","apps\welcome\welcome",
-            "apps\info\info"]
+    files = ["boot\\bootsector","boot\\bootloader","system\kernel",
+            "apps\info\info",
+            "apps\welcome\welcome"]
 
     #flags
     gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"

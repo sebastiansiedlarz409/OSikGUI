@@ -7,6 +7,7 @@
 #include "../include/windows.h"
 #include "../include/drawing.h"
 #include "../include/streams.h"
+#include "../include/loader.h"
 
 #include <stdint.h>
 
@@ -207,6 +208,18 @@ void KeyboardHandler(void){
     }
     else if(scanCode == 0xC6){ //scroll lock release
         
+    }
+    else if(scanCode == 0x4F){ //numpad 1 pushed
+
+    }
+    else if(scanCode == 0xCF){ //numpad 1 release
+        RunApp(LoadApp(0));
+    }
+    else if(scanCode == 0x50){ //numpad 2 pushed
+        
+    }
+    else if(scanCode == 0xD0){ //numpad 2 release
+        RunApp(LoadApp(1));
     }
     else{
         if(kHit==0){
