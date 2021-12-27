@@ -2,5 +2,5 @@
 
 #include <stdint.h>
 
-void* LoadApp(void* address);
+void* LoadApp(uint8_t id);
 void RunApp(void*);

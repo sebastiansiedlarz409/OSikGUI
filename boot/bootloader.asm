@@ -166,7 +166,7 @@ loader:
     ;page 10 -> https://www.agner.org/optimize/calling_conventions.pdf
     lea rcx, [ebx + r11d]                                   ;first argument
     mov rdx, rsp                                            ;second argument
-    lea r8, [0x10000 + system - 8]                          ;third argument
+    lea r8, [0x10000 + system]                              ;third argument
 
     lea rax, [ebx + r11d]                                   ;jump to entry point, _start in kernel
     call rax

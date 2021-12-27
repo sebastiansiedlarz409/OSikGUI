@@ -1,9 +1,16 @@
 #include "../include/loader.h"
 #include "../include/string.h"
+#include "../include/common.h"
 
 #include <stdint.h>
 
-void* LoadApp(void* address){
+void* LoadApp(uint8_t id){
+    uint8_t* appTable = (uint8_t*)GetSystemContext()->appsTableAddress;
+
+    appTable-=(8*(id+1));
+
+    uint64_t address = 0x10000 + *((uint64_t*)appTable);
+
     uint8_t* offset = (uint8_t*)address;
 
     //clear apps space

@@ -19,7 +19,7 @@ def getSubdirs(name, subdirs):
         getSubdirs(f"{name}\{el}", subdirs)
 
 def buildApps():
-    apps = ["welcome"]
+    apps = ["welcome", "info"]
 
     for app in apps:
         buildApp(app)
@@ -73,7 +73,8 @@ def buildSystem():
     nasm_cmds = []
     boot_files = []
 
-    files = ["boot\\bootsector","boot\\bootloader","system\kernel","apps\welcome\welcome"]
+    files = ["boot\\bootsector","boot\\bootloader","system\kernel","apps\welcome\welcome",
+            "apps\info\info"]
 
     #flags
     gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"
@@ -175,8 +176,23 @@ def buildSystem():
         image.append(b"\0")
         padding-=1
 
-    image[1] = image[1][:-8]
-    image.insert(2, struct.pack("<q", len(image[1]) + len(image[2]) + 8 ))
+    app_count = len(files) - 3
+
+    #make space for pointers
+    image[1] = image[1][:-8*app_count]
+
+    apps_pointers=bytearray()
+
+    l = 0
+    for i in range(0, app_count):
+        for j in range(1, i+3):
+            l+=len(image[j])
+        l+=(8*app_count)
+        apps_pointers += struct.pack("<q", l)
+        l = 0
+
+    image.insert(2, apps_pointers)
+
     saveImage("floppy.bin", image)
 
 buildApps()

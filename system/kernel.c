@@ -72,8 +72,9 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress, void* appsTab
     DrawUI();
 
     //testloader
-    uint64_t firstappPointer = 0x10000 + *((uint64_t*)GetSystemContext()->appsTableAddress);
-    void* entry = LoadApp((void*)firstappPointer);
+    void* entry = LoadApp(0);
+    RunApp(entry);
+    entry = LoadApp(1);
     RunApp(entry);
 
     //tests stdin and keyboard
