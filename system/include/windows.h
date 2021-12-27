@@ -52,3 +52,5 @@ void DrawTitleBar(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t widt
                  COLORS font_color);
 void DrawTextWindow(WindowContext* context, const char* str);
 void DrawDescButtonWindow(WindowContext* context, const char* desc);
+void MarkWindow(WindowContext* context, uint8_t r);
+void UnMarkWindow(WindowContext* context, uint8_t r);

@@ -55,9 +55,11 @@ void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS bor
     DrawVerticalLine(sx, sy, ey-sy, border_color); //left
     DrawVerticalLine(ex, sy, ey-sy+1, border_color); //right
 
-    //fill
-    for(uint16_t i = sy+1; i<ey;i++){
-        DrawHorizontalLine(sx+1, i, ex-sx-1, fill_color);
+    if(fill_color != NOCOLOR){    
+        //fill
+        for(uint16_t i = sy+1; i<ey;i++){
+            DrawHorizontalLine(sx+1, i, ex-sx-1, fill_color);
+        }
     }
 }
 

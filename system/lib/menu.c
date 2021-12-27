@@ -81,13 +81,15 @@ void DrawUI(void){
 }
 
 void SwichWindow(void){
-    if(GetSystemContext()->mainWindow->childrenCount==0)
+    if(GetSystemContext()->mainWindow->childrenCount<=1)
         return;
 
+    UnMarkWindow(GetSystemContext()->currentWindow, 0);
     for(int32_t i = MAX_CHILDREN-1;i>=0;i--){
         if(GetSystemContext()->mainWindow->children[i] != NULL){
             if(GetSystemContext()->mainWindow->children[i] != GetSystemContext()->currentWindow){
                 GetSystemContext()->currentWindow = GetSystemContext()->mainWindow->children[i];
+                MarkWindow(GetSystemContext()->currentWindow, 1);
                 break;
             }
         }

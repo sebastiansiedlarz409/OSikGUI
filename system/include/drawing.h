@@ -4,6 +4,7 @@
 
 //palette for 256 colors
 typedef enum _COLORS {
+    NOCOLOR = -0x01,
     BLACK = 0x00,
     BLUE = 0x01,
     DARKGREEN = 0x02,

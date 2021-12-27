@@ -22,7 +22,7 @@ WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t 
     context->position.sy = sy;
     context->position.ex = ex;
     context->position.ey = ey;
-    context->theme.theme = theme;
+    context->theme.theme = theme == AMBER ? BROWN : theme;
     context->theme.background = backgroud;
     context->font.font_color = font_color;
     context->parent = parent;
@@ -228,6 +228,10 @@ void DrawWindow(WindowContext* context){
         }
     }
 
+    if(GetSystemContext()->currentWindow != NULL){
+        UnMarkWindow(GetSystemContext()->currentWindow, 0);
+    }
+
     //set last created window
     GetSystemContext()->currentWindow = context;
 
@@ -240,6 +244,10 @@ void DrawWindow(WindowContext* context){
                 context->position.ex-context->position.sx-2, context->data.title, context->theme.theme,
                 context->font.font_color);
     
+    if(context->parent != NULL){
+        MarkWindow(context, 0);
+    }
+
     RefreshScreen();
 }
 
@@ -268,6 +276,7 @@ void CloseWindow(WindowContext* w){
         }
         else{
             GetSystemContext()->currentWindow=GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1];
+            MarkWindow(GetSystemContext()->currentWindow, 0);
         }
 
         DrawRectangle(w->position.sx, w->position.sy, w->position.ex, w->position.ey, w->parent->theme.background,
@@ -287,4 +296,26 @@ void CloseWindow(WindowContext* w){
         FreeHeap(w);
         RefreshScreen();
     }
+}
+
+void MarkWindow(WindowContext* context, uint8_t r){
+    DrawRectangle(context->position.sx+1, context->position.sy+1, context->position.ex-1, context->position.ey,
+                AMBER, NOCOLOR);
+    //draw title bar with mark
+    DrawTitleBar(context->parent, context->position.sx+1, context->position.sy+1,
+                context->position.ex-context->position.sx-2, context->data.title, AMBER,
+                context->font.font_color);
+    if(r)
+        RefreshScreen();
+}
+
+void UnMarkWindow(WindowContext* context, uint8_t r){
+    DrawRectangle(context->position.sx+1, context->position.sy+1, context->position.ex-1, context->position.ey,
+                context->theme.theme, NOCOLOR);
+    //draw title bar without mark
+    DrawTitleBar(context->parent, context->position.sx+1, context->position.sy+1,
+                context->position.ex-context->position.sx-2, context->data.title, context->theme.theme,
+                context->font.font_color);
+    if(r)
+        RefreshScreen(); 
 }
