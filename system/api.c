@@ -3,6 +3,8 @@
 #include "include/heap.h"
 #include "include/math.h"
 #include "include/windows.h"
+#include "include/string.h"
+#include "include/drawing.h"
 
 void InitAPI(void){
     SystemAPI* api = (SystemAPI*)0x800000;
@@ -13,6 +15,26 @@ void InitAPI(void){
 
     api->MallocHeap = MallocHeap;
     api->FreeHeap = FreeHeap;
+
+    api->StringLength = StringLength;
+    api->FormatString = FormatString;
+    api->MemcpyBuffers = MemcpyBuffers;
+    api->MemsetBuffer = MemsetBuffer;
+
+    api->RefreshScreen = RefreshScreen;
+    api->DrawPixel = DrawPixel;
+    api->DrawHorizontalLine = DrawHorizontalLine;
+    api->DrawVerticalLine = DrawVerticalLine;
+    api->DrawLine = DrawLine;
+    api->DrawRectangle = DrawRectangle;
+    api->DrawQuarterCircle = DrawQuarterCircle;
+    api->DrawCircle = DrawCircle;
+    api->DrawChar = DrawChar;
+    api->DrawString = DrawString;
+    api->ClearFullScreen = ClearFullScreen;
+    api->ClearPartScreen =ClearPartScreen;
+    api->FillScreen = FillScreen;
+    api->DrawProgressBar = DrawProgressBar;
 
     api->CreateWindowContext = CreateWindowContext;
     api->CreateTextWindowContext = CreateTextWindowContext;

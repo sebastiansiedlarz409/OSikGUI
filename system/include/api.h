@@ -13,6 +13,26 @@ typedef struct _systemAPI{
     //heap
     void* (*MallocHeap)(uint64_t);
     void (*FreeHeap)(void*);
+    //string
+    uint64_t (*StringLength)(char*);
+    void (*MemcpyBuffers)(char*, char*, uint64_t);
+    void (*MemsetBuffer)(char*, uint8_t, uint64_t);
+    void (*FormatString)(char*, char*, ...);
+    //drawing
+    void (*RefreshScreen)(void);
+    void (*DrawPixel)(uint16_t, uint16_t, COLORS);
+    void (*DrawHorizontalLine)(uint16_t, uint16_t, uint16_t, COLORS);
+    void (*DrawVerticalLine)(uint16_t, uint16_t, uint16_t, COLORS);
+    void (*DrawLine)(uint16_t, uint16_t,uint16_t, uint16_t, COLORS);
+    void (*DrawRectangle)(uint16_t, uint16_t,uint16_t, uint16_t, COLORS, COLORS);
+    void (*DrawQuarterCircle)(uint16_t, uint16_t, uint16_t, uint8_t, COLORS, COLORS);
+    void (*DrawCircle)(uint16_t, uint16_t, uint16_t, COLORS, COLORS);
+    void (*DrawChar)(uint16_t, uint16_t, char, uint8_t, COLORS, COLORS );
+    void (*DrawString)(int, int, const char*, uint8_t, COLORS, COLORS );
+    void (*ClearFullScreen)(void);
+    void (*ClearPartScreen)(uint16_t, uint16_t, uint16_t, uint16_t);
+    void (*FillScreen)(COLORS);
+    void (*DrawProgressBar)(uint16_t, uint16_t, uint16_t, uint16_t, uint8_t, COLORS, COLORS);
     //windows
     WindowContext* (*CreateWindowContext)(WindowContext*, uint16_t, uint16_t, uint16_t, uint16_t,
                                      const char*, COLORS, COLORS,
