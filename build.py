@@ -21,10 +21,10 @@ def getSubdirs(name, subdirs):
 def buildApps():
     apps = ["welcome", "info"]
 
-    for app in apps:
-        buildApp(app)
+    for i in range(0, len(apps)):
+        buildApp(apps[i],i)
 
-def buildApp(name):
+def buildApp(name, index):
     print(f"BUILD {name.upper()}")
     print()
 
@@ -32,7 +32,7 @@ def buildApp(name):
     obj_files = []
 
     gcc_flags = "-std=c11 -nostdlib -masm=intel -Wall -Wextra -mgeneral-regs-only -c -ggdb -O0"
-    ld_flags = "--image-base 0xA00000 -entry=APP_Start -s"
+    ld_flags = f"--image-base {hex(0x01000000+index*0x00200000)} -entry=APP_Start -s"
 
     dirs = [f"apps\\{name}"]
     getSubdirs(f"apps\\{name}", dirs)
