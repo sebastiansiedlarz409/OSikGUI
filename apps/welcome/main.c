@@ -21,6 +21,7 @@ void welcomeWindowInputHandle(WindowContext* context){
     }
 
     api->DrawTextWindow(textContext, buffer);
+    api->RefreshScreen();
 }
 
 void APP_Start(){

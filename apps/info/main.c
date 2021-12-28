@@ -33,20 +33,28 @@ void APP_Start(){
     api->DrawTextWindow(textContext, buffer);
 
     api->MemsetBuffer(buffer, 0, 100);
-    api->FormatString(buffer, "Heap Address: 0x%x", api->GetSystemContext()->heapAddress);
+    api->FormatString(buffer, "Apps Address: 0x%x", api->GetSystemContext()->appsTableAddress);
     
     textContext = api->CreateTextWindowContext(infoWindowContext, 10, 50, GREY1, RED, 2);
     api->DrawTextWindow(textContext, buffer);
 
     api->MemsetBuffer(buffer, 0, 100);
-    api->FormatString(buffer, "Heap Size: 0x%x", api->GetSystemContext()->heapSize);
+    api->FormatString(buffer, "Heap Address: 0x%x", api->GetSystemContext()->heapAddress);
     
     textContext = api->CreateTextWindowContext(infoWindowContext, 10, 70, GREY1, RED, 2);
     api->DrawTextWindow(textContext, buffer);
 
     api->MemsetBuffer(buffer, 0, 100);
-    api->FormatString(buffer, "Heap Next Free: 0x%x", api->GetSystemContext()->heapNextFree);
+    api->FormatString(buffer, "Heap Size: 0x%x", api->GetSystemContext()->heapSize);
     
     textContext = api->CreateTextWindowContext(infoWindowContext, 10, 90, GREY1, RED, 2);
     api->DrawTextWindow(textContext, buffer);
+
+    api->MemsetBuffer(buffer, 0, 100);
+    api->FormatString(buffer, "Heap Next Free: 0x%x", api->GetSystemContext()->heapNextFree);
+    
+    textContext = api->CreateTextWindowContext(infoWindowContext, 10, 110, GREY1, RED, 2);
+    api->DrawTextWindow(textContext, buffer);
+
+    api->RefreshScreen();
 }
