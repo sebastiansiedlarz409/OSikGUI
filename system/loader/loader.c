@@ -14,7 +14,7 @@ void* LoadApp(uint8_t id){
     uint8_t* offset = (uint8_t*)address;
 
     //clear apps space
-    MemsetBuffer((char*)0xA00000, 0, 0x200000);
+    MemsetBuffer((char*)0x01000000+id*0x200000, 0, 0x200000);
 
     uint8_t* PEHeader = offset+0x80;
 
