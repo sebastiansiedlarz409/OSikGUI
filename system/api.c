@@ -22,6 +22,7 @@ void InitAPI(void){
     api->MemsetBuffer = MemsetBuffer;
 
     api->RefreshScreen = RefreshScreen;
+    api->RefreshPartOfScreen = RefreshPartOfScreen;
     api->DrawPixel = DrawPixel;
     api->DrawHorizontalLine = DrawHorizontalLine;
     api->DrawVerticalLine = DrawVerticalLine;

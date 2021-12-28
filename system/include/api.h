@@ -20,6 +20,7 @@ typedef struct _systemAPI{
     void (*FormatString)(char*, char*, ...);
     //drawing
     void (*RefreshScreen)(void);
+    void (*RefreshPartOfScreen)(uint16_t, uint16_t, uint16_t, uint16_t);
     void (*DrawPixel)(uint16_t, uint16_t, COLORS);
     void (*DrawHorizontalLine)(uint16_t, uint16_t, uint16_t, COLORS);
     void (*DrawVerticalLine)(uint16_t, uint16_t, uint16_t, COLORS);
