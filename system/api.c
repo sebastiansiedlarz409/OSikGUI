@@ -26,6 +26,7 @@ void InitAPI(void){
     api->DrawHorizontalLine = DrawHorizontalLine;
     api->DrawVerticalLine = DrawVerticalLine;
     api->DrawLine = DrawLine;
+    api->DrawWLine = DrawWLine;
     api->DrawRectangle = DrawRectangle;
     api->DrawQuarterCircle = DrawQuarterCircle;
     api->DrawCircle = DrawCircle;

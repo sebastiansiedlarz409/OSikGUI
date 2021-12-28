@@ -24,6 +24,7 @@ typedef struct _systemAPI{
     void (*DrawHorizontalLine)(uint16_t, uint16_t, uint16_t, COLORS);
     void (*DrawVerticalLine)(uint16_t, uint16_t, uint16_t, COLORS);
     void (*DrawLine)(uint16_t, uint16_t,uint16_t, uint16_t, COLORS);
+    void (*DrawWLine)(uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, COLORS);
     void (*DrawRectangle)(uint16_t, uint16_t,uint16_t, uint16_t, COLORS, COLORS);
     void (*DrawQuarterCircle)(uint16_t, uint16_t, uint16_t, uint8_t, COLORS, COLORS);
     void (*DrawCircle)(uint16_t, uint16_t, uint16_t, COLORS, COLORS);

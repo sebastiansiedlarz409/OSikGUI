@@ -44,6 +44,20 @@ void DrawLine(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS color){
     }
 }
 
+void DrawWLine(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t width, COLORS color){
+    if(width%2==0){
+        width++;
+    }
+
+    uint16_t margin = (width+1)/2;
+    DrawLine(sx, sy, ex, ey, color);
+
+    for(uint16_t i = 1;i<=margin;i++){
+        DrawLine(sx+i, sy, ex+i, ey, color);
+        DrawLine(sx-i, sy, ex-i, ey, color);
+    }
+}
+
 void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS border_color, COLORS fill_color){
     //border
     ex--;

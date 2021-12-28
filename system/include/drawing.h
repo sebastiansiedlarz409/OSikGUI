@@ -80,6 +80,7 @@ void DrawPixel(uint16_t x, uint16_t y, COLORS color);
 void DrawHorizontalLine(uint16_t x, uint16_t y, uint16_t len, COLORS color);
 void DrawVerticalLine(uint16_t x, uint16_t y, uint16_t len, COLORS color);
 void DrawLine(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS color);
+void DrawWLine(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t width, COLORS color);
 void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS border_color, COLORS fill_color);
 void DrawQuarterCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t quarter, COLORS border_color, COLORS fill_color);
 void DrawCircle(uint16_t x, uint16_t y, uint16_t r, COLORS border_color, COLORS fill_color);
