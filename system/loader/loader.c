@@ -13,9 +13,6 @@ void* LoadApp(uint8_t id){
 
     uint8_t* offset = (uint8_t*)address;
 
-    //clear apps space
-    MemsetBuffer((char*)0x01000000+id*0x200000, 0, 0x200000);
-
     uint8_t* PEHeader = offset+0x80;
 
     uint8_t sectionCount = *(uint16_t*)(PEHeader+0x6);
@@ -27,9 +24,12 @@ void* LoadApp(uint8_t id){
     uint8_t* data = PEHeader+0x108;
     
     while(sectionCount){
+        uint64_t sizeInMemory = *(uint32_t*)(data+0x8);
         uint64_t sizeInFile = *(uint32_t*)(data+0x10);
         uint64_t dstLocation = (*(uint32_t*)(data+0xC)+imageBase);
         uint64_t srcLocation = *(uint32_t*)(data+0x14) + (uint64_t)offset;
+
+        MemsetBuffer((char*)dstLocation, 0, sizeInMemory);
 
         //copy section
         for(uint32_t i = 0;i<sizeInFile;i++){
