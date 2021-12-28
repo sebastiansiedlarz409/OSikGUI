@@ -294,7 +294,7 @@ void CloseWindow(WindowContext* w){
         }
 
         FreeHeap(w);
-        RefreshScreen();
+        RefreshPartOfScreen(w->position.sx, w->position.sy, w->position.ex, w->position.ey);
     }
 }
 
@@ -306,7 +306,7 @@ void MarkWindow(WindowContext* context, uint8_t r){
                 context->position.ex-context->position.sx-2, context->data.title, AMBER,
                 context->font.font_color);
     if(r)
-        RefreshScreen();
+        RefreshPartOfScreen(context->position.sx, context->position.sy, context->position.ex, context->position.ey);
 }
 
 void UnMarkWindow(WindowContext* context, uint8_t r){
@@ -317,5 +317,5 @@ void UnMarkWindow(WindowContext* context, uint8_t r){
                 context->position.ex-context->position.sx-2, context->data.title, context->theme.theme,
                 context->font.font_color);
     if(r)
-        RefreshScreen(); 
+        RefreshPartOfScreen(context->position.sx, context->position.sy, context->position.ex, context->position.ey); 
 }

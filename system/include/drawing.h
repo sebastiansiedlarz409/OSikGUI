@@ -76,6 +76,7 @@ typedef enum _COLORS {
 #define WIDTH 1600
 
 void RefreshScreen(void);
+void RefreshPartOfScreen(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey);
 void DrawPixel(uint16_t x, uint16_t y, COLORS color);
 void DrawHorizontalLine(uint16_t x, uint16_t y, uint16_t len, COLORS color);
 void DrawVerticalLine(uint16_t x, uint16_t y, uint16_t len, COLORS color);

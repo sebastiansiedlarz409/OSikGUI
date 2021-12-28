@@ -14,6 +14,17 @@ void RefreshScreen(void){
     MemcpyBuffers(frame, buffer, WIDTH*961);
 }
 
+void RefreshPartOfScreen(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey){
+    char* frame = (char*)0x10000000;
+    char* buffer = (char*)0x10200000;
+
+    for(uint32_t i = sy;i<ey;i++){
+        for(uint32_t j = sx;j<ex;j++){
+            frame[i*WIDTH+j] = buffer[i*WIDTH+j];
+        }
+    }
+}
+
 void DrawPixel(uint16_t x, uint16_t y, COLORS color){
     uint8_t* frame = (uint8_t*)0x10200000;
 
