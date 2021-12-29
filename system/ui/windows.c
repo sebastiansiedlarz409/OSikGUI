@@ -228,6 +228,7 @@ void DrawWindow(WindowContext* context){
 
     //set last created window
     GetSystemContext()->currentWindow = context;
+    GetSystemContext()->currentWindowIndex = context->parent->childrenCount;
 
     //whole window border
     DrawRectangle(context->position.sx+1, context->position.sy+1, context->position.ex-1, context->position.ey,
@@ -270,6 +271,7 @@ void CloseWindow(WindowContext* w){
         }
         else{
             GetSystemContext()->currentWindow=GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1];
+            GetSystemContext()->currentWindowIndex = GetSystemContext()->mainWindow->childrenCount-1;
             MarkWindow(GetSystemContext()->currentWindow, 0);
         }
 

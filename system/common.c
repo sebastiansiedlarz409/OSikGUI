@@ -14,6 +14,7 @@ static SystemContext context = {
     2, //max window index
     0, //pointer to main window
     0, //pointer to last created window
+    0, //index of current window
     PushInStream, //pointer to push stdin
     PopInStream, //pointer to pop stdin
     GetInStreamSize, //pointer to func returning size of stdin

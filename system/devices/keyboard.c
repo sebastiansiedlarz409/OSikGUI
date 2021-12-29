@@ -222,6 +222,12 @@ void KeyboardHandler(void){
     else if(scanCode == 0xD0){ //numpad 2 release
         RunApp(LoadApp(1));
     }
+    else if(scanCode == 0x51){ //numpad 3 pushed
+        
+    }
+    else if(scanCode == 0xD1){ //numpad 3 release
+        RunApp(LoadApp(2));
+    }
     else{
         if(kHit==0){
             kHit++;    

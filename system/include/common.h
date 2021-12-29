@@ -20,6 +20,7 @@ typedef struct _SystemContext{
     uint8_t windowsCount;
     WindowContext* mainWindow;
     WindowContext* currentWindow;
+    uint8_t currentWindowIndex;
     //streams api
     void(*PushInStream)(uint8_t);
     uint8_t(*PopInSteam)(void);
