@@ -270,8 +270,18 @@ void CloseWindow(WindowContext* w){
             GetSystemContext()->currentWindow=NULL;
         }
         else{
-            GetSystemContext()->currentWindow=GetSystemContext()->mainWindow->children[GetSystemContext()->mainWindow->childrenCount-1];
-            GetSystemContext()->currentWindowIndex = GetSystemContext()->mainWindow->childrenCount-1;
+            for(int32_t i = GetSystemContext()->currentWindowIndex==0 ? MAX_CHILDREN-1 : GetSystemContext()->currentWindowIndex ;i>=0;i--){
+
+                if(GetSystemContext()->mainWindow->children[i] != NULL){
+                    if(GetSystemContext()->mainWindow->children[i] != GetSystemContext()->currentWindow){
+                        GetSystemContext()->currentWindow = GetSystemContext()->mainWindow->children[i];
+                        GetSystemContext()->currentWindowIndex = i;
+                        MarkWindow(GetSystemContext()->currentWindow, 1);
+                        break;
+                    }
+                }
+
+            }
             MarkWindow(GetSystemContext()->currentWindow, 0);
         }
 
