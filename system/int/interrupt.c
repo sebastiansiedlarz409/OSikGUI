@@ -29,7 +29,6 @@ void InitInterrupt(void){
     InsertEntry(&table[0], (uint64_t)DivideError_Wrapper, 0, 0xE, 0, 1);
     InsertEntry(&table[8], (uint64_t)DefaultError_Wrapper, 0, 0xE, 0, 1); //pit
     InsertEntry(&table[9], (uint64_t)KeyboardInt_Wrapper, 0, 0xE, 0, 1); //keyboard
-    InsertEntry(&table[1], (uint64_t)KeyboardInt_Wrapper, 0, 0xE, 0, 1); //keyboard
 
     //INTEL 3A, page 200
     IDTP idtp = {

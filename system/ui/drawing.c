@@ -10,7 +10,7 @@ void RefreshScreen(void){
     //paging map 0x10000000 to 0xFD000000 where frame buffer is
     char* frame = (char*)0x10000000;
     char* buffer = (char*)0x10200000;
-
+    
     MemcpyBuffers(frame, buffer, WIDTH*960);
 }
 
@@ -18,8 +18,8 @@ void RefreshPartOfScreen(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey){
     char* frame = (char*)0x10000000;
     char* buffer = (char*)0x10200000;
 
-    for(uint32_t i = sy;i<ey;i++){
-        for(uint32_t j = sx;j<ex;j++){
+    for(uint64_t i = sy;i<ey;i++){
+        for(uint64_t j = sx;j<ex;j++){
             frame[i*WIDTH+j] = buffer[i*WIDTH+j];
         }
     }
