@@ -11,7 +11,7 @@ void RefreshScreen(void){
     char* frame = (char*)0x10000000;
     char* buffer = (char*)0x10200000;
 
-    MemcpyBuffers(frame, buffer, WIDTH*961);
+    MemcpyBuffers(frame, buffer, WIDTH*960);
 }
 
 void RefreshPartOfScreen(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey){

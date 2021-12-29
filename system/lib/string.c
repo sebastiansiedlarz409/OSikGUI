@@ -149,9 +149,38 @@ void FormatString(char* dst, char* str, ...){
 }
 
 void MemcpyBuffers(char* dst, char* src, uint64_t size){
-    for(uint64_t i = 0;i<size;i++){
-        if(dst[i] != src[i])
-            dst[i] = src[i];
+    if(size%8 == 0){
+        uint64_t* dst8 = (uint64_t*)dst;
+        uint64_t* src8 = (uint64_t*)src;
+
+        for(uint64_t i = 0;i<size/8;i++){
+        if(dst8[i] != src8[i])
+            dst8[i] = src8[i];
+        }
+    }
+    else if(size%4 == 0){
+        uint32_t* dst4 = (uint32_t*)dst;
+        uint32_t* src4 = (uint32_t*)src;
+
+        for(uint64_t i = 0;i<size/4;i++){
+        if(dst4[i] != src4[i])
+            dst4[i] = src4[i];
+        }
+    }
+    else if(size%2 == 0){
+        uint16_t* dst2 = (uint16_t*)dst;
+        uint16_t* src2 = (uint16_t*)src;
+
+        for(uint64_t i = 0;i<size/2;i++){
+        if(dst2[i] != src2[i])
+            dst2[i] = src2[i];
+        }
+    }
+    else{
+        for(uint64_t i = 0;i<size;i++){
+            if(dst[i] != src[i])
+                dst[i] = src[i];
+        }
     }
 }
 
