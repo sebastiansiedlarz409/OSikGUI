@@ -4,24 +4,8 @@ SystemAPI* api;
 
 void welcomeWindowInputHandle(WindowContext* context){
     uint8_t value = api->GetSystemContext()->PopInSteam();
-
-    char buffer[100];
-
-    WindowContext* textContext = context->children[0];
-
-    if(textContext == NULL){
-        textContext = api->CreateTextWindowContext(context, 10, 10, GREY1, RED, 2);
-                
-        api->MemsetBuffer(buffer, 0, 100);
-        api->FormatString(buffer, "%c", value);
-    }
-    else{    
-        api->MemsetBuffer(buffer, 0, 100);
-        api->FormatString(buffer, "%s%%c",textContext->data.content, value);
-    }
-
-    api->DrawTextWindow(textContext, buffer);
-    api->RefreshScreen();
+    UNUSED(value);
+    UNUSED(context);
 }
 
 void APP_Start(){
@@ -33,4 +17,13 @@ void APP_Start(){
     );
 
     api->DrawWindow(welcomeWindowContext);
+
+    WindowContext* textContext = api->CreateTextWindowContext(welcomeWindowContext, 10, 10, GREY1, BROWN, 8);
+
+    api->DrawTextWindow(textContext, "OSikGUI");
+
+    WindowContext* textDescContext = api->CreateTextWindowContext(welcomeWindowContext, 10, 85, GREY1, DODGERBLUE, 4);
+
+    api->DrawTextWindow(textDescContext, "Just for fun! :)");
+    api->RefreshScreen();
 }
