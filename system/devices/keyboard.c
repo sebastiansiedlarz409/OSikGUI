@@ -86,6 +86,7 @@ void KeyboardHandler(void){
         else{
             kHit++;
         }
+        return;
     }
 
     //here goes only some functional keys
@@ -223,30 +224,30 @@ void KeyboardHandler(void){
     else if(scanCode == 0xC6){ //scroll lock release
         
     }
-    /*else if(scanCode == 0x4F){ //numpad 1 pushed
+    else if(scanCode == 0x4F){ //numpad 1 pushed
 
     }
     else if(scanCode == 0xCF){ //numpad 1 release
-        //RunApp(LoadApp(0));
+        RunApp(LoadApp(0));
     }
     else if(scanCode == 0x50){ //numpad 2 pushed
         
     }
     else if(scanCode == 0xD0){ //numpad 2 release
-        //RunApp(LoadApp(1));
+        RunApp(LoadApp(1));
     }
     else if(scanCode == 0x51){ //numpad 3 pushed
         
     }
     else if(scanCode == 0xD1){ //numpad 3 release
-        //RunApp(LoadApp(2));
+        RunApp(LoadApp(2));
     }
     else if(scanCode == 0x4C){ //numpad 5 pushed
         
     }
     else if(scanCode == 0xCC){ //numpad 5 release
-        //RunApp(LoadApp(3));
-    }*/
+        RunApp(LoadApp(3));
+    }
     else{
 
     }

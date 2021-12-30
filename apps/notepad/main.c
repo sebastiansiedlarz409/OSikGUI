@@ -2,6 +2,14 @@
 
 SystemAPI* api;
 
+void notepadOnFocusInHandler(WindowContext* context){
+    context->keys = 1;
+}
+
+void notepadOnFocusOutHandler(WindowContext* context){
+    context->keys = 0;
+}
+
 void notepadWindowInputHandle(WindowContext* context){
     uint8_t value = api->GetSystemContext()->PopInSteam();
 
@@ -29,8 +37,10 @@ void APP_Start(){
 
     WindowContext* notepadWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        1020, 10, 1570, 410, "Notepad", LIGHTHELIOTROPE, GREYE, BLACK, notepadWindowInputHandle, NULL, NULL
+        1020, 10, 1570, 410, "Notepad", LIGHTHELIOTROPE, GREYE, BLACK, notepadWindowInputHandle, notepadOnFocusInHandler, notepadOnFocusOutHandler
     );
+
+    notepadOnFocusInHandler(notepadWindowContext);
 
     api->DrawWindow(notepadWindowContext);
 }

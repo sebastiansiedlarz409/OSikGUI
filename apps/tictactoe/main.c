@@ -6,6 +6,14 @@ uint8_t p = 0;
 uint8_t win = 0;
 char marks[] = {0,0,0,0,0,0,0,0,0};
 
+void tttOnFocusInHandler(WindowContext* context){
+    context->keys = 1;
+}
+
+void tttOnFocusOutHandler(WindowContext* context){
+    context->keys = 0;
+}
+
 void DrawMark(WindowContext* context);
 void DrawField(WindowContext* context);
 
@@ -381,9 +389,11 @@ void APP_Start(){
 
     WindowContext* tttWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        450, 230, 1000, 925, "Tic Tac Toe", DODGERBLUE, GREYE, BLACK, tttWindowInputHandle, NULL, NULL
+        450, 230, 1000, 925, "Tic Tac Toe", DODGERBLUE, GREYE, BLACK, tttWindowInputHandle, tttOnFocusInHandler, tttOnFocusOutHandler
     );
     api->DrawWindow(tttWindowContext);
+
+    tttOnFocusInHandler(tttWindowContext);
 
     DrawField(tttWindowContext);
 
