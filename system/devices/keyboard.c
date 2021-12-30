@@ -75,6 +75,19 @@ void KeyboardHandler(void){
     uint8_t scanCode;
     PortInByte(0x60, &scanCode);
 
+    //if app grabs all keys without esc and tab
+    if(GetSystemContext()->currentWindow->keys == 1 && scanCode != 0x01 && scanCode != 0x81 && scanCode != 0x0f && scanCode != 0x8f){
+        if(kHit==1){
+            kHit=0;    
+            //test stdin
+            if(GetSystemContext()->GetInStreamSize()<100)
+                GetSystemContext()->PushInStream(GetChar(scanCode));
+        }
+        else{
+            kHit++;
+        }
+    }
+
     //here goes only some functional keys
     if(scanCode == 0x81){ //esc release
         //close actually open window
@@ -235,14 +248,6 @@ void KeyboardHandler(void){
         //RunApp(LoadApp(3));
     }*/
     else{
-        if(kHit==1){
-            kHit=0;    
-            //test stdin
-            if(GetSystemContext()->GetInStreamSize()<100)
-                GetSystemContext()->PushInStream(GetChar(scanCode));
-        }
-        else{
-            kHit++;
-        }
+
     }
 }

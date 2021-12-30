@@ -381,7 +381,7 @@ void APP_Start(){
 
     WindowContext* tttWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        450, 230, 1000, 925, "Tic Tac Toe", DODGERBLUE, GREYE, BLACK, tttWindowInputHandle
+        450, 230, 1000, 925, "Tic Tac Toe", DODGERBLUE, GREYE, BLACK, tttWindowInputHandle, NULL, NULL
     );
     api->DrawWindow(tttWindowContext);
 

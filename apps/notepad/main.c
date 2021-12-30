@@ -29,7 +29,7 @@ void APP_Start(){
 
     WindowContext* notepadWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        1020, 10, 1570, 410, "Notepad", LIGHTHELIOTROPE, GREYE, BLACK, notepadWindowInputHandle
+        1020, 10, 1570, 410, "Notepad", LIGHTHELIOTROPE, GREYE, BLACK, notepadWindowInputHandle, NULL, NULL
     );
 
     api->DrawWindow(notepadWindowContext);

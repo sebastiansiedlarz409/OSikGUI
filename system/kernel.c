@@ -50,8 +50,6 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress, void* appsTab
 
     DrawUI();
 
-    RunApp(LoadApp(3));
-
     //test int 0
     /*WaitSeconds(5);
     int a = 0, b = 0;

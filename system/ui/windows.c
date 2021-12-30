@@ -11,12 +11,15 @@
 
 WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey,
                                     const char* title, COLORS theme, COLORS backgroud, COLORS font_color,
-                                    void (*onInputStreamPushHandler)(WindowContext* context)){
+                                    void (*onInputStreamPushHandler)(WindowContext* context),
+                                    void (*onFocusInHandler)(WindowContext* context),
+                                    void (*onFocusOutHandler)(WindowContext* context)){
     //prepare window context
     WindowContext* context = (WindowContext*)MallocHeap(sizeof(WindowContext));
 
     MemsetBuffer((char*)context, 0, sizeof(WindowContext));
 
+    context->keys = 0;
     context->drawn = 0;
     context->position.sx = sx;
     context->position.sy = sy;
@@ -30,6 +33,8 @@ WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t 
     context->data.content = NULL;
     context->font.font_size = 0;
     context->events.onInputStreamPushHandler = onInputStreamPushHandler;
+    context->events.onFocusInHandler = onFocusInHandler;
+    context->events.onFocusOutHandler = onFocusOutHandler;
 
     MemcpyBuffers(context->data.title, (char*)title, StringLength((char*)title)+1);
 
@@ -48,6 +53,7 @@ WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint1
 
     MemsetBuffer((char*)context, 0, sizeof(WindowContext));
 
+    context->keys = 0;
     context->drawn = 0;
     context->position.sx = sx;
     context->position.sy = sy;
@@ -73,6 +79,7 @@ WindowContext* CreateProgressBarWindowContext(WindowContext* parent, uint16_t sx
 
     MemsetBuffer((char*)context, 0, sizeof(WindowContext));
 
+    context->keys = 0;
     context->drawn = 0;
     context->position.sx = sx;
     context->position.sy = sy;
@@ -311,6 +318,11 @@ void MarkWindow(WindowContext* context, uint8_t r){
     DrawTitleBar(context->parent, context->position.sx+1, context->position.sy+1,
                 context->position.ex-context->position.sx-2, context->data.title, AMBER,
                 context->font.font_color);
+
+    if(context->events.onFocusInHandler != NULL){
+        context->events.onFocusInHandler(context);
+    }
+    
     if(r)
         RefreshPartOfScreen(context->position.sx, context->position.sy, context->position.ex, context->position.ey);
 }
@@ -322,6 +334,11 @@ void UnMarkWindow(WindowContext* context, uint8_t r){
     DrawTitleBar(context->parent, context->position.sx+1, context->position.sy+1,
                 context->position.ex-context->position.sx-2, context->data.title, context->theme.theme,
                 context->font.font_color);
+
+    if(context->events.onFocusOutHandler != NULL){
+        context->events.onFocusOutHandler(context);
+    }
+
     if(r)
         RefreshPartOfScreen(context->position.sx, context->position.sy, context->position.ex, context->position.ey); 
 }

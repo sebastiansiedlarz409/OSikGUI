@@ -13,7 +13,7 @@ void APP_Start(){
 
     WindowContext* welcomeWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        30, 10, 420, 410, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandle
+        30, 10, 420, 410, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandle, NULL, NULL
     );
 
     api->DrawWindow(welcomeWindowContext);
