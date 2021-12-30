@@ -46,12 +46,41 @@ void DrawVerticalLine(uint16_t x, uint16_t y, uint16_t len, COLORS color){
 }
 
 void DrawLine(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS color){
-    uint16_t dx = ex - sx;
-    uint16_t dy = ey - sy;
+    if(sx==ex){
+        DrawVerticalLine(sx, sy<ey?sy:ey, sy<ey?ey-sy:sy-ey, color);
+        return;
+    }
+    if(sy==ey){
+        DrawHorizontalLine(sx<ex?sx:ex, sy, sx<ex?ex-sx:sx-ex, color);
+        return;
+    }
+    
+    uint16_t dx = ex > sx ? ex - sx : sx - ex;
+    uint16_t dy = ey > sy ? ey - sy : sy - ey;
 
-    for(uint16_t i = sx; i<ex;i++){
-        uint16_t y = sy + dy * (i - sx) / dx;
-        DrawPixel(i, y, color);
+    if(sx<ex && sy<ey){ //lt > rb
+        for(uint16_t i = sx; i<ex;i++){
+            uint16_t y = sy + dy * (i - sx) / dx;
+            DrawPixel(i, y, color);
+        }
+    }
+    else if(sx>ex && sy<ey){ //rt > lb
+        for(uint16_t i = sx-1; i>=ex;i--){
+            uint16_t y = sy + dy * (sx - i) / dx;
+            DrawPixel(i, y, color);
+        }
+    }
+    else if(sx<ex && sy>ey){ //lb > rt
+        for(uint16_t i = sx; i<ex;i++){
+            uint16_t y = ey + dy * (ex - i) / dx;
+            DrawPixel(i, y, color);
+        }
+    }
+    else{ //sx>sy && sy>ey //rb -> lt
+        for(uint16_t i = sx-1; i>ex;i--){
+            uint16_t y = ey + dy * (i - sx) / dx;
+            DrawPixel(i, y, color);
+        }
     }
 }
 
@@ -64,8 +93,8 @@ void DrawWLine(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t widt
     DrawLine(sx, sy, ex, ey, color);
 
     for(uint16_t i = 1;i<=margin;i++){
-        DrawLine(sx+i, sy, ex+i, ey, color);
-        DrawLine(sx-i, sy, ex-i, ey, color);
+        DrawLine(sx+i, sy+i, ex+i, ey+i, color);
+        DrawLine(sx-i, sy+i, ex-i, ey+i, color);
     }
 }
 

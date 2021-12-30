@@ -228,6 +228,12 @@ void KeyboardHandler(void){
     else if(scanCode == 0xD1){ //numpad 3 release
         RunApp(LoadApp(2));
     }
+    else if(scanCode == 0x4C){ //numpad 5 pushed
+        
+    }
+    else if(scanCode == 0xCC){ //numpad 5 release
+        RunApp(LoadApp(3));
+    }
     else{
         if(kHit==0){
             kHit++;    

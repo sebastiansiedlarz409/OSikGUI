@@ -30,3 +30,4 @@ typedef struct _SystemContext{
 SystemContext* GetSystemContext(void);
 
 void WaitSeconds(uint64_t seconds);
+void Swap(uint64_t* a, uint64_t* b);

@@ -31,3 +31,9 @@ void WaitSeconds(uint64_t seconds){
         __asm("nop");
     }
 }
+
+void Swap(uint64_t* a, uint64_t* b){
+    *a+=*b;
+    *b=*a-*b;
+    *a-=*b;
+}

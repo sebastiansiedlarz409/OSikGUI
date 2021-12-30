@@ -19,7 +19,7 @@ def getSubdirs(name, subdirs):
         getSubdirs(f"{name}\{el}", subdirs)
 
 def buildApps():
-    apps = ["welcome", "info", "notepad"]
+    apps = ["welcome", "info", "notepad", "tictactoe"]
 
     for i in range(0, len(apps)):
         buildApp(apps[i],i)
@@ -74,6 +74,7 @@ def buildSystem():
     boot_files = []
 
     files = ["boot\\bootsector","boot\\bootloader","system\kernel",
+            "apps\\tictactoe\\tictactoe",
             "apps\\notepad\\notepad",
             "apps\info\info",
             "apps\welcome\welcome"]
