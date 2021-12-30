@@ -32,12 +32,13 @@ void notepadWindowInputHandle(WindowContext* context){
     api->RefreshScreen();
 }
 
-void APP_Start(){
+void APP_Start(void* entry){
     api = (SystemAPI*)0x800000;
 
     WindowContext* notepadWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        1020, 10, 1570, 410, "Notepad", LIGHTHELIOTROPE, GREYE, BLACK, notepadWindowInputHandle, notepadOnFocusInHandler, notepadOnFocusOutHandler
+        1020, 10, 1570, 410, "Notepad", LIGHTHELIOTROPE, GREYE, BLACK, entry,
+        notepadWindowInputHandle, notepadOnFocusInHandler, notepadOnFocusOutHandler
     );
 
     notepadOnFocusInHandler(notepadWindowContext);

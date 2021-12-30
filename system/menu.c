@@ -11,13 +11,13 @@ void DrawUI(void){
     //create main system window
     WindowContext* context;
     if(GetSystemContext()->window!=0){
-        context = CreateWindowContext(NULL, 0, 0, 1600, 960, "Desktop", RED, GREY7, WHITE, NULL, NULL, NULL);
+        context = CreateWindowContext(NULL, 0, 0, 1600, 960, "Desktop", RED, GREY7, WHITE, NULL, NULL, NULL, NULL);
         DrawWindow(context);
         GetSystemContext()->mainWindow = context;
 
     }
     else{
-        context = CreateWindowContext(NULL, 0, 0, 1600, 960, "BSOD", BLUE, BLACK, WHITE, NULL, NULL, NULL);
+        context = CreateWindowContext(NULL, 0, 0, 1600, 960, "BSOD", BLUE, BLACK, WHITE, NULL, NULL, NULL, NULL);
         DrawWindow(context); //BSOD
         GetSystemContext()->mainWindow = context;
     }

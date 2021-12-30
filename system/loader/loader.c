@@ -5,6 +5,12 @@
 #include <stdint.h>
 
 void* LoadApp(uint8_t id){
+    //block open app when its already opened
+    if((GetSystemContext()->openApps&(0b1<<id)) != 0){
+        return NULL;
+    }
+    GetSystemContext()->openApps|=(0b1<<id);
+
     uint8_t* appTable = (uint8_t*)GetSystemContext()->appsTableAddress;
 
     appTable-=(8*(id+1));
@@ -43,6 +49,9 @@ void* LoadApp(uint8_t id){
 }
 
 void RunApp(void* entry){
-    void(*app)(void) = entry;
-    app();
+    if(entry == NULL)
+        return;
+
+    void(*app)(void*) = entry;
+    app(entry);
 }

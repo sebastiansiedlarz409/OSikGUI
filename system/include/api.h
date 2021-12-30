@@ -45,7 +45,7 @@ typedef struct _systemAPI{
     //windows
     WindowContext* (*CreateWindowContext)(WindowContext*, uint16_t, uint16_t, uint16_t, uint16_t,
                                      const char*, COLORS, COLORS,
-                                      COLORS, void (*onInputStreamPushHandler)(WindowContext*),
+                                      COLORS, void* entry, void (*onInputStreamPushHandler)(WindowContext*),
                                       void (*onFocusInHandler)(WindowContext*),
                                       void (*onFocusOutHandler)(WindowContext*));
     WindowContext* (*CreateTextWindowContext)(WindowContext*, uint16_t, uint16_t, COLORS,

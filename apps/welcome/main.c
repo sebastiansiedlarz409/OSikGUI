@@ -8,12 +8,13 @@ void welcomeWindowInputHandle(WindowContext* context){
     UNUSED(context);
 }
 
-void APP_Start(){
+void APP_Start(void* entry){
     api = (SystemAPI*)0x800000;
 
     WindowContext* welcomeWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        30, 10, 420, 410, "Welcome", LIGHTBLUE, GREYE, BLACK, welcomeWindowInputHandle, NULL, NULL
+        30, 10, 420, 410, "Welcome", LIGHTBLUE, GREYE, BLACK, entry,
+         welcomeWindowInputHandle, NULL, NULL
     );
 
     api->DrawWindow(welcomeWindowContext);

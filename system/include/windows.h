@@ -9,6 +9,7 @@
 typedef struct _WindowContext{
     uint8_t drawn;
     uint8_t keys;
+    void* entry;
     struct _position{        
         uint16_t sx;
         uint16_t sy;
@@ -41,7 +42,7 @@ typedef struct _WindowContext{
 
 WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t width, uint16_t height,
                                      const char* title, COLORS theme, COLORS backgroud,
-                                      COLORS font_color, void (*onInputStreamPushHandler)(WindowContext* context),
+                                      COLORS font_color, void* entry, void (*onInputStreamPushHandler)(WindowContext* context),
                                     void (*onFocusInHandler)(WindowContext* context),
                                     void (*onFocusOutHandler)(WindowContext* context));
 WindowContext* CreateTextWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, COLORS backgroud,

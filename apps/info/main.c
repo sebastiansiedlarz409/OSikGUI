@@ -8,12 +8,13 @@ void infoWindowInputHandle(WindowContext* context){
     UNUSED(context);
 }
 
-void APP_Start(){
+void APP_Start(void* entry){
     api = (SystemAPI*)0x800000;
 
     WindowContext* infoWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        450, 10, 1000, 210, "Info", GREEN, GREYE, BLACK, infoWindowInputHandle, NULL, NULL
+        450, 10, 1000, 210, "Info", GREEN, GREYE, BLACK, entry,
+        infoWindowInputHandle, NULL, NULL
     );
     api->DrawWindow(infoWindowContext);
 

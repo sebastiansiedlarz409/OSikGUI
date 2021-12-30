@@ -10,7 +10,7 @@
 #define TITLE_BAR_WIDTH 25
 
 WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey,
-                                    const char* title, COLORS theme, COLORS backgroud, COLORS font_color,
+                                    const char* title, COLORS theme, COLORS backgroud, COLORS font_color, void* entry,
                                     void (*onInputStreamPushHandler)(WindowContext* context),
                                     void (*onFocusInHandler)(WindowContext* context),
                                     void (*onFocusOutHandler)(WindowContext* context)){
@@ -21,6 +21,7 @@ WindowContext* CreateWindowContext(WindowContext* parent, uint16_t sx, uint16_t 
 
     context->keys = 0;
     context->drawn = 0;
+    context->entry = entry;
     context->position.sx = sx;
     context->position.sy = sy;
     context->position.ex = ex;
@@ -255,6 +256,10 @@ void DrawWindow(WindowContext* context){
 
 void CloseWindow(WindowContext* w){
     if(w->parent != NULL){
+        //unlock app if its app
+        uint8_t id = (uint64_t)w->entry&0x0000000000100000;
+        id/=0x200000;
+        GetSystemContext()->openApps&=~(0b1<<id);
 
         //set remove this child from parent children list
         for(uint32_t i = 0;i<MAX_CHILDREN;i++){

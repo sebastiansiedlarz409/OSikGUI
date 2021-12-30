@@ -382,14 +382,15 @@ void DrawField(WindowContext* context){
     api->DrawWLine(sx+370, sy, sx+370, ey-1, 20, BRIGHTBLUE);
 }
 
-void APP_Start(){
+void APP_Start(void* entry){
     api = (SystemAPI*)0x800000;
 
     api->FlushInStream();
 
     WindowContext* tttWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        450, 230, 1000, 925, "Tic Tac Toe", DODGERBLUE, GREYE, BLACK, tttWindowInputHandle, tttOnFocusInHandler, tttOnFocusOutHandler
+        450, 230, 1000, 925, "Tic Tac Toe", DODGERBLUE, GREYE, BLACK, entry,
+        tttWindowInputHandle, tttOnFocusInHandler, tttOnFocusOutHandler
     );
     api->DrawWindow(tttWindowContext);
 

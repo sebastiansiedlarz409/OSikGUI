@@ -21,6 +21,7 @@ typedef struct _SystemContext{
     WindowContext* mainWindow;
     WindowContext* currentWindow;
     uint8_t currentWindowIndex;
+    uint8_t openApps;
     //streams api
     void(*PushInStream)(uint8_t);
     uint8_t(*PopInSteam)(void);
