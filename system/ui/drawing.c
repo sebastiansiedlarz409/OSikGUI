@@ -93,8 +93,18 @@ void DrawWLine(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t widt
     DrawLine(sx, sy, ex, ey, color);
 
     for(uint16_t i = 1;i<=margin;i++){
-        DrawLine(sx+i, sy+i, ex+i, ey+i, color);
-        DrawLine(sx-i, sy+i, ex-i, ey+i, color);
+        if(sx==ex){
+            DrawLine(sx+i, sy, ex+i, ey, color);
+            DrawLine(sx-i, sy, ex-i, ey, color);
+        }
+        else if(sy==ey){
+            DrawLine(sx, sy+i, ex, ey+i, color);
+            DrawLine(sx, sy-i, ex, ey-i, color);
+        }
+        else{
+            DrawLine(sx+i, sy, ex+i, ey, color);
+            DrawLine(sx-i, sy, ex-i, ey, color);
+        }
     }
 }
 
