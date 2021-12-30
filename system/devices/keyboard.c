@@ -34,7 +34,7 @@ const char scanCodeCh[] = {
    0, 0, 0, '7', //F10, number_lock, scroll_lock
    '8', '9', '-', '4',
    '5', '6', '+', '1',
-   '2', '3', 0, '.',
+   '2', '3', '0', '.',
    0, 0, 0, 0, //empty, empty, empty, F11
    0, 0, 0, 0, //F12, empty, empty, empty
    //asd
@@ -58,7 +58,7 @@ const char scanCodeCh[] = {
    0, 0, 0, '7', //F10, number_lock, scroll_lock
    '8', '9', '-', '4',
    '5', '6', '+', '1',
-   '2', '3', 0, '.',
+   '2', '3', '0', '.',
    0, 0, 0, 0, //empty, empty, empty, F11
    0, 0, 0, 0, //F12, empty, empty, empty
 };
@@ -210,39 +210,39 @@ void KeyboardHandler(void){
     else if(scanCode == 0xC6){ //scroll lock release
         
     }
-    else if(scanCode == 0x4F){ //numpad 1 pushed
+    /*else if(scanCode == 0x4F){ //numpad 1 pushed
 
     }
     else if(scanCode == 0xCF){ //numpad 1 release
-        RunApp(LoadApp(0));
+        //RunApp(LoadApp(0));
     }
     else if(scanCode == 0x50){ //numpad 2 pushed
         
     }
     else if(scanCode == 0xD0){ //numpad 2 release
-        RunApp(LoadApp(1));
+        //RunApp(LoadApp(1));
     }
     else if(scanCode == 0x51){ //numpad 3 pushed
         
     }
     else if(scanCode == 0xD1){ //numpad 3 release
-        RunApp(LoadApp(2));
+        //RunApp(LoadApp(2));
     }
     else if(scanCode == 0x4C){ //numpad 5 pushed
         
     }
     else if(scanCode == 0xCC){ //numpad 5 release
-        RunApp(LoadApp(3));
-    }
+        //RunApp(LoadApp(3));
+    }*/
     else{
-        if(kHit==0){
-            kHit++;    
+        if(kHit==1){
+            kHit=0;    
             //test stdin
             if(GetSystemContext()->GetInStreamSize()<100)
                 GetSystemContext()->PushInStream(GetChar(scanCode));
         }
         else{
-            kHit=0;
+            kHit++;
         }
     }
 }

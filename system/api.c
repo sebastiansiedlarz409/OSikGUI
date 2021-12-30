@@ -5,6 +5,7 @@
 #include "include/windows.h"
 #include "include/string.h"
 #include "include/drawing.h"
+#include "include/streams.h"
 
 void InitAPI(void){
     SystemAPI* api = (SystemAPI*)0x800000;
@@ -12,6 +13,12 @@ void InitAPI(void){
     api->MathSqrt = MathSqrt;
     
     api->GetSystemContext = GetSystemContext;
+    api->WaitSeconds = WaitSeconds;
+
+    api->PushInStream = PushInStream;
+    api->PopInStream = PopInStream;
+    api->GetInStreamSize = GetInStreamSize;
+    api->FlushInStream = FlushInStream;
 
     api->MallocHeap = MallocHeap;
     api->FreeHeap = FreeHeap;
@@ -31,6 +38,7 @@ void InitAPI(void){
     api->DrawRectangle = DrawRectangle;
     api->DrawQuarterCircle = DrawQuarterCircle;
     api->DrawCircle = DrawCircle;
+    api->DrawWCircle = DrawWCircle;
     api->DrawChar = DrawChar;
     api->DrawString = DrawString;
     api->ClearFullScreen = ClearFullScreen;

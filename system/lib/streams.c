@@ -33,3 +33,7 @@ uint8_t PopInStream(void){
 uint16_t GetInStreamSize(void){
     return STDIN.size;
 }
+
+void FlushInStream(void){
+    STDIN.size=0;
+}

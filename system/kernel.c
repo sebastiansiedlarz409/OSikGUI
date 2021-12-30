@@ -17,25 +17,6 @@ void KERN_Load(void* kernelEntryPointAddress, void* stackAddress, void* appsTabl
     GetSystemContext()->stackAddress=(uint64_t)stackAddress;
     GetSystemContext()->appsTableAddress=(uint64_t)appsTableAddress;
 
-    DrawWLine(100, 100, 200, 200, 5, BLUE); // \d
-
-    DrawWLine(600,400,400,600, 5,RED); // /d
-
-    DrawWLine(900, 700, 1200, 300, 5, GREEN); // /u
-
-    DrawWLine(1300, 800, 1000, 600, 5, PINK); // \u
-
-    DrawWLine(50, 550, 50, 600, 5, MAGENTA); //|
-    DrawWLine(80, 580, 80, 450, 5, LIGHTCYAN); //|
-    
-    DrawWLine(300, 80, 800, 80, 5, LIGHTYELLOW); //-
-    DrawWLine(800, 120, 600, 120, 5, PERSIAPINK); //-
-
-    //DrawLine(100,100,100,300,GREEN);
-
-    RefreshScreen();
-    for(;;);
-
     DrawString(520, 145, "OSik", 30, RED, BLACK);
     DrawString(700, 520, "Booting!", 5, BLUE, BLACK);
     DrawProgressBar(610, 620, 1020, 670, 0, GREEN, AMBER);
@@ -68,6 +49,8 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress, void* appsTab
     KERN_Load(kernelEntryPointAddress, stackAddress, appsTableAddress);
 
     DrawUI();
+
+    RunApp(LoadApp(3));
 
     //test int 0
     /*WaitSeconds(5);

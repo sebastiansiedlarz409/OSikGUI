@@ -8,11 +8,17 @@
 typedef struct _systemAPI{
     //common
     SystemContext* (*GetSystemContext)(void);
+    void (*WaitSeconds)(uint64_t seconds);
     //math
     int32_t (*MathSqrt)(int32_t);
     //heap
     void* (*MallocHeap)(uint64_t);
     void (*FreeHeap)(void*);
+    //stream
+    void (*PushInStream)(uint8_t value);
+    uint8_t (*PopInStream)(void);
+    uint16_t (*GetInStreamSize)(void);
+    void (*FlushInStream)(void);
     //string
     uint64_t (*StringLength)(char*);
     void (*MemcpyBuffers)(char*, char*, uint64_t);
@@ -29,6 +35,7 @@ typedef struct _systemAPI{
     void (*DrawRectangle)(uint16_t, uint16_t,uint16_t, uint16_t, COLORS, COLORS);
     void (*DrawQuarterCircle)(uint16_t, uint16_t, uint16_t, uint8_t, COLORS, COLORS);
     void (*DrawCircle)(uint16_t, uint16_t, uint16_t, COLORS, COLORS);
+    void (*DrawWCircle)(uint16_t, uint16_t, uint16_t, uint16_t, COLORS, COLORS);
     void (*DrawChar)(uint16_t, uint16_t, char, uint8_t, COLORS, COLORS );
     void (*DrawString)(int, int, const char*, uint8_t, COLORS, COLORS );
     void (*ClearFullScreen)(void);

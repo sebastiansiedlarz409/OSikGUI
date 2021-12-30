@@ -142,6 +142,21 @@ void DrawCircle(uint16_t x, uint16_t y, uint16_t r, COLORS border_color, COLORS 
     }
 }
 
+void DrawWCircle(uint16_t x, uint16_t y, uint16_t r1, uint16_t r2, COLORS border_color, COLORS fill_color){
+    for(uint16_t dy = 0;dy<HEIGHT;dy++){
+        for(uint16_t dx = 0;dx<WIDTH;dx++){
+            uint16_t distance = (uint16_t)MathSqrt((dx-x)*(dx-x)+(dy-y)*(dy-y));
+
+            if(distance >= r1 && distance <= r2){
+                DrawPixel(dx, dy, border_color);
+            }
+            else if(distance < r1){
+                DrawPixel(dx, dy, fill_color);
+            }
+        }
+    }
+}
+
 void DrawQuarterCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t quarter, COLORS border_color, COLORS fill_color){
     for(uint16_t dy = 0;dy<HEIGHT;dy++){
         for(uint16_t dx = 0;dx<WIDTH;dx++){

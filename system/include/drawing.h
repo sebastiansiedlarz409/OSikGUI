@@ -85,6 +85,7 @@ void DrawWLine(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t widt
 void DrawRectangle(uint16_t sx, uint16_t sy,uint16_t ex, uint16_t ey, COLORS border_color, COLORS fill_color);
 void DrawQuarterCircle(uint16_t x, uint16_t y, uint16_t r, uint8_t quarter, COLORS border_color, COLORS fill_color);
 void DrawCircle(uint16_t x, uint16_t y, uint16_t r, COLORS border_color, COLORS fill_color);
+void DrawWCircle(uint16_t x, uint16_t y, uint16_t r1, uint16_t r2, COLORS border_color, COLORS fill_color);
 void DrawChar(uint16_t x, uint16_t y, char chr, uint8_t font_size, COLORS color, COLORS background);
 void DrawString(int x, int y, const char* str, uint8_t font_size, COLORS color, COLORS background);
 void ClearFullScreen(void);
