@@ -257,8 +257,9 @@ void DrawWindow(WindowContext* context){
 void CloseWindow(WindowContext* w){
     if(w->parent != NULL){
         //unlock app if its app
-        uint8_t id = (uint64_t)w->entry&0x0000000000100000;
-        id/=0x200000;
+        uint64_t base = (uint64_t)w->entry&0x0000000000F00000;
+        uint32_t id = base/0x200000;
+
         GetSystemContext()->openApps&=~(0b1<<id);
 
         //set remove this child from parent children list
