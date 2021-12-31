@@ -319,10 +319,10 @@ void CloseWindow(WindowContext* w){
 
 void MarkWindow(WindowContext* context, uint8_t r){
     DrawRectangle(context->position.sx+1, context->position.sy+1, context->position.ex-1, context->position.ey,
-                AMBER, NOCOLOR);
+                0x68, NOCOLOR);
     //draw title bar with mark
     DrawTitleBar(context->parent, context->position.sx+1, context->position.sy+1,
-                context->position.ex-context->position.sx-2, context->data.title, AMBER,
+                context->position.ex-context->position.sx-2, context->data.title, 0x68,
                 context->font.font_color);
 
     if(context->events.onFocusInHandler != NULL){

@@ -153,55 +153,55 @@ void DrawMark(WindowContext* context){
         uint16_t ssx = 85;
         uint16_t ssy = 105;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[1]=='O'){
         uint16_t ssx = 275;
         uint16_t ssy = 105;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[2]=='O'){
         uint16_t ssx = 465;
         uint16_t ssy = 105;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[3]=='O'){
         uint16_t ssx = 85;
         uint16_t ssy = 335;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[4]=='O'){
         uint16_t ssx = 275;
         uint16_t ssy = 335;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[5]=='O'){
         uint16_t ssx = 465;
         uint16_t ssy = 335;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[6]=='O'){
         uint16_t ssx = 85;
         uint16_t ssy = 565;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[7]=='O'){
         uint16_t ssx = 275;
         uint16_t ssy = 565;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     if(marks[8]=='O'){
         uint16_t ssx = 465;
         uint16_t ssy = 565;
 
-        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREYE);
+        api->DrawWCircle(sx+ssx,sy+ssy, 50, 70, DARKGREEN, GREY1);
     }
     
 }
@@ -374,12 +374,12 @@ void DrawField(WindowContext* context){
     uint16_t ey = context->position.ey;
 
     //horizontal
-    api->DrawWLine(sx, sy+220, ex-1, sy+220, 20, BRIGHTBLUE);
-    api->DrawWLine(sx, sy+450, ex-1, sy+450, 20, BRIGHTBLUE);
+    api->DrawWLine(sx, sy+220, ex-1, sy+220, 20, BLUE);
+    api->DrawWLine(sx, sy+450, ex-1, sy+450, 20, BLUE);
 
     //vertical
-    api->DrawWLine(sx+180, sy, sx+180, ey-1, 20, BRIGHTBLUE);
-    api->DrawWLine(sx+370, sy, sx+370, ey-1, 20, BRIGHTBLUE);
+    api->DrawWLine(sx+180, sy, sx+180, ey-1, 20, BLUE);
+    api->DrawWLine(sx+370, sy, sx+370, ey-1, 20, BLUE);
 }
 
 void APP_Start(void* entry){
@@ -389,7 +389,7 @@ void APP_Start(void* entry){
 
     WindowContext* tttWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        450, 230, 1000, 925, "Tic Tac Toe", DODGERBLUE, GREYE, BLACK, entry,
+        450, 230, 1000, 925, "Tic Tac Toe", GREY3, GREY1, WHITE, entry,
         tttWindowInputHandle, tttOnFocusInHandler, tttOnFocusOutHandler
     );
     api->DrawWindow(tttWindowContext);

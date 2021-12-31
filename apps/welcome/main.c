@@ -13,7 +13,7 @@ void APP_Start(void* entry){
 
     WindowContext* welcomeWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        30, 10, 420, 410, "Welcome", LIGHTBLUE, GREYE, BLACK, entry,
+        30, 10, 420, 410, "Welcome", GREY3, GREY1, WHITE, entry,
          welcomeWindowInputHandle, NULL, NULL
     );
 
@@ -23,7 +23,7 @@ void APP_Start(void* entry){
 
     api->DrawTextWindow(textContext, "OSikGUI");
 
-    WindowContext* textDescContext = api->CreateTextWindowContext(welcomeWindowContext, 10, 85, GREY1, DODGERBLUE, 4);
+    WindowContext* textDescContext = api->CreateTextWindowContext(welcomeWindowContext, 10, 85, GREY1, BLUE, 4);
 
     api->DrawTextWindow(textDescContext, "Just for fun! :)");
     api->RefreshScreen();

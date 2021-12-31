@@ -18,7 +18,7 @@ void notepadWindowInputHandle(WindowContext* context){
     WindowContext* textContext = context->children[0];
 
     if(textContext == NULL){
-        textContext = api->CreateTextWindowContext(context, 10, 10, GREY1, RED, 2);
+        textContext = api->CreateTextWindowContext(context, 10, 10, GREY1, WHITE, 2);
                 
         api->MemsetBuffer(buffer, 0, 100);
         api->FormatString(buffer, "%c", value);
@@ -37,7 +37,7 @@ void APP_Start(void* entry){
 
     WindowContext* notepadWindowContext = api->CreateWindowContext(
         api->GetSystemContext()->mainWindow,
-        1020, 10, 1570, 410, "Notepad", LIGHTHELIOTROPE, GREYE, BLACK, entry,
+        1020, 10, 1570, 410, "Notepad", GREY3, GREY1, WHITE, entry,
         notepadWindowInputHandle, notepadOnFocusInHandler, notepadOnFocusOutHandler
     );
 
