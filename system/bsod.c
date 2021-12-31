@@ -110,5 +110,7 @@ void BSOD(const char* str, void* trapFrame){
 
     DrawString(1500, 880, "SS", 2, WHITE, WHITE);
 
+    RefreshScreen();
+
     for(;;);
 }

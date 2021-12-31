@@ -51,11 +51,11 @@ void KERN_Start(void* kernelEntryPointAddress, void* stackAddress, void* appsTab
     DrawUI();
 
     //test int 0
-    /*WaitSeconds(5);
+    WaitSeconds(5);
     int a = 0, b = 0;
     __asm__ volatile("div %2\n"
        : "=d" (a), "=a" (b)
-       : "r" (a), "d" (a), "a" (a));*/
+       : "r" (a), "d" (a), "a" (a));
 
     for(;;);
 }
